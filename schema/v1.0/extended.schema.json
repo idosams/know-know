@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://codegraph.dev/schema/v1.0/extended.json",
+  "title": "CodeGraph Extended Entity",
+  "description": "Extended metadata schema adding business context, dependencies, compliance, and operational data",
+  "type": "object",
+  "required": ["type", "description"],
+  "allOf": [
+    { "$ref": "https://codegraph.dev/schema/v1.0/core.json" }
+  ],
+  "properties": {
+    "type": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/type" },
+    "description": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/description" },
+    "owner": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/owner" },
+    "status": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/status" },
+    "tags": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/tags" },
+    "links": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/links" },
+    "context": {
+      "$ref": "#/definitions/Context"
+    },
+    "dependencies": {
+      "$ref": "#/definitions/Dependencies"
+    },
+    "compliance": {
+      "$ref": "#/definitions/Compliance"
+    },
+    "operational": {
+      "$ref": "#/definitions/Operational"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "Context": {
+      "type": "object",
+      "description": "Business context for the entity",
+      "properties": {
+        "business_goal": {
+          "type": "string",
+          "description": "The business objective this entity supports"
+        },
+        "funnel_stage": {
+          "type": "string",
+          "enum": [
+            "awareness",
+            "acquisition",
+            "activation",
+            "retention",
+            "revenue",
+            "referral"
+          ],
+          "description": "Stage in the AARRR pirate metrics funnel"
+        },
+        "revenue_impact": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low", "none"],
+          "description": "How directly this entity impacts revenue"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Dependencies": {
+      "type": "object",
+      "description": "External dependencies this entity relies on",
+      "properties": {
+        "services": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Internal services this entity depends on"
+        },
+        "external_apis": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "External API integrations"
+        },
+        "databases": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Database systems used"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Compliance": {
+      "type": "object",
+      "description": "Regulatory and compliance requirements",
+      "properties": {
+        "regulations": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Applicable regulations (e.g. GDPR, PCI-DSS, SOC2, HIPAA)"
+        },
+        "data_sensitivity": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential", "restricted"],
+          "description": "Data classification level"
+        },
+        "audit_requirements": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Specific audit or logging requirements"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Operational": {
+      "type": "object",
+      "description": "Operational metadata for production services",
+      "properties": {
+        "sla": {
+          "type": "string",
+          "description": "Service level agreement (e.g. 99.9% uptime)"
+        },
+        "on_call_team": {
+          "type": "string",
+          "description": "Team responsible for on-call support"
+        },
+        "monitoring_dashboards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MonitoringDashboard"
+          },
+          "description": "Links to monitoring dashboards"
+        }
+      },
+      "additionalProperties": false
+    },
+    "MonitoringDashboard": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Dashboard platform (e.g. datadog, grafana, newrelic)"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the dashboard"
+        },
+        "title": {
+          "type": "string",
+          "description": "Display title for the dashboard"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

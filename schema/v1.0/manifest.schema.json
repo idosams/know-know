@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://codegraph.dev/schema/v1.0/manifest.json",
+  "title": "CodeGraph Manifest",
+  "description": "Schema for .codegraph.yml repository configuration file",
+  "type": "object",
+  "required": ["version"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Schema version (must be 1.0)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Project name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the project"
+    },
+    "languages": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Languages used in the project (auto-detected if not specified)"
+    },
+    "include": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": ["**/*"],
+      "description": "Glob patterns for files to include"
+    },
+    "exclude": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": ["node_modules", ".git", "dist", "build"],
+      "description": "Glob patterns for files to exclude"
+    },
+    "parsers": {
+      "type": "object",
+      "description": "Language-specific parser configuration",
+      "additionalProperties": {
+        "$ref": "#/definitions/ParserConfig"
+      }
+    },
+    "connectors": {
+      "$ref": "#/definitions/Connectors"
+    },
+    "index": {
+      "$ref": "#/definitions/IndexConfig"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "ParserConfig": {
+      "type": "object",
+      "description": "Configuration for a language parser",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether this parser is enabled"
+        },
+        "extensions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "File extensions to parse (e.g. [\".ts\", \".tsx\"])"
+        },
+        "annotation_style": {
+          "type": "string",
+          "enum": ["jsdoc", "docstring", "line_comment", "block_comment"],
+          "description": "How @codegraph annotations are written in this language"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Connectors": {
+      "type": "object",
+      "description": "External service connector configuration",
+      "properties": {
+        "notion": {
+          "$ref": "#/definitions/ConnectorConfig"
+        },
+        "jira": {
+          "$ref": "#/definitions/ConnectorConfig"
+        },
+        "linear": {
+          "$ref": "#/definitions/ConnectorConfig"
+        },
+        "webhook": {
+          "$ref": "#/definitions/WebhookConfig"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ConnectorConfig": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether this connector is enabled"
+        },
+        "api_key_env": {
+          "type": "string",
+          "description": "Environment variable name containing the API key"
+        },
+        "workspace": {
+          "type": "string",
+          "description": "Workspace or project identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "WebhookConfig": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether webhook notifications are enabled"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Webhook endpoint URL"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["entity.created", "entity.updated", "entity.deleted", "index.complete"]
+          },
+          "description": "Events that trigger the webhook"
+        }
+      },
+      "additionalProperties": false
+    },
+    "IndexConfig": {
+      "type": "object",
+      "description": "Index generation configuration",
+      "properties": {
+        "output_dir": {
+          "type": "string",
+          "default": ".codegraph",
+          "description": "Directory for generated index files"
+        },
+        "incremental": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to use incremental indexing"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
