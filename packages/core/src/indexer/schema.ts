@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: SQLite schema definitions with FTS5 full-text search and relationship tables
+ * owner: codegraph-core
+ * status: stable
+ * tags: [database, schema, sqlite, fts5]
+ * context:
+ *   business_goal: Provide persistent storage schema for the code knowledge graph
+ *   domain: indexer-engine
+ */
 export const CREATE_TABLES_SQL = `
   CREATE TABLE IF NOT EXISTS entities (
     id TEXT PRIMARY KEY,

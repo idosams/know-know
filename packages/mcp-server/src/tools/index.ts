@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Tool registry that registers all MCP tools with the server
+ * owner: codegraph-mcp
+ * status: stable
+ * tags: [mcp, tools, registry, aggregator]
+ * context:
+ *   business_goal: Centralize MCP tool registration for clean server initialization
+ *   domain: mcp-tools
+ */
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { McpDatabase } from '../db.js';
 import { registerSearchCode } from './search-code.js';

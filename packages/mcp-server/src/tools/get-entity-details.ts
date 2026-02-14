@@ -1,9 +1,23 @@
+/**
+ * @codegraph
+ * type: function
+ * description: MCP tool that returns full metadata for a specific code entity
+ * owner: codegraph-mcp
+ * status: stable
+ * tags: [mcp, tool, details, metadata]
+ * context:
+ *   business_goal: Provide comprehensive entity information to AI assistants
+ *   domain: mcp-tools
+ */
 import { z } from 'zod';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { McpDatabase } from '../db.js';
 import { formatEntity, formatLinks, formatDependencies } from './format.js';
 
-export function registerGetEntityDetails(server: McpServer, db: McpDatabase): void {
+export function registerGetEntityDetails(
+  server: McpServer,
+  db: McpDatabase,
+): void {
   server.tool(
     'get_entity_details',
     'Get full metadata for a specific code entity including links and dependencies',
@@ -17,7 +31,10 @@ export function registerGetEntityDetails(server: McpServer, db: McpDatabase): vo
         if (!entity) {
           return {
             content: [
-              { type: 'text' as const, text: `Entity not found: ${params.entity_id}` },
+              {
+                type: 'text' as const,
+                text: `Entity not found: ${params.entity_id}`,
+              },
             ],
             isError: true,
           };
@@ -41,11 +58,14 @@ export function registerGetEntityDetails(server: McpServer, db: McpDatabase): vo
       } catch (error) {
         return {
           content: [
-            { type: 'text' as const, text: `Error getting entity details: ${String(error)}` },
+            {
+              type: 'text' as const,
+              text: `Error getting entity details: ${String(error)}`,
+            },
           ],
           isError: true,
         };
       }
-    }
+    },
   );
 }

@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Language-agnostic fallback parser using regex-based comment extraction
+ * owner: codegraph-core
+ * status: stable
+ * tags: [parser, generic, regex, fallback]
+ * context:
+ *   business_goal: Provide annotation support for any language with standard comment syntax
+ *   domain: parser-engine
+ */
 import type { ParseResult } from '../types/parse-result.js';
 import type { Parser } from './types.js';
 import { extractMetadata } from './metadata-extractor.js';

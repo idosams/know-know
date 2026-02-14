@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Read-only SQLite database layer for MCP server queries
+ * owner: codegraph-mcp
+ * status: stable
+ * tags: [mcp, database, sqlite, readonly]
+ * context:
+ *   business_goal: Provide efficient read-only access to the code knowledge graph
+ *   domain: mcp-server
+ */
 import Database from 'better-sqlite3';
 
 export interface EntityRow {

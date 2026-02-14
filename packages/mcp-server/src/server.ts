@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: service
+ * description: MCP server factory and stdio transport initialization
+ * owner: codegraph-mcp
+ * status: stable
+ * tags: [mcp, server, transport, stdio]
+ * context:
+ *   business_goal: Expose code graph data to AI assistants via MCP protocol
+ *   domain: mcp-server
+ */
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { openDatabase } from './db.js';
@@ -35,7 +46,7 @@ export function createServer(options: ServerOptions): McpServer {
           },
         ],
         isError: true,
-      })
+      }),
     );
   }
 

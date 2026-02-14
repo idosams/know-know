@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: CLI command that parses source files and displays extracted @codegraph annotations
+ * owner: codegraph-cli
+ * status: stable
+ * tags: [cli, command, parse, output]
+ * context:
+ *   business_goal: Let developers preview annotations before indexing
+ *   domain: cli
+ */
 import { readFileSync, statSync, readdirSync } from 'node:fs';
 import { join, resolve, extname } from 'node:path';
 import type { Command } from 'commander';
@@ -17,8 +28,14 @@ function collectFilePaths(targetPath: string): readonly string[] {
   }
 
   const skipDirs = new Set([
-    'node_modules', '.git', 'dist', 'build', '__pycache__',
-    '.venv', 'venv', 'coverage',
+    'node_modules',
+    '.git',
+    'dist',
+    'build',
+    '__pycache__',
+    '.venv',
+    'venv',
+    'coverage',
   ]);
 
   const results: string[] = [];
@@ -78,7 +95,9 @@ function runParse(targetPath: string, options: ParseOptions): void {
       }
     } catch (err) {
       console.error(
-        chalk.yellow(`Warning: Could not parse ${filePath}: ${err instanceof Error ? err.message : String(err)}`),
+        chalk.yellow(
+          `Warning: Could not parse ${filePath}: ${err instanceof Error ? err.message : String(err)}`,
+        ),
       );
     }
   }
@@ -88,7 +107,9 @@ function runParse(targetPath: string, options: ParseOptions): void {
     for (const result of allResults) {
       if (!result.metadata.description) {
         console.error(
-          chalk.red(`Validation error in ${result.filePath}:${result.line} - ${result.name}: missing description`),
+          chalk.red(
+            `Validation error in ${result.filePath}:${result.line} - ${result.name}: missing description`,
+          ),
         );
         hasErrors = true;
       }
@@ -100,13 +121,19 @@ function runParse(targetPath: string, options: ParseOptions): void {
 
   if (options.format === 'yaml') {
     // Dynamic import for yaml since it's optional
-    import('yaml').then((yamlModule) => {
-      console.log(yamlModule.stringify(allResults));
-      printSummary(allResults.length, fileCount);
-    }).catch(() => {
-      console.error(chalk.red('Error: yaml package not installed. Use --format json or install yaml.'));
-      process.exitCode = 1;
-    });
+    import('yaml')
+      .then((yamlModule) => {
+        console.log(yamlModule.stringify(allResults));
+        printSummary(allResults.length, fileCount);
+      })
+      .catch(() => {
+        console.error(
+          chalk.red(
+            'Error: yaml package not installed. Use --format json or install yaml.',
+          ),
+        );
+        process.exitCode = 1;
+      });
   } else {
     const pretty = options.pretty ?? false;
     console.log(formatJson(allResults, pretty));
@@ -116,7 +143,9 @@ function runParse(targetPath: string, options: ParseOptions): void {
 
 function printSummary(entityCount: number, fileCount: number): void {
   console.error(
-    chalk.green(`\nFound ${chalk.bold(String(entityCount))} entities in ${chalk.bold(String(fileCount))} files`),
+    chalk.green(
+      `\nFound ${chalk.bold(String(entityCount))} entities in ${chalk.bold(String(fileCount))} files`,
+    ),
   );
 }
 

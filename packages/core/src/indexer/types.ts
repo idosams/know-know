@@ -1,4 +1,21 @@
-import type { CoreMetadata, EntityType, ExtendedMetadata, Link, Status } from '../types/index.js';
+/**
+ * @codegraph
+ * type: interface
+ * description: Type definitions for stored entities, index operations, and progress tracking
+ * owner: codegraph-core
+ * status: stable
+ * tags: [indexer, types, interface, storage]
+ * context:
+ *   business_goal: Define contracts for the indexing and storage layer
+ *   domain: indexer-engine
+ */
+import type {
+  CoreMetadata,
+  EntityType,
+  ExtendedMetadata,
+  Link,
+  Status,
+} from '../types/index.js';
 
 export interface StoredEntity {
   readonly id: string;

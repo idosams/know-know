@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Zod schema and types for .codegraph.yml project manifest files
+ * owner: codegraph-core
+ * status: stable
+ * tags: [schema, config, manifest, zod]
+ * context:
+ *   business_goal: Validate and type-check project configuration files
+ *   domain: core-types
+ */
 import { z } from 'zod';
 
 export const AnnotationStyleSchema = z.enum([
@@ -50,7 +61,9 @@ export const ManifestSchema = z.object({
   description: z.string().optional(),
   languages: z.array(z.string()).optional(),
   include: z.array(z.string()).default(['**/*']),
-  exclude: z.array(z.string()).default(['node_modules', '.git', 'dist', 'build']),
+  exclude: z
+    .array(z.string())
+    .default(['node_modules', '.git', 'dist', 'build']),
   parsers: z.record(z.string(), ParserConfigSchema).optional(),
   connectors: ConnectorsSchema.optional(),
   index: IndexConfigSchema.optional(),

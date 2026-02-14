@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Language detection and file suggestion utilities for project initialization
+ * owner: codegraph-cli
+ * status: stable
+ * tags: [cli, detection, languages, init]
+ * context:
+ *   business_goal: Automatically detect project languages during setup
+ *   domain: cli
+ */
 import { readdirSync, statSync } from 'node:fs';
 import { join, extname } from 'node:path';
 
@@ -20,8 +31,16 @@ const EXTENSION_TO_LANGUAGE: Readonly<Record<string, string>> = {
 };
 
 const SKIP_DIRS = new Set([
-  'node_modules', '.git', 'dist', 'build', '__pycache__',
-  '.venv', 'venv', '.tox', 'coverage', '.next',
+  'node_modules',
+  '.git',
+  'dist',
+  'build',
+  '__pycache__',
+  '.venv',
+  'venv',
+  '.tox',
+  'coverage',
+  '.next',
 ]);
 
 function scanDirectory(
@@ -77,10 +96,20 @@ export function detectLanguages(dir: string): readonly string[] {
 }
 
 export function suggestFiles(dir: string): readonly string[] {
-  const suggestions: Array<{ readonly path: string; readonly size: number }> = [];
+  const suggestions: Array<{ readonly path: string; readonly size: number }> =
+    [];
   const entryPointNames = new Set([
-    'index.ts', 'index.js', 'main.ts', 'main.js', 'app.ts', 'app.js',
-    'main.py', 'app.py', '__init__.py', 'server.ts', 'server.js',
+    'index.ts',
+    'index.js',
+    'main.ts',
+    'main.js',
+    'app.ts',
+    'app.js',
+    'main.py',
+    'app.py',
+    '__init__.py',
+    'server.ts',
+    'server.js',
   ]);
 
   let entries: readonly string[];
@@ -112,7 +141,9 @@ export function suggestFiles(dir: string): readonly string[] {
             const subStat = statSync(join(fullPath, sub));
             if (subStat.isFile()) {
               const isEntryPoint = entryPointNames.has(sub);
-              const priority = isEntryPoint ? subStat.size + 1_000_000 : subStat.size;
+              const priority = isEntryPoint
+                ? subStat.size + 1_000_000
+                : subStat.size;
               suggestions.push({ path: subPath, size: priority });
             }
           }

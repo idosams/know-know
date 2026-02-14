@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: File system scanner and indexer with incremental updates and .gitignore support
+ * owner: codegraph-core
+ * status: stable
+ * tags: [indexer, scanner, incremental, filesystem]
+ * context:
+ *   business_goal: Efficiently scan and index codebases with minimal re-processing
+ *   domain: indexer-engine
+ */
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';

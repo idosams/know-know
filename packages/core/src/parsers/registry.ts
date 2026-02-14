@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Parser registry that routes files to appropriate language parsers by extension
+ * owner: codegraph-core
+ * status: stable
+ * tags: [parser, registry, factory, routing]
+ * context:
+ *   business_goal: Enable automatic parser selection based on file type
+ *   domain: parser-engine
+ */
 import type { ParseResult } from '../types/parse-result.js';
 import type { Parser, ParserRegistry } from './types.js';
 import { createPythonParser } from './python-parser.js';
@@ -21,9 +32,7 @@ function createRegistry(): ParserRegistry {
 
     getParser(filePath: string): Parser | undefined {
       const ext = getExtension(filePath);
-      const specific = parsers.find((p) =>
-        p.supportedExtensions.includes(ext),
-      );
+      const specific = parsers.find((p) => p.supportedExtensions.includes(ext));
       return specific ?? genericParser;
     },
 

@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: CLI command for searching the code graph with filters and formatted output
+ * owner: codegraph-cli
+ * status: stable
+ * tags: [cli, command, query, search]
+ * context:
+ *   business_goal: Provide terminal-based code graph search for developers
+ *   domain: cli
+ */
 import { resolve } from 'node:path';
 import type { Command } from 'commander';
 import chalk from 'chalk';

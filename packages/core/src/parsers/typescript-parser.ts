@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: TypeScript/JavaScript parser that extracts @codegraph annotations from JSDoc comments
+ * owner: codegraph-core
+ * status: stable
+ * tags: [parser, typescript, jsdoc, javascript]
+ * context:
+ *   business_goal: Enable TypeScript and JavaScript codebases to be indexed by CodeGraph
+ *   domain: parser-engine
+ */
 import type { ParseResult } from '../types/parse-result.js';
 import type { Parser } from './types.js';
 import { extractMetadata } from './metadata-extractor.js';
@@ -36,8 +47,7 @@ const INTERFACE_DECL_REGEX =
 /**
  * Regex to match type alias declarations.
  */
-const TYPE_DECL_REGEX =
-  /^(?:export\s+)?type\s+(\w+)(?:<[^>]*>)?\s*=/;
+const TYPE_DECL_REGEX = /^(?:export\s+)?type\s+(\w+)(?:<[^>]*>)?\s*=/;
 
 /**
  * Regex to match method declarations inside a class.
@@ -48,8 +58,7 @@ const METHOD_DECL_REGEX =
 /**
  * Regex to match enum declarations.
  */
-const ENUM_DECL_REGEX =
-  /^(?:export\s+)?(?:const\s+)?enum\s+(\w+)\s*\{/;
+const ENUM_DECL_REGEX = /^(?:export\s+)?(?:const\s+)?enum\s+(\w+)\s*\{/;
 
 interface JsdocMatch {
   readonly content: string;
@@ -72,9 +81,7 @@ function stripJsdoc(raw: string): string {
   // Remove /** and */
   const inner = raw.slice(3, -2);
   // Remove leading * on each line
-  const lines = inner.split('\n').map((line) =>
-    line.replace(/^\s*\*\s?/, ''),
-  );
+  const lines = inner.split('\n').map((line) => line.replace(/^\s*\*\s?/, ''));
   return lines.join('\n').trim();
 }
 
@@ -125,7 +132,10 @@ function getNextNonEmptyLineRaw(content: string, afterIndex: number): string {
   return '';
 }
 
-function getNextNonEmptyLineNumber(content: string, afterIndex: number): number {
+function getNextNonEmptyLineNumber(
+  content: string,
+  afterIndex: number,
+): number {
   const baseLine = getLineNumber(content, afterIndex);
   const rest = content.slice(afterIndex);
   const lines = rest.split('\n');
@@ -143,11 +153,21 @@ function isModuleLevelJsdoc(content: string, startLine: number): boolean {
   const lines = content.split('\n');
   for (let i = 0; i < startLine - 1; i++) {
     const line = lines[i]?.trim() ?? '';
-    if (line === '' || line.startsWith('//') || line.startsWith('/*') || line.startsWith('*')) {
+    if (
+      line === '' ||
+      line.startsWith('//') ||
+      line.startsWith('/*') ||
+      line.startsWith('*')
+    ) {
       continue;
     }
     // Check for imports/requires - those are fine before module-level jsdoc
-    if (line.startsWith('import ') || line.startsWith('require(') || line.startsWith("'use strict'") || line.startsWith('"use strict"')) {
+    if (
+      line.startsWith('import ') ||
+      line.startsWith('require(') ||
+      line.startsWith("'use strict'") ||
+      line.startsWith('"use strict"')
+    ) {
       continue;
     }
     return false;
@@ -155,7 +175,10 @@ function isModuleLevelJsdoc(content: string, startLine: number): boolean {
   return true;
 }
 
-function findEnclosingClassName(content: string, lineNumber: number): string | undefined {
+function findEnclosingClassName(
+  content: string,
+  lineNumber: number,
+): string | undefined {
   const lines = content.split('\n');
   const targetLine = lines[lineNumber - 1];
   if (!targetLine) return undefined;
@@ -207,7 +230,10 @@ export function createTypescriptParser(): Parser {
         const metadata = extraction.metadata;
         const nextLine = getNextNonEmptyLine(content, jsdoc.endIndex);
         const nextLineRaw = getNextNonEmptyLineRaw(content, jsdoc.endIndex);
-        const nextLineNumber = getNextNonEmptyLineNumber(content, jsdoc.endIndex);
+        const nextLineNumber = getNextNonEmptyLineNumber(
+          content,
+          jsdoc.endIndex,
+        );
 
         // Try to match class declaration
         const classMatch = nextLine.match(CLASS_DECL_REGEX);

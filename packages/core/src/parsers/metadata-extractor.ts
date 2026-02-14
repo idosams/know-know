@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Extracts and validates @codegraph YAML metadata from comment blocks
+ * owner: codegraph-core
+ * status: stable
+ * tags: [parser, yaml, extraction, metadata]
+ * context:
+ *   business_goal: Transform raw code comments into structured, validated metadata
+ *   domain: parser-engine
+ */
 import { parse as parseYaml } from 'yaml';
 import { CoreMetadataSchema, ExtendedMetadataSchema } from '../types/entity.js';
 import type { CoreMetadata, ExtendedMetadata } from '../types/entity.js';

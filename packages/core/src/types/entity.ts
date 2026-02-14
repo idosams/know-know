@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Zod schemas and TypeScript types for code entities, metadata, and validation
+ * owner: codegraph-core
+ * status: stable
+ * tags: [schema, validation, zod, types]
+ * context:
+ *   business_goal: Provide type-safe entity definitions for the entire CodeGraph system
+ *   domain: core-types
+ */
 import { z } from 'zod';
 
 export const EntityTypeSchema = z.enum([

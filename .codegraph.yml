@@ -1,0 +1,18 @@
+version: "1.0"
+name: codegraph
+languages:
+  - typescript
+include:
+  - "packages/*/src/**/*"
+exclude:
+  - node_modules
+  - dist
+  - .git
+  - .turbo
+  - coverage
+  - __tests__
+  - "*.test.ts"
+  - "*.spec.ts"
+index:
+  output_dir: .codegraph
+  incremental: true

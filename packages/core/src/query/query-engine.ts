@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Query engine with FTS5 full-text search, filtering, pagination, and dependency traversal
+ * owner: codegraph-core
+ * status: stable
+ * tags: [query, search, fts5, filtering]
+ * context:
+ *   business_goal: Enable fast, flexible search across the code knowledge graph
+ *   domain: query-engine
+ */
 import type { DatabaseManager } from '../indexer/database.js';
 import type { EntityType, Link, Status } from '../types/index.js';
 import type { IndexStats, StoredEntity } from '../indexer/types.js';

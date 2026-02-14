@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: CLI command that initializes a new .codegraph.yml project configuration
+ * owner: codegraph-cli
+ * status: stable
+ * tags: [cli, command, init, setup]
+ * context:
+ *   business_goal: Provide guided onboarding for new CodeGraph users
+ *   domain: cli
+ */
 import { writeFileSync, existsSync } from 'node:fs';
 import { resolve, basename } from 'node:path';
 import type { Command } from 'commander';
@@ -32,7 +43,9 @@ async function runInit(options: InitOptions): Promise<void> {
   const configPath = resolve('.codegraph.yml');
 
   if (existsSync(configPath) && !options.yes) {
-    console.log(chalk.yellow('.codegraph.yml already exists. Use -y to overwrite.'));
+    console.log(
+      chalk.yellow('.codegraph.yml already exists. Use -y to overwrite.'),
+    );
     return;
   }
 
@@ -92,7 +105,9 @@ async function runInit(options: InitOptions): Promise<void> {
   console.log(chalk.bold('Next steps:'));
   console.log(`  1. Add ${chalk.cyan('@codegraph')} annotations to your code`);
   console.log(`  2. Run ${chalk.cyan('codegraph index')} to build the graph`);
-  console.log(`  3. Run ${chalk.cyan('codegraph serve')} to start the MCP server`);
+  console.log(
+    `  3. Run ${chalk.cyan('codegraph serve')} to start the MCP server`,
+  );
   console.log(`  4. Run ${chalk.cyan('codegraph query <term>')} to search`);
 }
 

@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Python language parser that extracts @codegraph annotations from docstrings
+ * owner: codegraph-core
+ * status: stable
+ * tags: [parser, python, docstring]
+ * context:
+ *   business_goal: Enable Python codebases to be indexed by CodeGraph
+ *   domain: parser-engine
+ */
 import type { ParseResult } from '../types/parse-result.js';
 import type { Parser } from './types.js';
 import { extractMetadata } from './metadata-extractor.js';
@@ -18,7 +29,8 @@ const CLASS_DEF_REGEX = /^(\s*)class\s+(\w+)(?:\(([^)]*)\))?:/;
 /**
  * Regex to match function/method definitions.
  */
-const FUNC_DEF_REGEX = /^(\s*)(?:async\s+)?def\s+(\w+)\(([^)]*)\)(?:\s*->\s*([^:]+))?:/;
+const FUNC_DEF_REGEX =
+  /^(\s*)(?:async\s+)?def\s+(\w+)\(([^)]*)\)(?:\s*->\s*([^:]+))?:/;
 
 /**
  * Regex to match decorator lines.
@@ -84,7 +96,10 @@ function getLineAt(content: string, lineNumber: number): string {
   return lines[lineNumber - 1] ?? '';
 }
 
-function collectDecorators(content: string, defLineNumber: number): readonly string[] {
+function collectDecorators(
+  content: string,
+  defLineNumber: number,
+): readonly string[] {
   const lines = content.split('\n');
   const decorators: string[] = [];
   let lineIdx = defLineNumber - 2; // 0-indexed, line before def
@@ -163,7 +178,10 @@ function findDefinitionBefore(
   return null;
 }
 
-function findEnclosingClass(content: string, lineNumber: number): string | undefined {
+function findEnclosingClass(
+  content: string,
+  lineNumber: number,
+): string | undefined {
   const lines = content.split('\n');
   const targetLine = lines[lineNumber - 1];
   if (!targetLine) return undefined;
@@ -189,7 +207,10 @@ function findEnclosingClass(content: string, lineNumber: number): string | undef
   return undefined;
 }
 
-function isModuleLevelDocstring(content: string, docstringStartLine: number): boolean {
+function isModuleLevelDocstring(
+  content: string,
+  docstringStartLine: number,
+): boolean {
   // A module-level docstring is at the beginning of the file,
   // possibly preceded by comments, blank lines, or shebang
   const lines = content.split('\n');
@@ -220,7 +241,10 @@ export function createPythonParser(): Parser {
       const results: ParseResult[] = [];
 
       for (const docstring of docstrings) {
-        const extraction = extractMetadata(docstring.content, docstring.startLine);
+        const extraction = extractMetadata(
+          docstring.content,
+          docstring.startLine,
+        );
 
         if (!extraction.metadata) {
           continue;

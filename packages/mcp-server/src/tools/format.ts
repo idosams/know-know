@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Formatting utilities for MCP tool responses (entities, dependencies, links, stats)
+ * owner: codegraph-mcp
+ * status: stable
+ * tags: [mcp, formatting, output, markdown]
+ * context:
+ *   business_goal: Present code graph data in clean, readable formats for AI consumption
+ *   domain: mcp-tools
+ */
 import type { EntityRow, DependencyRow, LinkRow, GraphStats } from '../db.js';
 
 export function formatEntity(entity: EntityRow): string {
@@ -12,9 +23,12 @@ export function formatEntity(entity: EntityRow): string {
   if (entity.language) lines.push(`**Language:** ${entity.language}`);
   if (entity.signature) lines.push(`**Signature:** \`${entity.signature}\``);
   if (entity.tags) lines.push(`**Tags:** ${entity.tags}`);
-  if (entity.business_goal) lines.push(`**Business Goal:** ${entity.business_goal}`);
-  if (entity.funnel_stage) lines.push(`**Funnel Stage:** ${entity.funnel_stage}`);
-  if (entity.revenue_impact) lines.push(`**Revenue Impact:** ${entity.revenue_impact}`);
+  if (entity.business_goal)
+    lines.push(`**Business Goal:** ${entity.business_goal}`);
+  if (entity.funnel_stage)
+    lines.push(`**Funnel Stage:** ${entity.funnel_stage}`);
+  if (entity.revenue_impact)
+    lines.push(`**Revenue Impact:** ${entity.revenue_impact}`);
 
   return lines.join('\n');
 }
@@ -28,7 +42,7 @@ export function formatEntityList(entities: readonly EntityRow[]): string {
 
 export function formatDependencies(
   entityId: string,
-  deps: readonly DependencyRow[]
+  deps: readonly DependencyRow[],
 ): string {
   if (deps.length === 0) {
     return `No dependencies found for entity: ${entityId}`;

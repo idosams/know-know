@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: SQLite database manager with CRUD operations for entities, tags, links, and relationships
+ * owner: codegraph-core
+ * status: stable
+ * tags: [database, sqlite, crud, storage]
+ * context:
+ *   business_goal: Persist and retrieve code entities with full metadata and relationships
+ *   domain: indexer-engine
+ */
 import Database from 'better-sqlite3';
 import { createHash } from 'node:crypto';
 import type { Link } from '../types/index.js';
@@ -58,7 +69,11 @@ interface LangCountRow {
   readonly count: number;
 }
 
-export function generateEntityId(filePath: string, name: string, line: number): string {
+export function generateEntityId(
+  filePath: string,
+  name: string,
+  line: number,
+): string {
   const raw = `${filePath}:${name}:${line}`;
   return createHash('sha256').update(raw).digest('hex');
 }
@@ -121,16 +136,16 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
   }
 
   function getTagsForEntity(entityId: string): readonly string[] {
-    const rows = db.prepare(
-      'SELECT tag FROM tags WHERE entity_id = ?',
-    ).all(entityId) as readonly TagRow[];
+    const rows = db
+      .prepare('SELECT tag FROM tags WHERE entity_id = ?')
+      .all(entityId) as readonly TagRow[];
     return rows.map((r) => r.tag);
   }
 
   function getLinksForEntity(entityId: string): readonly Link[] {
-    const rows = db.prepare(
-      'SELECT link_type, url, title FROM links WHERE entity_id = ?',
-    ).all(entityId) as readonly LinkRow[];
+    const rows = db
+      .prepare('SELECT link_type, url, title FROM links WHERE entity_id = ?')
+      .all(entityId) as readonly LinkRow[];
     return rows.map((r) => ({
       type: r.link_type as Link['type'],
       url: r.url,
@@ -138,7 +153,13 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
     }));
   }
 
-  function insertFtsEntry(entityId: string, name: string, description: string, tagsText: string, owner: string): void {
+  function insertFtsEntry(
+    entityId: string,
+    name: string,
+    description: string,
+    tagsText: string,
+    owner: string,
+  ): void {
     db.prepare(INSERT_FTS_SQL).run({
       entity_id: entityId,
       name,
@@ -157,7 +178,9 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
   }
 
   function getEntityById(id: string): StoredEntity | undefined {
-    const row = db.prepare('SELECT * FROM entities WHERE id = ?').get(id) as EntityRow | undefined;
+    const row = db.prepare('SELECT * FROM entities WHERE id = ?').get(id) as
+      | EntityRow
+      | undefined;
     if (!row) return undefined;
     const tags = getTagsForEntity(id);
     const links = getLinksForEntity(id);
@@ -165,9 +188,9 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
   }
 
   function getEntitiesByFilePath(filePath: string): readonly StoredEntity[] {
-    const rows = db.prepare(
-      'SELECT * FROM entities WHERE file_path = ?',
-    ).all(filePath) as readonly EntityRow[];
+    const rows = db
+      .prepare('SELECT * FROM entities WHERE file_path = ?')
+      .all(filePath) as readonly EntityRow[];
     return rows.map((row) => {
       const tags = getTagsForEntity(row.id);
       const links = getLinksForEntity(row.id);
@@ -198,7 +221,13 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
     db.prepare(INSERT_ENTITY_SQL).run(params);
 
     const tagsText = entity.tags?.join(' ') ?? '';
-    insertFtsEntry(id, entity.name, entity.description, tagsText, entity.owner ?? '');
+    insertFtsEntry(
+      id,
+      entity.name,
+      entity.description,
+      tagsText,
+      entity.owner ?? '',
+    );
 
     if (entity.tags && entity.tags.length > 0) {
       insertTags(id, entity.tags);
@@ -211,9 +240,9 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
   }
 
   function updateEntity(id: string, entity: Partial<EntityInsert>): void {
-    const existing = db.prepare(
-      'SELECT * FROM entities WHERE id = ?',
-    ).get(id) as EntityRow | undefined;
+    const existing = db
+      .prepare('SELECT * FROM entities WHERE id = ?')
+      .get(id) as EntityRow | undefined;
     if (!existing) return;
 
     deleteFtsByEntityId(id);
@@ -241,7 +270,13 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
 
     const tags = entity.tags ?? getTagsForEntity(id);
     const tagsText = tags.join(' ');
-    insertFtsEntry(id, params.name, params.description, tagsText, params.owner ?? '');
+    insertFtsEntry(
+      id,
+      params.name,
+      params.description,
+      tagsText,
+      params.owner ?? '',
+    );
   }
 
   function deleteEntitiesByFilePath(filePath: string): void {
@@ -249,7 +284,11 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
     db.prepare('DELETE FROM entities WHERE file_path = ?').run(filePath);
   }
 
-  function insertRelationship(sourceId: string, targetId: string, type: string): void {
+  function insertRelationship(
+    sourceId: string,
+    targetId: string,
+    type: string,
+  ): void {
     db.prepare(INSERT_RELATIONSHIP_SQL).run({
       source_id: sourceId,
       target_id: targetId,
@@ -281,7 +320,9 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
       db.prepare('SELECT COUNT(*) as count FROM entities').get() as CountRow
     ).count;
     const totalRelationships = (
-      db.prepare('SELECT COUNT(*) as count FROM relationships').get() as CountRow
+      db
+        .prepare('SELECT COUNT(*) as count FROM relationships')
+        .get() as CountRow
     ).count;
     const totalTags = (
       db.prepare('SELECT COUNT(*) as count FROM tags').get() as CountRow
@@ -290,17 +331,21 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
       db.prepare('SELECT COUNT(*) as count FROM links').get() as CountRow
     ).count;
 
-    const typeRows = db.prepare(
-      'SELECT entity_type, COUNT(*) as count FROM entities GROUP BY entity_type',
-    ).all() as readonly TypeCountRow[];
+    const typeRows = db
+      .prepare(
+        'SELECT entity_type, COUNT(*) as count FROM entities GROUP BY entity_type',
+      )
+      .all() as readonly TypeCountRow[];
     const entitiesByType: Record<string, number> = {};
     for (const row of typeRows) {
       entitiesByType[row.entity_type] = row.count;
     }
 
-    const langRows = db.prepare(
-      'SELECT language, COUNT(*) as count FROM entities GROUP BY language',
-    ).all() as readonly LangCountRow[];
+    const langRows = db
+      .prepare(
+        'SELECT language, COUNT(*) as count FROM entities GROUP BY language',
+      )
+      .all() as readonly LangCountRow[];
     const entitiesByLanguage: Record<string, number> = {};
     for (const row of langRows) {
       entitiesByLanguage[row.language] = row.count;
@@ -317,9 +362,9 @@ export function createDatabaseManager(dbPath?: string): DatabaseManager {
   }
 
   function getFileHash(filePath: string): string | undefined {
-    const row = db.prepare(
-      'SELECT file_hash FROM entities WHERE file_path = ? LIMIT 1',
-    ).get(filePath) as { readonly file_hash: string | null } | undefined;
+    const row = db
+      .prepare('SELECT file_hash FROM entities WHERE file_path = ? LIMIT 1')
+      .get(filePath) as { readonly file_hash: string | null } | undefined;
     return row?.file_hash ?? undefined;
   }
 

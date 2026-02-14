@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: CLI command that builds the SQLite code graph index from annotated source files
+ * owner: codegraph-cli
+ * status: stable
+ * tags: [cli, command, index, build]
+ * context:
+ *   business_goal: Enable developers to build a searchable code knowledge graph
+ *   domain: cli
+ */
 import { mkdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import type { Command } from 'commander';
@@ -17,7 +28,9 @@ interface IndexOptions {
   readonly verbose?: boolean;
 }
 
-function createParserRegistryAdapter(coreRegistry: ReturnType<typeof createDefaultRegistry>) {
+function createParserRegistryAdapter(
+  coreRegistry: ReturnType<typeof createDefaultRegistry>,
+) {
   return {
     parse(filePath: string, content: string) {
       return coreRegistry.parseFile(content, filePath);
@@ -50,9 +63,10 @@ function runIndex(targetPath: string, options: IndexOptions): void {
       : ['node_modules', '.git', 'dist', 'build'];
 
     const onProgress = (progress: IndexProgress): void => {
-      const pct = progress.totalFiles > 0
-        ? Math.round((progress.processedFiles / progress.totalFiles) * 100)
-        : 0;
+      const pct =
+        progress.totalFiles > 0
+          ? Math.round((progress.processedFiles / progress.totalFiles) * 100)
+          : 0;
       spinner.text = `Indexing: ${pct}% (${progress.processedFiles}/${progress.totalFiles}) ${progress.currentFile}`;
 
       if (options.verbose && progress.currentFile) {
@@ -74,19 +88,27 @@ function runIndex(targetPath: string, options: IndexOptions): void {
     console.log('');
     console.log(chalk.bold('Summary:'));
     console.log(`  Files scanned:    ${chalk.cyan(String(result.totalFiles))}`);
-    console.log(`  Entities indexed: ${chalk.cyan(String(result.totalEntities))}`);
-    console.log(`  Relationships:    ${chalk.cyan(String(result.totalRelationships))}`);
+    console.log(
+      `  Entities indexed: ${chalk.cyan(String(result.totalEntities))}`,
+    );
+    console.log(
+      `  Relationships:    ${chalk.cyan(String(result.totalRelationships))}`,
+    );
     console.log(`  Duration:         ${chalk.cyan(`${result.duration}ms`)}`);
     console.log(`  Database:         ${chalk.cyan(dbPath)}`);
 
     if (result.errors.length > 0) {
       console.log('');
-      console.log(chalk.yellow(`${result.errors.length} error(s) during indexing:`));
+      console.log(
+        chalk.yellow(`${result.errors.length} error(s) during indexing:`),
+      );
       for (const err of result.errors.slice(0, 10)) {
         console.log(chalk.yellow(`  ${err.filePath}: ${err.message}`));
       }
       if (result.errors.length > 10) {
-        console.log(chalk.yellow(`  ... and ${result.errors.length - 10} more`));
+        console.log(
+          chalk.yellow(`  ... and ${result.errors.length - 10} more`),
+        );
       }
     }
   } catch (err) {
@@ -102,7 +124,11 @@ export function registerIndexCommand(program: Command): void {
     .description('Scan repository and build the SQLite index')
     .option('--output <dir>', 'Output directory', '.codegraph')
     .option('--exclude <patterns>', 'Comma-separated glob patterns to exclude')
-    .option('--incremental', 'Only re-index changed files (default: true)', true)
+    .option(
+      '--incremental',
+      'Only re-index changed files (default: true)',
+      true,
+    )
     .option('--no-incremental', 'Force full re-index')
     .option('--verbose', 'Show detailed progress')
     .action((path: string | undefined, options: IndexOptions) => {

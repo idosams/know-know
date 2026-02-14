@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: function
+ * description: MCP tool that provides full-text search across code entities
+ * owner: codegraph-mcp
+ * status: stable
+ * tags: [mcp, tool, search, fts5]
+ * context:
+ *   business_goal: Enable AI assistants to search codebases by keyword
+ *   domain: mcp-tools
+ */
 import { z } from 'zod';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { McpDatabase } from '../db.js';
@@ -9,7 +20,10 @@ export function registerSearchCode(server: McpServer, db: McpDatabase): void {
     'Search for code entities by description, name, or tags',
     {
       query: z.string().describe('Search query text'),
-      type: z.string().optional().describe('Entity type filter (e.g., function, class, module)'),
+      type: z
+        .string()
+        .optional()
+        .describe('Entity type filter (e.g., function, class, module)'),
       owner: z.string().optional().describe('Owner/team filter'),
       tags: z.array(z.string()).optional().describe('Tag filters'),
       limit: z.number().optional().describe('Max results (default 20)'),
@@ -29,11 +43,14 @@ export function registerSearchCode(server: McpServer, db: McpDatabase): void {
       } catch (error) {
         return {
           content: [
-            { type: 'text' as const, text: `Error searching code: ${String(error)}` },
+            {
+              type: 'text' as const,
+              text: `Error searching code: ${String(error)}`,
+            },
           ],
           isError: true,
         };
       }
-    }
+    },
   );
 }

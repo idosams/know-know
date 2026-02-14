@@ -1,4 +1,15 @@
 #!/usr/bin/env node
+/**
+ * @codegraph
+ * type: module
+ * description: CLI entrypoint that registers all commands and parses arguments
+ * owner: codegraph-cli
+ * status: stable
+ * tags: [cli, entrypoint, commander]
+ * context:
+ *   business_goal: Provide the main codegraph command-line interface
+ *   domain: cli
+ */
 import { Command } from 'commander';
 import {
   registerParseCommand,

@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: module
+ * description: Output formatting utilities for table and JSON display of query results
+ * owner: codegraph-cli
+ * status: stable
+ * tags: [cli, formatting, output, table]
+ * context:
+ *   business_goal: Present code graph data in human-readable formats
+ *   domain: cli
+ */
 import type { StoredEntity } from '@codegraph/core';
 
 export function truncate(str: string, maxLen: number): string {
@@ -29,7 +40,9 @@ export function formatTable(entities: readonly StoredEntity[]): string {
     return Math.max(h.length, maxData);
   });
 
-  const headerLine = headers.map((h, i) => padRight(h, colWidths[i])).join('  ');
+  const headerLine = headers
+    .map((h, i) => padRight(h, colWidths[i]))
+    .join('  ');
   const separator = colWidths.map((w) => '-'.repeat(w)).join('  ');
   const dataLines = rows.map((row) =>
     row.map((cell, i) => padRight(cell, colWidths[i])).join('  '),

@@ -1,3 +1,14 @@
+/**
+ * @codegraph
+ * type: interface
+ * description: Parser and ParserRegistry interfaces for the language parser system
+ * owner: codegraph-core
+ * status: stable
+ * tags: [parser, types, interface, registry]
+ * context:
+ *   business_goal: Define contracts for pluggable language parser implementations
+ *   domain: parser-engine
+ */
 import type { ParseResult } from '../types/parse-result.js';
 
 export interface Parser {
