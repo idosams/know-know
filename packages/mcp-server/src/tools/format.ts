@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Formatting utilities for MCP tool responses (entities, dependencies, links, stats)
- * owner: codegraph-mcp
+ * owner: knowgraph-mcp
  * status: stable
  * tags: [mcp, formatting, output, markdown]
  * context:
@@ -86,7 +86,7 @@ export function formatLinks(links: readonly LinkRow[]): string {
 
 export function formatStats(stats: GraphStats): string {
   const lines: string[] = [
-    '## CodeGraph Overview',
+    '## KnowGraph Overview',
     '',
     `**Total Entities:** ${stats.totalEntities}`,
     `**Total Links:** ${stats.totalLinks}`,

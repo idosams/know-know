@@ -1,6 +1,6 @@
 # Python FastAPI Example
 
-A fully annotated e-commerce API demonstrating CodeGraph annotations in Python.
+A fully annotated e-commerce API demonstrating KnowGraph annotations in Python.
 
 ## Project Structure
 
@@ -29,7 +29,7 @@ Every module includes business context metadata:
 
 ```python
 """
-@codegraph
+@knowgraph
 type: module
 description: FastAPI application entry point for the e-commerce API
 owner: platform-team
@@ -47,7 +47,7 @@ The payment service demonstrates compliance annotations:
 
 ```python
 """
-@codegraph
+@knowgraph
 type: function
 description: Processes a one-time payment charge through Stripe
 compliance:
@@ -62,7 +62,7 @@ Services declare their dependencies and operational metadata:
 
 ```python
 """
-@codegraph
+@knowgraph
 dependencies:
   services: [auth-service, payment-service, inventory-service]
   databases: [postgres-main, redis-cache]
@@ -76,7 +76,7 @@ operational:
 
 ```bash
 # From the repository root
-codegraph index examples/python-fastapi
-codegraph query --owner "payments-team"
-codegraph query "payment"
+knowgraph index examples/python-fastapi
+knowgraph query --owner "payments-team"
+knowgraph query "payment"
 ```

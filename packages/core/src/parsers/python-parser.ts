@@ -1,12 +1,12 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
- * description: Python language parser that extracts @codegraph annotations from docstrings
- * owner: codegraph-core
+ * description: Python language parser that extracts @knowgraph annotations from docstrings
+ * owner: knowgraph-core
  * status: stable
  * tags: [parser, python, docstring]
  * context:
- *   business_goal: Enable Python codebases to be indexed by CodeGraph
+ *   business_goal: Enable Python codebases to be indexed by KnowGraph
  *   domain: parser-engine
  */
 import type { ParseResult } from '../types/parse-result.js';

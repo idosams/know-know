@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: service
  * description: MCP server factory and stdio transport initialization
- * owner: codegraph-mcp
+ * owner: knowgraph-mcp
  * status: stable
  * tags: [mcp, server, transport, stdio]
  * context:
@@ -21,7 +21,7 @@ export interface ServerOptions {
 
 export function createServer(options: ServerOptions): McpServer {
   const server = new McpServer({
-    name: 'codegraph',
+    name: 'knowgraph',
     version: '0.1.0',
   });
 
@@ -42,7 +42,7 @@ export function createServer(options: ServerOptions): McpServer {
         content: [
           {
             type: 'text' as const,
-            text: `Database not available at ${options.dbPath}. Run 'codegraph index' to create it.`,
+            text: `Database not available at ${options.dbPath}. Run 'knowgraph index' to create it.`,
           },
         ],
         isError: true,

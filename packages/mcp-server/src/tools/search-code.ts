@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: MCP tool that provides full-text search across code entities
- * owner: codegraph-mcp
+ * owner: knowgraph-mcp
  * status: stable
  * tags: [mcp, tool, search, fts5]
  * context:

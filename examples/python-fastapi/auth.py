@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: Authentication and authorization module handling JWT tokens and user verification
 owner: auth-team
@@ -49,7 +49,7 @@ def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
 ) -> CurrentUser:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Extracts and validates JWT token from request headers, returning the authenticated user
     owner: auth-team
@@ -75,7 +75,7 @@ def get_current_user(
 
 def _decode_jwt(token: str) -> Optional[dict]:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Decodes and validates a JWT token, checking expiry and signature
     owner: auth-team

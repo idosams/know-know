@@ -1,6 +1,6 @@
-# @codegraph/cli -- Implementation Documentation
+# @knowgraph/cli -- Implementation Documentation
 
-The CLI package (`packages/cli/`) provides the `codegraph` command-line interface built on [Commander.js](https://github.com/tj/commander.js). It exposes five subcommands -- `init`, `parse`, `index`, `query`, and `serve` -- that together form the primary developer workflow for annotating, indexing, and querying a codebase.
+The CLI package (`packages/cli/`) provides the `knowgraph` command-line interface built on [Commander.js](https://github.com/tj/commander.js). It exposes five subcommands -- `init`, `parse`, `index`, `query`, and `serve` -- that together form the primary developer workflow for annotating, indexing, and querying a codebase.
 
 ## Table of Contents
 
@@ -18,7 +18,7 @@ The CLI package (`packages/cli/`) provides the `codegraph` command-line interfac
 
 ### Entrypoint
 
-The CLI entrypoint is `src/index.ts`, which carries the `#!/usr/bin/env node` shebang so it can run as a standalone executable. The `bin` field in `package.json` maps the `codegraph` command to the compiled `dist/index.js`.
+The CLI entrypoint is `src/index.ts`, which carries the `#!/usr/bin/env node` shebang so it can run as a standalone executable. The `bin` field in `package.json` maps the `knowgraph` command to the compiled `dist/index.js`.
 
 The entrypoint creates a single `Commander.Command` instance and delegates to five `register*Command` functions, each of which adds a subcommand with its own options and action handler.
 
@@ -27,11 +27,11 @@ src/
   index.ts              # Entrypoint -- creates program, registers commands
   commands/
     index.ts            # Barrel re-export for all register* functions
-    init.ts             # codegraph init
-    parse.ts            # codegraph parse <path>
-    index-cmd.ts        # codegraph index [path]
-    query.ts            # codegraph query <search-term>
-    serve.ts            # codegraph serve
+    init.ts             # knowgraph init
+    parse.ts            # knowgraph parse <path>
+    index-cmd.ts        # knowgraph index [path]
+    query.ts            # knowgraph query <search-term>
+    serve.ts            # knowgraph serve
   utils/
     index.ts            # Barrel re-export for utilities
     detect.ts           # Language detection and file suggestion
@@ -44,7 +44,7 @@ Every command module exports a single `register*Command(program: Command): void`
 
 ```mermaid
 graph TD
-    A["src/index.ts<br/>#!/usr/bin/env node"] --> B["new Command('codegraph')"]
+    A["src/index.ts<br/>#!/usr/bin/env node"] --> B["new Command('knowgraph')"]
     B --> C["registerInitCommand"]
     B --> D["registerParseCommand"]
     B --> E["registerIndexCommand"]
@@ -66,9 +66,9 @@ graph TD
 | `chalk` | Terminal color output |
 | `ora` | Spinner for progress display during indexing |
 | `inquirer` | Interactive prompts (dynamically imported in `init`) |
-| `yaml` | YAML serialization for `.codegraph.yml` generation |
-| `@codegraph/core` | Parser registry, indexer, database manager, query engine |
-| `@codegraph/mcp-server` | MCP protocol server (dynamically imported in `serve`) |
+| `yaml` | YAML serialization for `.knowgraph.yml` generation |
+| `@knowgraph/core` | Parser registry, indexer, database manager, query engine |
+| `@knowgraph/mcp-server` | MCP protocol server (dynamically imported in `serve`) |
 
 ---
 
@@ -76,22 +76,22 @@ graph TD
 
 **File:** `src/commands/init.ts`
 
-Initializes a new CodeGraph project by detecting languages, generating a `.codegraph.yml` manifest, and suggesting high-impact files to annotate first.
+Initializes a new KnowGraph project by detecting languages, generating a `.knowgraph.yml` manifest, and suggesting high-impact files to annotate first.
 
 ### Usage
 
 ```bash
 # Interactive mode (prompts for project name)
-codegraph init
+knowgraph init
 
 # Non-interactive mode (uses directory name as project name)
-codegraph init -y
+knowgraph init -y
 
 # Custom project name
-codegraph init --name my-project
+knowgraph init --name my-project
 
 # Overwrite existing config
-codegraph init -y --name my-project
+knowgraph init -y --name my-project
 ```
 
 ### Options
@@ -105,7 +105,7 @@ codegraph init -y --name my-project
 
 ```mermaid
 flowchart TD
-    A["codegraph init"] --> B{"Does .codegraph.yml<br/>already exist?"}
+    A["knowgraph init"] --> B{"Does .knowgraph.yml<br/>already exist?"}
     B -- "Yes and no -y flag" --> C["Print warning and exit"]
     B -- "No or -y flag" --> D["detectLanguages(cwd)"]
     D --> E{"--name provided?"}
@@ -116,7 +116,7 @@ flowchart TD
     I --> J["generateManifest()"]
     H --> J
     F --> J
-    J --> K["Write .codegraph.yml"]
+    J --> K["Write .knowgraph.yml"]
     K --> L["suggestFiles(cwd)"]
     L --> M["Print top 5 suggestions"]
     M --> N["Print next steps"]
@@ -145,7 +145,7 @@ exclude:
   - build
   - __pycache__
 index:
-  output_dir: .codegraph
+  output_dir: .knowgraph
   incremental: true
 ```
 
@@ -156,18 +156,18 @@ After writing the config, `suggestFiles()` scans the root directory and one leve
 1. **Entry-point files** (e.g., `index.ts`, `main.py`, `app.js`, `server.ts`) -- these receive a +1,000,000 priority bonus.
 2. **Larger files** -- file size is used as a secondary sort key (larger files are more likely to contain important logic).
 
-The top 5 results are printed to help users know where to start adding `@codegraph` annotations.
+The top 5 results are printed to help users know where to start adding `@knowgraph` annotations.
 
 ### Sample Output
 
 ```
-$ codegraph init
-Initializing CodeGraph...
+$ knowgraph init
+Initializing KnowGraph...
 
 Detected languages: typescript, python
 ? Project name: my-project
 
-Created .codegraph.yml
+Created .knowgraph.yml
 
 Suggested files to annotate first:
   src/index.ts
@@ -177,10 +177,10 @@ Suggested files to annotate first:
   server.ts
 
 Next steps:
-  1. Add @codegraph annotations to your code
-  2. Run codegraph index to build the graph
-  3. Run codegraph serve to start the MCP server
-  4. Run codegraph query <term> to search
+  1. Add @knowgraph annotations to your code
+  2. Run knowgraph index to build the graph
+  3. Run knowgraph serve to start the MCP server
+  4. Run knowgraph query <term> to search
 ```
 
 ---
@@ -189,25 +189,25 @@ Next steps:
 
 **File:** `src/commands/parse.ts`
 
-Parses source files for `@codegraph` annotations and outputs the extracted metadata as JSON or YAML. This is useful for previewing annotations before indexing.
+Parses source files for `@knowgraph` annotations and outputs the extracted metadata as JSON or YAML. This is useful for previewing annotations before indexing.
 
 ### Usage
 
 ```bash
 # Parse a single file
-codegraph parse src/index.ts
+knowgraph parse src/index.ts
 
 # Parse an entire directory
-codegraph parse src/
+knowgraph parse src/
 
 # Pretty-print JSON output
-codegraph parse src/ --pretty
+knowgraph parse src/ --pretty
 
 # YAML output
-codegraph parse src/ --format yaml
+knowgraph parse src/ --format yaml
 
 # Validate annotations have required fields
-codegraph parse src/ --validate
+knowgraph parse src/ --validate
 ```
 
 ### Options
@@ -223,7 +223,7 @@ codegraph parse src/ --validate
 
 ```mermaid
 flowchart TD
-    A["codegraph parse &lt;path&gt;"] --> B["Resolve absolute path"]
+    A["knowgraph parse &lt;path&gt;"] --> B["Resolve absolute path"]
     B --> C{"Path exists?"}
     C -- "No" --> D["Print error, exit 1"]
     C -- "Yes" --> E["createDefaultRegistry()"]
@@ -256,7 +256,7 @@ When `--validate` is passed, each `ParseResult` is checked for a `description` f
 ### Sample Output
 
 ```
-$ codegraph parse src/commands/init.ts --pretty
+$ knowgraph parse src/commands/init.ts --pretty
 [
   {
     "name": "src/commands/init.ts",
@@ -265,8 +265,8 @@ $ codegraph parse src/commands/init.ts --pretty
     "entityType": "module",
     "metadata": {
       "type": "module",
-      "description": "CLI command that initializes a new .codegraph.yml project configuration",
-      "owner": "codegraph-cli",
+      "description": "CLI command that initializes a new .knowgraph.yml project configuration",
+      "owner": "knowgraph-cli",
       "status": "stable",
       "tags": ["cli", "command", "init", "setup"]
     }
@@ -288,29 +288,29 @@ Scans a repository for annotated source files and builds a SQLite database conta
 
 ```bash
 # Index the current directory
-codegraph index
+knowgraph index
 
 # Index a specific directory
-codegraph index ./src
+knowgraph index ./src
 
 # Custom output directory
-codegraph index --output ./my-db
+knowgraph index --output ./my-db
 
 # Full re-index (skip incremental checks)
-codegraph index --no-incremental
+knowgraph index --no-incremental
 
 # Exclude additional patterns
-codegraph index --exclude "test,fixtures,__mocks__"
+knowgraph index --exclude "test,fixtures,__mocks__"
 
 # Verbose progress
-codegraph index --verbose
+knowgraph index --verbose
 ```
 
 ### Options
 
 | Flag | Description | Default |
 |---|---|---|
-| `--output <dir>` | Directory for the SQLite database | `.codegraph` |
+| `--output <dir>` | Directory for the SQLite database | `.knowgraph` |
 | `--exclude <patterns>` | Comma-separated directories to skip | `node_modules,.git,dist,build` |
 | `--incremental` | Only re-index changed files | `true` |
 | `--no-incremental` | Force full re-index | -- |
@@ -320,7 +320,7 @@ codegraph index --verbose
 
 ```mermaid
 flowchart TD
-    A["codegraph index [path]"] --> B["Resolve rootDir and outputDir"]
+    A["knowgraph index [path]"] --> B["Resolve rootDir and outputDir"]
     B --> C["mkdirSync(outputDir)"]
     C --> D["ora spinner: 'Initializing indexer...'"]
     D --> E["createDefaultRegistry()"]
@@ -359,7 +359,7 @@ The spinner text shows a percentage, file counts, and the current file path. Wit
 ### Sample Output
 
 ```
-$ codegraph index
+$ knowgraph index
 ✔ Indexing complete!
 
 Summary:
@@ -367,7 +367,7 @@ Summary:
   Entities indexed: 87
   Relationships:    23
   Duration:         312ms
-  Database:         .codegraph/codegraph.db
+  Database:         .knowgraph/knowgraph.db
 ```
 
 ---
@@ -382,25 +382,25 @@ Searches the code graph index using full-text search (FTS5) with optional filter
 
 ```bash
 # Basic search
-codegraph query "database manager"
+knowgraph query "database manager"
 
 # Filter by entity type
-codegraph query "parser" --type module
+knowgraph query "parser" --type module
 
 # Filter by owner
-codegraph query "indexer" --owner codegraph-core
+knowgraph query "indexer" --owner knowgraph-core
 
 # Filter by tags
-codegraph query "cli" --tags command,init
+knowgraph query "cli" --tags command,init
 
 # JSON output
-codegraph query "serve" --format json
+knowgraph query "serve" --format json
 
 # Limit results
-codegraph query "test" --limit 5
+knowgraph query "test" --limit 5
 
 # Custom database path
-codegraph query "auth" --db ./custom/codegraph.db
+knowgraph query "auth" --db ./custom/knowgraph.db
 ```
 
 ### Options
@@ -412,16 +412,16 @@ codegraph query "auth" --db ./custom/codegraph.db
 | `--tags <tags>` | Comma-separated tag filter | all tags |
 | `--format <format>` | Output format: `table` or `json` | `table` |
 | `--limit <n>` | Maximum number of results | `20` |
-| `--db <path>` | Path to the SQLite database | `.codegraph/codegraph.db` |
+| `--db <path>` | Path to the SQLite database | `.knowgraph/knowgraph.db` |
 
 ### Execution Flow
 
 ```mermaid
 flowchart TD
-    A["codegraph query &lt;search-term&gt;"] --> B["Resolve database path"]
+    A["knowgraph query &lt;search-term&gt;"] --> B["Resolve database path"]
     B --> C["createDatabaseManager(dbPath)"]
     C --> D{"DB opens?"}
-    D -- "No" --> E["Print error: run 'codegraph index' first"]
+    D -- "No" --> E["Print error: run 'knowgraph index' first"]
     D -- "Yes" --> F["createQueryEngine(dbManager)"]
     F --> G["Parse --tags into string[]"]
     G --> H["engine.search(query, type, owner, tags, limit)"]
@@ -440,11 +440,11 @@ flowchart TD
 **Table format** (default) produces a fixed-width columnar display:
 
 ```
-$ codegraph query "parser"
+$ knowgraph query "parser"
 Name                   Type    Owner           File                                      Description
 -----                  ------  -----------     ----------------------------------------  --------------------------------------------------
-createDefaultRegistry  module  codegraph-core  packages/core/src/parsers/registry.ts     Parser registry that maps file extensions to parsers
-typescript-parser      module  codegraph-core  packages/core/src/parsers/typescript.ts   TypeScript/JavaScript JSDoc annotation parser
+createDefaultRegistry  module  knowgraph-core  packages/core/src/parsers/registry.ts     Parser registry that maps file extensions to parsers
+typescript-parser      module  knowgraph-core  packages/core/src/parsers/typescript.ts   TypeScript/JavaScript JSDoc annotation parser
 
 Showing 2 of 2 results
 ```
@@ -452,12 +452,12 @@ Showing 2 of 2 results
 **JSON format** outputs the full entity objects:
 
 ```
-$ codegraph query "parser" --format json
+$ knowgraph query "parser" --format json
 [
   {
     "name": "createDefaultRegistry",
     "entityType": "module",
-    "owner": "codegraph-core",
+    "owner": "knowgraph-core",
     ...
   }
 ]
@@ -467,7 +467,7 @@ The table formatter truncates long values: names at 30 characters, file paths at
 
 ### Error Handling
 
-If the database file does not exist or cannot be opened, the command prints an error message and suggests running `codegraph index` first. Query failures (e.g., malformed SQL from bad input) are caught and reported with exit code 1.
+If the database file does not exist or cannot be opened, the command prints an error message and suggests running `knowgraph index` first. Query failures (e.g., malformed SQL from bad input) are caught and reported with exit code 1.
 
 ---
 
@@ -481,31 +481,31 @@ Starts the MCP (Model Context Protocol) server, enabling AI assistants like Clau
 
 ```bash
 # Start with default database path
-codegraph serve
+knowgraph serve
 
 # Custom database path
-codegraph serve --db ./my-db/codegraph.db
+knowgraph serve --db ./my-db/knowgraph.db
 
 # Verbose logging
-codegraph serve --verbose
+knowgraph serve --verbose
 ```
 
 ### Options
 
 | Flag | Description | Default |
 |---|---|---|
-| `--db <path>` | Path to the SQLite database | `.codegraph/codegraph.db` |
+| `--db <path>` | Path to the SQLite database | `.knowgraph/knowgraph.db` |
 | `--verbose` | Enable verbose logging | off |
 
 ### Execution Flow
 
 ```mermaid
 flowchart TD
-    A["codegraph serve"] --> B["Resolve database path"]
+    A["knowgraph serve"] --> B["Resolve database path"]
     B --> C{"Database file exists?"}
-    C -- "No" --> D["Print error: run 'codegraph index' first"]
+    C -- "No" --> D["Print error: run 'knowgraph index' first"]
     C -- "Yes" --> E["Print server info and<br/>Claude Desktop config snippet"]
-    E --> F["Dynamic import @codegraph/mcp-server"]
+    E --> F["Dynamic import @knowgraph/mcp-server"]
     F --> G["startServer(dbPath, verbose)"]
     G --> H["Server runs on stdio transport"]
 ```
@@ -515,17 +515,17 @@ flowchart TD
 On startup, the command prints a ready-to-use JSON configuration snippet for Claude Desktop:
 
 ```
-$ codegraph serve
-Starting CodeGraph MCP server...
-  Database: /project/.codegraph/codegraph.db
+$ knowgraph serve
+Starting KnowGraph MCP server...
+  Database: /project/.knowgraph/knowgraph.db
 
 Add this to your Claude Desktop config:
 
 {
   "mcpServers": {
-    "codegraph": {
+    "knowgraph": {
       "command": "npx",
-      "args": ["codegraph", "serve", "--db", "/project/.codegraph/codegraph.db"]
+      "args": ["knowgraph", "serve", "--db", "/project/.knowgraph/knowgraph.db"]
     }
   }
 }
@@ -533,7 +533,7 @@ Add this to your Claude Desktop config:
 
 ### Dynamic Import
 
-The `@codegraph/mcp-server` package is imported dynamically (`await import(...)`) so the CLI does not require the MCP server dependency to be loaded for non-serve commands. If the import fails, the error is caught and reported.
+The `@knowgraph/mcp-server` package is imported dynamically (`await import(...)`) so the CLI does not require the MCP server dependency to be loaded for non-serve commands. If the import fails, the error is caught and reported.
 
 ---
 

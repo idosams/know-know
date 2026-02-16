@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: function
 description: A sample function for testing
 owner: test-team
@@ -11,7 +11,7 @@ tags:
 def sample_function(x, y):
     """Add two numbers together.
 
-    @codegraph
+    @knowgraph
     type: function
     description: Adds two numbers and returns the result
     owner: test-team
@@ -25,7 +25,7 @@ def sample_function(x, y):
 
 class SampleClass:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: A sample class for testing
     owner: test-team
@@ -36,7 +36,7 @@ class SampleClass:
 
     def method_one(self):
         """
-        @codegraph
+        @knowgraph
         type: method
         description: First method of the sample class
         owner: test-team

@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Email service for transactional and marketing emails using SendGrid
  * owner: platform-team
@@ -14,7 +14,7 @@
  */
 
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: Service class managing email template rendering and delivery through SendGrid
  * owner: platform-team
@@ -25,7 +25,7 @@
  */
 export class EmailService {
   /**
-   * @codegraph
+   * @knowgraph
    * type: method
    * description: Sends a welcome email to newly registered users with account verification link
    * owner: platform-team
@@ -45,7 +45,7 @@ export class EmailService {
   }
 
   /**
-   * @codegraph
+   * @knowgraph
    * type: method
    * description: Sends a password reset email with a time-limited reset token
    * owner: platform-team
@@ -66,7 +66,7 @@ export class EmailService {
   }
 
   /**
-   * @codegraph
+   * @knowgraph
    * type: method
    * description: Sends a notification email when someone comments on the user's blog post
    * owner: platform-team

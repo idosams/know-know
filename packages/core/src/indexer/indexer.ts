@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: File system scanner and indexer with incremental updates and .gitignore support
- * owner: codegraph-core
+ * owner: knowgraph-core
  * status: stable
  * tags: [indexer, scanner, incremental, filesystem]
  * context:

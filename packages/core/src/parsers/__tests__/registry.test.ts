@@ -55,7 +55,7 @@ describe('ParserRegistry', () => {
   describe('parseFile', () => {
     it('parses Python files through registry', () => {
       const content = `"""
-@codegraph
+@knowgraph
 type: module
 description: Test module
 """
@@ -68,7 +68,7 @@ description: Test module
     it('parses TypeScript files through registry', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Test function
  */
@@ -81,7 +81,7 @@ export function testFn(): void {}
 
     it('uses generic parser for unknown extensions', () => {
       const content = `
-/* @codegraph
+/* @knowgraph
 type: module
 description: A Go module
 */
@@ -91,7 +91,7 @@ description: A Go module
       expect(results[0]?.entityType).toBe('module');
     });
 
-    it('returns empty array for files without codegraph annotations', () => {
+    it('returns empty array for files without knowgraph annotations', () => {
       const content = 'const x = 1;';
       const results = registry.parseFile(content, 'plain.ts');
       expect(results).toHaveLength(0);

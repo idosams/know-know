@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: MCP tool that finds code entities belonging to a specific team or owner
- * owner: codegraph-mcp
+ * owner: knowgraph-mcp
  * status: stable
  * tags: [mcp, tool, owner, team]
  * context:

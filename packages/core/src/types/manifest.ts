@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
- * description: Zod schema and types for .codegraph.yml project manifest files
- * owner: codegraph-core
+ * description: Zod schema and types for .knowgraph.yml project manifest files
+ * owner: knowgraph-core
  * status: stable
  * tags: [schema, config, manifest, zod]
  * context:
@@ -51,7 +51,7 @@ export const ConnectorsSchema = z.object({
 });
 
 export const IndexConfigSchema = z.object({
-  output_dir: z.string().default('.codegraph'),
+  output_dir: z.string().default('.knowgraph'),
   incremental: z.boolean().default(true),
 });
 

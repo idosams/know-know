@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
- * description: Extracts and validates @codegraph YAML metadata from comment blocks
- * owner: codegraph-core
+ * description: Extracts and validates @knowgraph YAML metadata from comment blocks
+ * owner: knowgraph-core
  * status: stable
  * tags: [parser, yaml, extraction, metadata]
  * context:
@@ -47,11 +47,11 @@ function dedent(text: string): string {
 }
 
 /**
- * Extract the YAML content following a @codegraph marker from a comment block.
- * Returns null if no @codegraph marker is found.
+ * Extract the YAML content following a @knowgraph marker from a comment block.
+ * Returns null if no @knowgraph marker is found.
  */
-export function extractCodegraphYaml(commentBlock: string): string | null {
-  const marker = '@codegraph';
+export function extractKnowgraphYaml(commentBlock: string): string | null {
+  const marker = '@knowgraph';
   const markerIndex = commentBlock.indexOf(marker);
   if (markerIndex === -1) {
     return null;
@@ -76,7 +76,7 @@ export function extractCodegraphYaml(commentBlock: string): string | null {
 }
 
 /**
- * Parse YAML string and validate against codegraph schemas.
+ * Parse YAML string and validate against knowgraph schemas.
  * Tries ExtendedMetadataSchema first, then falls back to CoreMetadataSchema.
  */
 export function parseAndValidateMetadata(
@@ -151,13 +151,13 @@ export function parseAndValidateMetadata(
 }
 
 /**
- * Extract and validate @codegraph metadata from a comment block.
+ * Extract and validate @knowgraph metadata from a comment block.
  */
 export function extractMetadata(
   commentBlock: string,
   baseLineOffset: number = 0,
 ): ExtractionResult {
-  const yamlContent = extractCodegraphYaml(commentBlock);
+  const yamlContent = extractKnowgraphYaml(commentBlock);
   if (yamlContent === null) {
     return {
       metadata: null,

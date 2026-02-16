@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: Parser and ParserRegistry interfaces for the language parser system
- * owner: codegraph-core
+ * owner: knowgraph-core
  * status: stable
  * tags: [parser, types, interface, registry]
  * context:

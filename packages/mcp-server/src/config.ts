@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Claude Desktop MCP configuration generator
- * owner: codegraph-mcp
+ * owner: knowgraph-mcp
  * status: stable
  * tags: [mcp, config, claude-desktop]
  * context:
@@ -14,14 +14,14 @@ import path from 'node:path';
 export function generateClaudeDesktopConfig(projectPath: string): object {
   return {
     mcpServers: {
-      codegraph: {
+      knowgraph: {
         command: 'node',
         args: [
           path.join(
             projectPath,
-            'node_modules/@codegraph/mcp-server/dist/index.js',
+            'node_modules/@knowgraph/mcp-server/dist/index.js',
           ),
-          path.join(projectPath, '.codegraph/codegraph.db'),
+          path.join(projectPath, '.knowgraph/knowgraph.db'),
         ],
       },
     },

@@ -30,17 +30,17 @@ jobs:
       - run: pnpm turbo typecheck
 
       # Publish in dependency order: core → mcp-server → cli
-      - name: Publish @codegraph/core
-        run: pnpm --filter @codegraph/core publish --no-git-checks --provenance
+      - name: Publish @knowgraph/core
+        run: pnpm --filter @knowgraph/core publish --no-git-checks --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish @codegraph/mcp-server
-        run: pnpm --filter @codegraph/mcp-server publish --no-git-checks --provenance
+      - name: Publish @knowgraph/mcp-server
+        run: pnpm --filter @knowgraph/mcp-server publish --no-git-checks --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish @codegraph/cli
-        run: pnpm --filter @codegraph/cli publish --no-git-checks --provenance
+      - name: Publish @knowgraph/cli
+        run: pnpm --filter @knowgraph/cli publish --no-git-checks --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

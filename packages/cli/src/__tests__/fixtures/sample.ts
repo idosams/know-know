@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: A sample TypeScript function
  * owner: ts-team
@@ -13,7 +13,7 @@ export function sampleFunction(a: number, b: number): number {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: A sample TypeScript class
  * owner: ts-team
@@ -21,7 +21,7 @@ export function sampleFunction(a: number, b: number): number {
  */
 export class SampleClass {
   /**
-   * @codegraph
+   * @knowgraph
    * type: method
    * description: A method in the sample class
    * owner: ts-team

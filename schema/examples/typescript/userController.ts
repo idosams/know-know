@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: REST controller handling user CRUD operations and profile management
  * owner: platform-team
@@ -35,7 +35,7 @@ interface CreateUserRequest {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: REST controller handling user CRUD operations
  * owner: platform-team
@@ -44,7 +44,7 @@ interface CreateUserRequest {
  */
 export class UserController {
   /**
-   * @codegraph
+   * @knowgraph
    * type: method
    * description: Creates a new user account with validation and duplicate checking
    * owner: platform-team
@@ -60,7 +60,7 @@ export class UserController {
   }
 
   /**
-   * @codegraph
+   * @knowgraph
    * type: method
    * description: Retrieves a user by their unique identifier
    * owner: platform-team
@@ -72,7 +72,7 @@ export class UserController {
   }
 
   /**
-   * @codegraph
+   * @knowgraph
    * type: method
    * description: Soft-deletes a user account and triggers data cleanup workflows
    * owner: platform-team

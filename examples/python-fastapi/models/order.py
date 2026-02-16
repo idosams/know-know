@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: Order data models and Pydantic schemas for order management
 owner: orders-team
@@ -18,7 +18,7 @@ from datetime import datetime
 @dataclass(frozen=True)
 class OrderLineItem:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Represents a single line item within an order with product reference and quantity
     owner: orders-team
@@ -33,7 +33,7 @@ class OrderLineItem:
 @dataclass(frozen=True)
 class OrderCreate:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Pydantic schema for order creation requests with line items and shipping details
     owner: orders-team
@@ -48,7 +48,7 @@ class OrderCreate:
 @dataclass(frozen=True)
 class OrderResponse:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Pydantic schema for order API responses including fulfillment tracking info
     owner: orders-team

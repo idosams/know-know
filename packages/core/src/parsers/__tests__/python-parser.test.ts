@@ -11,9 +11,9 @@ describe('PythonParser', () => {
   });
 
   describe('module-level docstrings', () => {
-    it('parses module-level docstring with @codegraph', () => {
+    it('parses module-level docstring with @knowgraph', () => {
       const content = `"""
-@codegraph
+@knowgraph
 type: module
 description: User authentication service
 owner: auth-team
@@ -36,7 +36,7 @@ import os
       const content = `#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-@codegraph
+@knowgraph
 type: module
 description: CLI entry point
 """
@@ -49,11 +49,11 @@ description: CLI entry point
   });
 
   describe('function docstrings', () => {
-    it('parses function with @codegraph docstring', () => {
+    it('parses function with @knowgraph docstring', () => {
       const content = `
 def authenticate_user(email: str, password: str) -> AuthResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Authenticates user credentials and returns JWT token
     owner: auth-team
@@ -76,7 +76,7 @@ def authenticate_user(email: str, password: str) -> AuthResult:
       const content = `
 async def fetch_user(user_id: int) -> User:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Fetches user from database
     """
@@ -90,11 +90,11 @@ async def fetch_user(user_id: int) -> User:
   });
 
   describe('class docstrings', () => {
-    it('parses class with @codegraph docstring', () => {
+    it('parses class with @knowgraph docstring', () => {
       const content = `
 class UserService:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Service for user operations
     owner: platform-team
@@ -111,14 +111,14 @@ class UserService:
       const content = `
 class UserService:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Service for user operations
     """
 
     def create_user(self, name: str) -> User:
         """
-        @codegraph
+        @knowgraph
         type: method
         description: Creates a new user
         """
@@ -126,7 +126,7 @@ class UserService:
 
     def delete_user(self, user_id: int) -> None:
         """
-        @codegraph
+        @knowgraph
         type: method
         description: Deletes a user by ID
         """
@@ -156,7 +156,7 @@ class UserService:
 @requires_auth
 def get_user(user_id: int) -> User:
     """
-    @codegraph
+    @knowgraph
     type: api_endpoint
     description: Get user by ID
     """
@@ -170,7 +170,7 @@ def get_user(user_id: int) -> User:
   });
 
   describe('error handling', () => {
-    it('handles missing @codegraph gracefully', () => {
+    it('handles missing @knowgraph gracefully', () => {
       const content = `
 def simple_function():
     """This is just a regular docstring."""
@@ -184,7 +184,7 @@ def simple_function():
       const content = `
 def broken():
     """
-    @codegraph
+    @knowgraph
     type: [invalid yaml
     """
     pass
@@ -212,7 +212,7 @@ print(x + y)
       const content = `
 def test():
     """
-    @codegraph
+    @knowgraph
     type: invalid_type
     description: This has an invalid type
     """
@@ -228,7 +228,7 @@ def test():
       const content = `
 def tagged_func():
     """
-    @codegraph
+    @knowgraph
     type: function
     description: A tagged function
     tags: [alpha, beta, gamma]
@@ -244,7 +244,7 @@ def tagged_func():
       const content = `
 def stable_func():
     """
-    @codegraph
+    @knowgraph
     type: function
     description: A stable function
     status: stable
@@ -260,7 +260,7 @@ def stable_func():
   describe('file path handling', () => {
     it('extracts module name from file path', () => {
       const content = `"""
-@codegraph
+@knowgraph
 type: module
 description: Test module
 """
@@ -272,7 +272,7 @@ description: Test module
 
     it('handles .pyi stub files', () => {
       const content = `"""
-@codegraph
+@knowgraph
 type: module
 description: Type stubs
 """

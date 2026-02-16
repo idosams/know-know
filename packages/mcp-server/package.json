@@ -1,7 +1,7 @@
 {
-  "name": "@codegraph/mcp-server",
+  "name": "@knowgraph/mcp-server",
   "version": "0.2.0",
-  "description": "MCP server for CodeGraph",
+  "description": "MCP server for KnowGraph",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -14,7 +14,7 @@
     "url": "https://github.com/idosams/know-know/issues"
   },
   "keywords": [
-    "codegraph",
+    "knowgraph",
     "mcp",
     "model-context-protocol",
     "ai",
@@ -34,7 +34,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "codegraph-mcp": "dist/index.js"
+    "knowgraph-mcp": "dist/index.js"
   },
   "publishConfig": {
     "access": "public"
@@ -47,7 +47,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@codegraph/core": "workspace:*",
+    "@knowgraph/core": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.0.0",
     "better-sqlite3": "^11.0.0",
     "zod": "^3.24.0"

@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Express authentication middleware for JWT token validation and user context injection
  * owner: platform-team
@@ -38,7 +38,7 @@ declare global {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Express middleware that validates JWT Bearer tokens and attaches user context to the request
  * owner: platform-team

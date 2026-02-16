@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Blog post entity model and type definitions
  * owner: content-team
@@ -8,7 +8,7 @@
  */
 
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: Blog post entity representing a published or draft article
  * owner: content-team
@@ -30,7 +30,7 @@ export interface Post {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: Input schema for creating a new blog post
  * owner: content-team
@@ -45,7 +45,7 @@ export interface CreatePostInput {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: Input schema for updating an existing blog post
  * owner: content-team

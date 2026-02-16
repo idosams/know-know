@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: Product data models and Pydantic schemas for catalog management
 owner: catalog-team
@@ -15,7 +15,7 @@ from datetime import datetime
 @dataclass(frozen=True)
 class ProductCreate:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Pydantic schema for product creation requests with required catalog fields
     owner: catalog-team
@@ -33,7 +33,7 @@ class ProductCreate:
 @dataclass(frozen=True)
 class ProductResponse:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Pydantic schema for product API responses including availability status
     owner: catalog-team

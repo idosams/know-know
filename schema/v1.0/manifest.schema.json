@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://codegraph.dev/schema/v1.0/manifest.json",
-  "title": "CodeGraph Manifest",
-  "description": "Schema for .codegraph.yml repository configuration file",
+  "$id": "https://knowgraph.dev/schema/v1.0/manifest.json",
+  "title": "KnowGraph Manifest",
+  "description": "Schema for .knowgraph.yml repository configuration file",
   "type": "object",
   "required": ["version"],
   "properties": {
@@ -69,7 +69,7 @@
         "annotation_style": {
           "type": "string",
           "enum": ["jsdoc", "docstring", "line_comment", "block_comment"],
-          "description": "How @codegraph annotations are written in this language"
+          "description": "How @knowgraph annotations are written in this language"
         }
       },
       "additionalProperties": false
@@ -142,7 +142,7 @@
       "properties": {
         "output_dir": {
           "type": "string",
-          "default": ".codegraph",
+          "default": ".knowgraph",
           "description": "Directory for generated index files"
         },
         "incremental": {

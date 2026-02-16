@@ -1,6 +1,6 @@
 # TypeScript Express Example
 
-A fully annotated blog platform API demonstrating CodeGraph annotations in TypeScript.
+A fully annotated blog platform API demonstrating KnowGraph annotations in TypeScript.
 
 ## Project Structure
 
@@ -31,7 +31,7 @@ Every module includes business context metadata:
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Express application entry point for the blog platform API
  * owner: platform-team
@@ -49,7 +49,7 @@ User-related modules demonstrate GDPR compliance annotations:
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: User data model with profile and preferences
  * compliance:
@@ -64,7 +64,7 @@ Services declare their dependencies and operational metadata:
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * dependencies:
  *   services: [auth-service, media-service]
  *   databases: [postgres-main, redis-cache]
@@ -78,7 +78,7 @@ Services declare their dependencies and operational metadata:
 
 ```bash
 # From the repository root
-codegraph index examples/typescript-express
-codegraph query --owner "platform-team"
-codegraph query "authentication"
+knowgraph index examples/typescript-express
+knowgraph query --owner "platform-team"
+knowgraph query "authentication"
 ```

@@ -7,7 +7,7 @@ export type {
   ParserRegistry as ParserRegistryInterface,
 } from './parsers/types.js';
 export {
-  extractCodegraphYaml,
+  extractKnowgraphYaml,
   parseAndValidateMetadata,
   extractMetadata,
 } from './parsers/metadata-extractor.js';

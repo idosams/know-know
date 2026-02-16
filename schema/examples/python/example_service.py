@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: User authentication service handling login, registration, and token management
 owner: auth-team
@@ -42,7 +42,7 @@ class AuthResult:
 
 def authenticate_user(email: str, password: str) -> AuthResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Authenticates user credentials and returns JWT token
     owner: auth-team
@@ -58,7 +58,7 @@ def authenticate_user(email: str, password: str) -> AuthResult:
 
 def register_user(email: str, password: str, name: str) -> AuthResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Creates a new user account and sends verification email
     owner: auth-team
@@ -75,7 +75,7 @@ def register_user(email: str, password: str, name: str) -> AuthResult:
 
 def refresh_token(token: str) -> AuthResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Refreshes an expired JWT token using the refresh token
     owner: auth-team

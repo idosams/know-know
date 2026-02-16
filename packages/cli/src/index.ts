@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: CLI entrypoint that registers all commands and parses arguments
- * owner: codegraph-cli
+ * owner: knowgraph-cli
  * status: stable
  * tags: [cli, entrypoint, commander]
  * context:
- *   business_goal: Provide the main codegraph command-line interface
+ *   business_goal: Provide the main knowgraph command-line interface
  *   domain: cli
  */
 import { Command } from 'commander';
@@ -22,7 +22,7 @@ import {
 const program = new Command();
 
 program
-  .name('codegraph')
+  .name('knowgraph')
   .description('AI-navigable code documentation tool')
   .version('0.1.0');
 

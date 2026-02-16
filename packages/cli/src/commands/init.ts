@@ -1,12 +1,12 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
- * description: CLI command that initializes a new .codegraph.yml project configuration
- * owner: codegraph-cli
+ * description: CLI command that initializes a new .knowgraph.yml project configuration
+ * owner: knowgraph-cli
  * status: stable
  * tags: [cli, command, init, setup]
  * context:
- *   business_goal: Provide guided onboarding for new CodeGraph users
+ *   business_goal: Provide guided onboarding for new KnowGraph users
  *   domain: cli
  */
 import { writeFileSync, existsSync } from 'node:fs';
@@ -32,7 +32,7 @@ function generateManifest(
     include: ['**/*'],
     exclude: ['node_modules', '.git', 'dist', 'build', '__pycache__'],
     index: {
-      output_dir: '.codegraph',
+      output_dir: '.knowgraph',
       incremental: true,
     },
   };
@@ -40,16 +40,16 @@ function generateManifest(
 
 async function runInit(options: InitOptions): Promise<void> {
   const dir = resolve('.');
-  const configPath = resolve('.codegraph.yml');
+  const configPath = resolve('.knowgraph.yml');
 
   if (existsSync(configPath) && !options.yes) {
     console.log(
-      chalk.yellow('.codegraph.yml already exists. Use -y to overwrite.'),
+      chalk.yellow('.knowgraph.yml already exists. Use -y to overwrite.'),
     );
     return;
   }
 
-  console.log(chalk.bold('Initializing CodeGraph...'));
+  console.log(chalk.bold('Initializing KnowGraph...'));
   console.log('');
 
   // Step 1: Detect languages
@@ -84,11 +84,11 @@ async function runInit(options: InitOptions): Promise<void> {
     }
   }
 
-  // Step 3: Generate .codegraph.yml
+  // Step 3: Generate .knowgraph.yml
   const manifest = generateManifest(projectName, languages);
   const yamlContent = stringify(manifest);
   writeFileSync(configPath, yamlContent, 'utf-8');
-  console.log(`\nCreated ${chalk.green('.codegraph.yml')}`);
+  console.log(`\nCreated ${chalk.green('.knowgraph.yml')}`);
 
   // Step 4: Suggest high-impact files
   const suggested = suggestFiles(dir);
@@ -103,18 +103,18 @@ async function runInit(options: InitOptions): Promise<void> {
   // Step 5: Next steps
   console.log('');
   console.log(chalk.bold('Next steps:'));
-  console.log(`  1. Add ${chalk.cyan('@codegraph')} annotations to your code`);
-  console.log(`  2. Run ${chalk.cyan('codegraph index')} to build the graph`);
+  console.log(`  1. Add ${chalk.cyan('@knowgraph')} annotations to your code`);
+  console.log(`  2. Run ${chalk.cyan('knowgraph index')} to build the graph`);
   console.log(
-    `  3. Run ${chalk.cyan('codegraph serve')} to start the MCP server`,
+    `  3. Run ${chalk.cyan('knowgraph serve')} to start the MCP server`,
   );
-  console.log(`  4. Run ${chalk.cyan('codegraph query <term>')} to search`);
+  console.log(`  4. Run ${chalk.cyan('knowgraph query <term>')} to search`);
 }
 
 export function registerInitCommand(program: Command): void {
   program
     .command('init')
-    .description('Initialize CodeGraph in the current directory')
+    .description('Initialize KnowGraph in the current directory')
     .option('--name <name>', 'Project name')
     .option('-y, --yes', 'Non-interactive mode, use defaults')
     .action((options: InitOptions) => {

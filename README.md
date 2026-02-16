@@ -1,12 +1,12 @@
-# CodeGraph
+# KnowGraph
 
 [![CI](https://github.com/idosams/know-know/actions/workflows/ci.yml/badge.svg)](https://github.com/idosams/know-know/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/@codegraph/cli.svg)](https://www.npmjs.com/package/@codegraph/cli)
+[![npm version](https://img.shields.io/npm/v/@knowgraph/cli.svg)](https://www.npmjs.com/package/@knowgraph/cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > Make your codebase AI-navigable by bridging code documentation with business context
 
-CodeGraph is an open-source documentation orchestration tool that extracts structured metadata from code annotations and builds a queryable knowledge graph. AI coding assistants can then understand not just *what* your code does, but *why* it exists and how it connects to business goals.
+KnowGraph is an open-source documentation orchestration tool that extracts structured metadata from code annotations and builds a queryable knowledge graph. AI coding assistants can then understand not just *what* your code does, but *why* it exists and how it connects to business goals.
 
 ## Table of Contents
 
@@ -31,7 +31,7 @@ AI coding assistants are great at reading code, but they lack context about:
 - **What** compliance requirements apply (GDPR, PCI-DSS, SOC2)
 - **How** it fits into the bigger picture (dependencies, funnel stage, revenue impact)
 
-CodeGraph solves this by letting you annotate your code with structured metadata that AI assistants can query.
+KnowGraph solves this by letting you annotate your code with structured metadata that AI assistants can query.
 
 ## Features
 
@@ -47,20 +47,20 @@ CodeGraph solves this by letting you annotate your code with structured metadata
 ### Installation
 
 ```bash
-npm install -g @codegraph/cli
+npm install -g @knowgraph/cli
 # or
-pnpm add -g @codegraph/cli
+pnpm add -g @knowgraph/cli
 ```
 
 ### 1. Annotate your code
 
-Add `@codegraph` annotations to your existing docstrings and comments:
+Add `@knowgraph` annotations to your existing docstrings and comments:
 
 **Python:**
 ```python
 def process_payment(customer_id: str, amount_cents: int) -> PaymentResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Processes a one-time payment charge through Stripe
     owner: payments-team
@@ -79,7 +79,7 @@ def process_payment(customer_id: str, amount_cents: int) -> PaymentResult:
 **TypeScript:**
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: REST controller handling user CRUD operations
  * owner: platform-team
@@ -100,7 +100,7 @@ export class UserController {
 
 **Go:**
 ```go
-// codegraph:
+// knowgraph:
 //   type: function
 //   description: HTTP handler for user registration
 //   owner: auth-team
@@ -114,7 +114,7 @@ func HandleRegister(w http.ResponseWriter, r *http.Request) {
 **Java:**
 ```java
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: Service handling payment processing and refunds
  * owner: payments-team
@@ -129,25 +129,25 @@ public class PaymentService {
 ### 2. Build the index
 
 ```bash
-codegraph index ./src
+knowgraph index ./src
 ```
 
-This parses all annotated files and creates a SQLite database at `.codegraph/codegraph.db`.
+This parses all annotated files and creates a SQLite database at `.knowgraph/knowgraph.db`.
 
 ### 3. Query your codebase
 
 ```bash
 # Full-text search
-codegraph query "authentication"
+knowgraph query "authentication"
 
 # Filter by owner
-codegraph query --owner "auth-team"
+knowgraph query --owner "auth-team"
 
 # Filter by tags
-codegraph query --tags "security,auth"
+knowgraph query --tags "security,auth"
 
 # Filter by entity type
-codegraph query --type "function"
+knowgraph query --type "function"
 ```
 
 ### 4. Connect to Claude Code / Claude Desktop
@@ -155,7 +155,7 @@ codegraph query --type "function"
 Start the MCP server:
 
 ```bash
-codegraph serve
+knowgraph serve
 ```
 
 Or add to your Claude Desktop configuration:
@@ -163,9 +163,9 @@ Or add to your Claude Desktop configuration:
 ```json
 {
   "mcpServers": {
-    "codegraph": {
-      "command": "codegraph",
-      "args": ["serve", "--db", ".codegraph/codegraph.db"]
+    "knowgraph": {
+      "command": "knowgraph",
+      "args": ["serve", "--db", ".knowgraph/knowgraph.db"]
     }
   }
 }
@@ -173,7 +173,7 @@ Or add to your Claude Desktop configuration:
 
 ## Annotation Format
 
-All annotations use YAML inside your language's standard comment format, prefixed with `@codegraph` (or `codegraph:` for Go-style comments).
+All annotations use YAML inside your language's standard comment format, prefixed with `@knowgraph` (or `knowgraph:` for Go-style comments).
 
 ### Core Fields (required: `type`, `description`)
 
@@ -216,15 +216,15 @@ links:
 
 | Command | Description |
 |---------|-------------|
-| `codegraph init` | Initialize CodeGraph in a project (creates `.codegraph/` directory) |
-| `codegraph parse <path>` | Parse annotated files and output extracted entities as JSON |
-| `codegraph index <path>` | Parse and index files into the SQLite database |
-| `codegraph query <text>` | Search the index with full-text search and filters |
-| `codegraph serve` | Start the MCP server for AI assistant integration |
+| `knowgraph init` | Initialize KnowGraph in a project (creates `.knowgraph/` directory) |
+| `knowgraph parse <path>` | Parse annotated files and output extracted entities as JSON |
+| `knowgraph index <path>` | Parse and index files into the SQLite database |
+| `knowgraph query <text>` | Search the index with full-text search and filters |
+| `knowgraph serve` | Start the MCP server for AI assistant integration |
 
 ## MCP Server Tools
 
-When running as an MCP server, CodeGraph exposes 7 tools:
+When running as an MCP server, KnowGraph exposes 7 tools:
 
 | Tool | Description |
 |------|-------------|
@@ -263,9 +263,9 @@ When running as an MCP server, CodeGraph exposes 7 tools:
 
 | Package | Description |
 |---------|-------------|
-| `@codegraph/core` | Parsers, indexer, query engine |
-| `@codegraph/cli` | Command-line interface |
-| `@codegraph/mcp-server` | MCP server for AI integration |
+| `@knowgraph/core` | Parsers, indexer, query engine |
+| `@knowgraph/cli` | Command-line interface |
+| `@knowgraph/mcp-server` | MCP server for AI integration |
 
 ## Examples
 

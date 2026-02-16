@@ -1,4 +1,4 @@
-# CodeGraph Decision Log
+# KnowGraph Decision Log
 # Architecture Decision Records (ADRs) in YAML format
 # Last updated: 2026-02-15
 
@@ -9,15 +9,15 @@ decisions:
     date: 2026-02-14
     status: accepted
     context: >
-      CodeGraph has multiple packages (core, cli, mcp-server) that share
+      KnowGraph has multiple packages (core, cli, mcp-server) that share
       types and utilities. Need a structure that supports independent
       versioning while sharing code.
     decision: >
       Use pnpm workspaces for dependency management and Turborepo for
-      build orchestration. Three packages: @codegraph/core, @codegraph/cli,
-      @codegraph/mcp-server.
+      build orchestration. Three packages: @knowgraph/core, @knowgraph/cli,
+      @knowgraph/mcp-server.
     consequences:
-      - Shared types via @codegraph/core dependency
+      - Shared types via @knowgraph/core dependency
       - Parallel builds with Turborepo caching
       - Single CI pipeline for all packages
     alternatives:
@@ -35,7 +35,7 @@ decisions:
       that supports full-text search and works without external services.
     decision: >
       Use SQLite via better-sqlite3 with FTS5 virtual tables for full-text
-      search. Single .codegraph/index.db file per project.
+      search. Single .knowgraph/index.db file per project.
     consequences:
       - Zero-config storage (no database server needed)
       - Fast full-text search via FTS5
@@ -75,7 +75,7 @@ decisions:
     date: 2026-02-14
     status: accepted
     context: >
-      Need runtime validation for @codegraph metadata extracted from code
+      Need runtime validation for @knowgraph metadata extracted from code
       comments, with TypeScript type safety.
     decision: >
       Use Zod schemas as the single source of truth for both runtime
@@ -95,7 +95,7 @@ decisions:
     date: 2026-02-14
     status: accepted
     context: >
-      Need to extract @codegraph metadata from code comments across
+      Need to extract @knowgraph metadata from code comments across
       multiple languages. AST-based parsing is more robust but requires
       per-language parser implementations.
     decision: >
@@ -142,8 +142,8 @@ decisions:
       metadata. Must be readable, writable by humans, and parseable by tools.
     decision: >
       Use YAML blocks inside language-native comments, triggered by the
-      @codegraph marker. Example for TypeScript:
-      /** @codegraph
+      @knowgraph marker. Example for TypeScript:
+      /** @knowgraph
        * type: module
        * description: ...
        */
@@ -165,7 +165,7 @@ decisions:
     date: 2026-02-14
     status: accepted
     context: >
-      Need a CLI framework for the codegraph command with subcommands
+      Need a CLI framework for the knowgraph command with subcommands
       (parse, index, query, serve, init).
     decision: >
       Use Commander.js for CLI argument parsing and command routing.
@@ -214,7 +214,7 @@ decisions:
     decision: >
       Define a Connector interface with standard lifecycle methods
       (authenticate, sync, validate). Each connector is a separate
-      npm package (@codegraph/connector-*).
+      npm package (@knowgraph/connector-*).
     consequences:
       - Clean separation of concerns
       - Users install only connectors they need

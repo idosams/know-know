@@ -11,7 +11,7 @@ import type { ParseResult } from '../../types/index.js';
 function createTempDir(): string {
   const dir = join(
     tmpdir(),
-    `codegraph-test-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+    `knowgraph-test-${Date.now()}-${Math.random().toString(36).slice(2)}`,
   );
   mkdirSync(dir, { recursive: true });
   return dir;

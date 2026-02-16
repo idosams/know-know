@@ -1,6 +1,6 @@
 # Annotation Guide & Schema Reference
 
-CodeGraph annotations are structured YAML metadata embedded in source code comments. They describe what code does, who owns it, how it connects to business goals, and what compliance requirements it must meet. The indexer extracts these annotations and builds a queryable knowledge graph.
+KnowGraph annotations are structured YAML metadata embedded in source code comments. They describe what code does, who owns it, how it connects to business goals, and what compliance requirements it must meet. The indexer extracts these annotations and builds a queryable knowledge graph.
 
 ## Table of Contents
 
@@ -26,12 +26,12 @@ CodeGraph annotations are structured YAML metadata embedded in source code comme
 
 ## How Annotations Work
 
-### The `@codegraph` Marker
+### The `@knowgraph` Marker
 
-Every annotation begins with the `@codegraph` marker. This marker tells the parser that the YAML content following it should be extracted and validated. Without this marker, the comment is ignored.
+Every annotation begins with the `@knowgraph` marker. This marker tells the parser that the YAML content following it should be extracted and validated. Without this marker, the comment is ignored.
 
 ```
-@codegraph
+@knowgraph
 type: function
 description: Processes a payment charge through Stripe
 ```
@@ -49,7 +49,7 @@ flowchart TD
     A[Source File] --> B[Language Parser]
     B --> C{Find comment blocks}
     C --> D[Strip comment characters]
-    D --> E{Contains @codegraph marker?}
+    D --> E{Contains @knowgraph marker?}
     E -- No --> F[Skip]
     E -- Yes --> G[Extract YAML after marker]
     G --> H[Dedent & normalize whitespace]
@@ -67,8 +67,8 @@ flowchart TD
 
 1. **Language parser** scans the file for comment blocks (JSDoc, docstrings, line comments, etc.)
 2. **Comment stripping** removes language-specific comment characters (`*`, `#`, `//`)
-3. **Marker detection** checks whether `@codegraph` appears in the stripped content
-4. **YAML extraction** takes everything after the `@codegraph` marker
+3. **Marker detection** checks whether `@knowgraph` appears in the stripped content
+4. **YAML extraction** takes everything after the `@knowgraph` marker
 5. **Dedent** removes common leading whitespace (important for indented docstrings)
 6. **YAML parsing** converts the text to a structured object
 7. **Schema validation** tries `ExtendedMetadataSchema` first (includes context, dependencies, compliance, operational), then falls back to `CoreMetadataSchema`
@@ -76,7 +76,7 @@ flowchart TD
 
 ### Parser Selection
 
-CodeGraph selects the parser based on file extension:
+KnowGraph selects the parser based on file extension:
 
 | Parser     | Extensions                               |
 |------------|------------------------------------------|
@@ -100,7 +100,7 @@ Place the annotation at the top of the file, before any non-import code:
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Express application entry point for the blog platform API
  * owner: platform-team
@@ -125,7 +125,7 @@ import express from 'express';
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Registers a new user with email/password and returns a JWT
  * owner: platform-team
@@ -147,7 +147,7 @@ async function registerUser(req: Request, res: Response): Promise<void> {
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Validates request body against a Zod schema
  * owner: platform-team
@@ -163,7 +163,7 @@ export const validateBody = (schema: ZodSchema) => {
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: Service class managing email delivery through SendGrid
  * owner: platform-team
@@ -182,7 +182,7 @@ export class EmailService {
 ```typescript
 export class EmailService {
   /**
-   * @codegraph
+   * @knowgraph
    * type: method
    * description: Sends a welcome email to newly registered users
    * owner: platform-team
@@ -204,7 +204,7 @@ The parser automatically detects the enclosing class and sets the `parent` field
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: Core user entity representing a registered platform user
  * owner: platform-team
@@ -225,7 +225,7 @@ export interface User {
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: enum
  * description: Possible states of an order in the fulfillment pipeline
  * owner: orders-team
@@ -253,7 +253,7 @@ Place the docstring at the very top of the file (before imports):
 
 ```python
 """
-@codegraph
+@knowgraph
 type: module
 description: Payment processing service integrating with Stripe
 owner: payments-team
@@ -288,7 +288,7 @@ def process_payment(
     currency: str,
 ) -> PaymentResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Processes a one-time payment charge through Stripe
     owner: payments-team
@@ -310,7 +310,7 @@ def process_payment(
 @dataclass(frozen=True)
 class UserCreate:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Pydantic schema for user registration request validation
     owner: platform-team
@@ -333,7 +333,7 @@ class OrderService:
         order_data: OrderCreate,
     ) -> OrderResponse:
         """
-        @codegraph
+        @knowgraph
         type: method
         description: Creates a new order and initiates payment processing
         owner: orders-team
@@ -352,12 +352,12 @@ The parser uses indentation to detect the enclosing class, setting the `parent` 
 
 ### Go
 
-Go does not have block-level doc comments like JSDoc. Use consecutive line comments with the `@codegraph` marker. The generic parser handles Go files.
+Go does not have block-level doc comments like JSDoc. Use consecutive line comments with the `@knowgraph` marker. The generic parser handles Go files.
 
 #### Module-Level Annotation
 
 ```go
-// @codegraph
+// @knowgraph
 // type: module
 // description: HTTP handler package for the user management API
 // owner: platform-team
@@ -374,7 +374,7 @@ package handlers
 #### Function
 
 ```go
-// @codegraph
+// @knowgraph
 // type: function
 // description: Handles POST /users to create a new user account
 // owner: platform-team
@@ -398,7 +398,7 @@ Java annotations use JavaDoc comment blocks (`/** ... */`). The generic parser h
 
 ```java
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: REST controller for payment processing endpoints
  * owner: payments-team
@@ -422,7 +422,7 @@ public class PaymentController {
 
 ```java
 /**
- * @codegraph
+ * @knowgraph
  * type: method
  * description: Processes a payment charge and returns a transaction receipt
  * owner: payments-team
@@ -448,7 +448,7 @@ The generic parser works with any language that uses block comments (`/* */`, `"
 
 ```c
 /*
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Initializes the connection pool for the database
  * owner: infra-team
@@ -463,7 +463,7 @@ void init_connection_pool(Config *config) {
 #### Hash Comment Style (Ruby, Shell, etc.)
 
 ```ruby
-# @codegraph
+# @knowgraph
 # type: module
 # description: Background job processor for email delivery queue
 # owner: platform-team
@@ -479,7 +479,7 @@ end
 ```
 
 ```bash
-# @codegraph
+# @knowgraph
 # type: module
 # description: Deployment script for production environment
 # owner: devops-team
@@ -671,14 +671,14 @@ A well-annotated module-level comment can provide context for all the functions 
 ### Keeping Annotations Up to Date
 
 - **Code review**: Include annotation accuracy as part of pull request review. If the behavior changes, the annotation should change too.
-- **CI validation**: Run `codegraph index` in CI to catch YAML syntax errors and schema violations before merge.
+- **CI validation**: Run `knowgraph index` in CI to catch YAML syntax errors and schema violations before merge.
 - **Periodic audits**: Query the index for `status: deprecated` entities that still have dependents, or modules missing `owner`.
 
 ### Team Adoption
 
 1. **Start small**: Pick one service or package and annotate it fully. Use it as a reference for the rest of the team.
 2. **Provide templates**: Share copy-paste annotation templates for common patterns (see [Common Patterns](#common-patterns) below).
-3. **Automate validation**: Add `codegraph index` to your CI pipeline so broken annotations fail the build.
+3. **Automate validation**: Add `knowgraph index` to your CI pipeline so broken annotations fail the build.
 4. **Show value early**: Use queries to answer real questions ("who owns the payment module?", "what code is affected by PCI-DSS?") and share the results with the team.
 
 ---
@@ -691,7 +691,7 @@ The most common pattern. Provides context for an entire file.
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: <What this file does and why it exists>
  * owner: <team-name>
@@ -706,7 +706,7 @@ For functions that map directly to business operations:
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: <What this function does>
  * owner: <team-name>
@@ -725,7 +725,7 @@ Connect code to external documentation and project management:
 
 ```python
 """
-@codegraph
+@knowgraph
 type: module
 description: Order fulfillment pipeline
 owner: orders-team
@@ -749,7 +749,7 @@ For code handling sensitive data or subject to regulations:
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Processes credit card charges through Stripe
  * owner: payments-team
@@ -765,7 +765,7 @@ For code handling sensitive data or subject to regulations:
 This allows you to query all code subject to a specific regulation:
 
 ```bash
-codegraph query --filter 'compliance.regulations contains PCI-DSS'
+knowgraph query --filter 'compliance.regulations contains PCI-DSS'
 ```
 
 ### Dependency Mapping
@@ -774,7 +774,7 @@ For code with known runtime dependencies on services, APIs, or databases:
 
 ```python
 """
-@codegraph
+@knowgraph
 type: module
 description: Order processing service
 owner: orders-team
@@ -794,7 +794,7 @@ For production services where incident response matters:
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Core API gateway handling all inbound traffic
  * owner: platform-team
@@ -818,7 +818,7 @@ An annotation using every available field:
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Payment processing service handling charges, refunds, and subscriptions
  * owner: payments-team

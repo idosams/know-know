@@ -10,8 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - npm package publishing configuration for all packages (`files`, `exports`, `publishConfig`)
-- `"type": "module"` to `@codegraph/core` and `@codegraph/mcp-server`
-- `codegraph-mcp` binary for standalone MCP server usage
+- `"type": "module"` to `@knowgraph/core` and `@knowgraph/mcp-server`
+- `knowgraph-mcp` binary for standalone MCP server usage
 - MIT LICENSE file
 - README badges (CI, npm version, license) and table of contents
 - Contributing section in README linking to CONTRIBUTING.md
@@ -30,24 +30,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Core library** (`@codegraph/core`)
-  - Python parser for docstring-based `@codegraph` annotations
+- **Core library** (`@knowgraph/core`)
+  - Python parser for docstring-based `@knowgraph` annotations
   - TypeScript/JavaScript parser for JSDoc-based annotations
-  - Go parser for line-comment-based `codegraph:` annotations
+  - Go parser for line-comment-based `knowgraph:` annotations
   - Generic parser for any language using comment blocks
   - Metadata extractor with Zod schema validation
   - SQLite indexer with FTS5 full-text search
   - Query engine with filtering by owner, tags, type, and status
   - Parser registry with plugin architecture
 
-- **CLI** (`@codegraph/cli`)
-  - `codegraph init` — initialize CodeGraph in a project
-  - `codegraph parse <path>` — parse and output entities as JSON
-  - `codegraph index <path>` — parse and index into SQLite
-  - `codegraph query <text>` — full-text search with filters
-  - `codegraph serve` — start the MCP server
+- **CLI** (`@knowgraph/cli`)
+  - `knowgraph init` — initialize KnowGraph in a project
+  - `knowgraph parse <path>` — parse and output entities as JSON
+  - `knowgraph index <path>` — parse and index into SQLite
+  - `knowgraph query <text>` — full-text search with filters
+  - `knowgraph serve` — start the MCP server
 
-- **MCP Server** (`@codegraph/mcp-server`)
+- **MCP Server** (`@knowgraph/mcp-server`)
   - `search_code` — full-text search across entities
   - `find_by_owner` — find entities by team or person
   - `find_by_business_goal` — discover entities by business objective

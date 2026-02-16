@@ -35,10 +35,10 @@ importers:
 
   packages/cli:
     dependencies:
-      '@codegraph/core':
+      '@knowgraph/core':
         specifier: workspace:*
         version: link:../core
-      '@codegraph/mcp-server':
+      '@knowgraph/mcp-server':
         specifier: workspace:*
         version: link:../mcp-server
       chalk:
@@ -85,7 +85,7 @@ importers:
 
   packages/mcp-server:
     dependencies:
-      '@codegraph/core':
+      '@knowgraph/core':
         specifier: workspace:*
         version: link:../core
       '@modelcontextprotocol/sdk':

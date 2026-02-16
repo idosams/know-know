@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Request validation utilities for Express route handlers
  * owner: platform-team
@@ -10,7 +10,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Express middleware factory that validates request body against a Zod schema
  * owner: platform-team
@@ -29,7 +29,7 @@ export function validateBody(schema: { parse: (data: unknown) => unknown }) {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Express middleware factory that validates query parameters against a Zod schema
  * owner: platform-team

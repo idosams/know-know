@@ -1,20 +1,20 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://codegraph.dev/schema/v1.0/extended.json",
-  "title": "CodeGraph Extended Entity",
+  "$id": "https://knowgraph.dev/schema/v1.0/extended.json",
+  "title": "KnowGraph Extended Entity",
   "description": "Extended metadata schema adding business context, dependencies, compliance, and operational data",
   "type": "object",
   "required": ["type", "description"],
   "allOf": [
-    { "$ref": "https://codegraph.dev/schema/v1.0/core.json" }
+    { "$ref": "https://knowgraph.dev/schema/v1.0/core.json" }
   ],
   "properties": {
-    "type": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/type" },
-    "description": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/description" },
-    "owner": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/owner" },
-    "status": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/status" },
-    "tags": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/tags" },
-    "links": { "$ref": "https://codegraph.dev/schema/v1.0/core.json#/properties/links" },
+    "type": { "$ref": "https://knowgraph.dev/schema/v1.0/core.json#/properties/type" },
+    "description": { "$ref": "https://knowgraph.dev/schema/v1.0/core.json#/properties/description" },
+    "owner": { "$ref": "https://knowgraph.dev/schema/v1.0/core.json#/properties/owner" },
+    "status": { "$ref": "https://knowgraph.dev/schema/v1.0/core.json#/properties/status" },
+    "tags": { "$ref": "https://knowgraph.dev/schema/v1.0/core.json#/properties/tags" },
+    "links": { "$ref": "https://knowgraph.dev/schema/v1.0/core.json#/properties/links" },
     "context": {
       "$ref": "#/definitions/Context"
     },

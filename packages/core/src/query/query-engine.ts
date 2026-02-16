@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Query engine with FTS5 full-text search, filtering, pagination, and dependency traversal
- * owner: codegraph-core
+ * owner: knowgraph-core
  * status: stable
  * tags: [query, search, fts5, filtering]
  * context:

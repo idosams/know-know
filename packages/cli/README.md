@@ -1,41 +1,41 @@
-# @codegraph/cli
+# @knowgraph/cli
 
-Command-line interface for [CodeGraph](https://github.com/idosams/know-know) — make your codebase AI-navigable.
+Command-line interface for [KnowGraph](https://github.com/idosams/know-know) — make your codebase AI-navigable.
 
 ## Installation
 
 ```bash
-npm install -g @codegraph/cli
+npm install -g @knowgraph/cli
 # or
-npx @codegraph/cli <command>
+npx @knowgraph/cli <command>
 ```
 
 ## Commands
 
 | Command | Description |
 |---------|-------------|
-| `codegraph init` | Initialize CodeGraph in a project (creates `.codegraph.yml`) |
-| `codegraph parse <path>` | Parse annotated files and output extracted entities |
-| `codegraph index [path]` | Build the SQLite index from annotated source files |
-| `codegraph query <term>` | Search the index with full-text search and filters |
-| `codegraph serve` | Start the MCP server for AI assistant integration |
+| `knowgraph init` | Initialize KnowGraph in a project (creates `.knowgraph.yml`) |
+| `knowgraph parse <path>` | Parse annotated files and output extracted entities |
+| `knowgraph index [path]` | Build the SQLite index from annotated source files |
+| `knowgraph query <term>` | Search the index with full-text search and filters |
+| `knowgraph serve` | Start the MCP server for AI assistant integration |
 
 ## Quick Start
 
 ```bash
 # Initialize in your project
-codegraph init
+knowgraph init
 
-# Add @codegraph annotations to your code, then index
-codegraph index ./src
+# Add @knowgraph annotations to your code, then index
+knowgraph index ./src
 
 # Search your codebase
-codegraph query "authentication"
-codegraph query --owner "auth-team"
-codegraph query --tags "security,auth"
+knowgraph query "authentication"
+knowgraph query --owner "auth-team"
+knowgraph query --tags "security,auth"
 
 # Start MCP server for Claude integration
-codegraph serve
+knowgraph serve
 ```
 
 ## Documentation
