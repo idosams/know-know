@@ -27,6 +27,10 @@ const PARSABLE_EXTENSIONS = new Set([
   '.jsx',
   '.mts',
   '.cts',
+  '.go',
+  '.java',
+  '.rs',
+  '.rb',
 ]);
 
 const SKIP_DIRS = new Set([
@@ -115,9 +119,7 @@ function extractCommentBlocks(content: string): readonly CommentBlock[] {
     if (match[0].includes('@knowgraph')) {
       const line = getLineNumber(content, match.index);
       const inner = match[0].slice(3, -2);
-      const lines = inner
-        .split('\n')
-        .map((l) => l.replace(/^\s*\*\s?/, ''));
+      const lines = inner.split('\n').map((l) => l.replace(/^\s*\*\s?/, ''));
       blocks.push({ text: lines.join('\n').trim(), line });
     }
   }
@@ -325,9 +327,7 @@ function formatTextOutput(
     lines.push(chalk.yellow.bold(`Warnings (${summary.warnings.length}):`));
     for (const warn of summary.warnings) {
       const relPath = relative(basePath, warn.filePath);
-      lines.push(
-        chalk.yellow(`  ${relPath}:${warn.line} - ${warn.message}`),
-      );
+      lines.push(chalk.yellow(`  ${relPath}:${warn.line} - ${warn.message}`));
     }
     lines.push('');
   }
@@ -349,15 +349,15 @@ function formatTextOutput(
 
 export function registerValidateCommand(program: Command): void {
   program
-    .command('validate')
+    .command('validate [path]')
     .description('Validate @knowgraph annotations in source files')
-    .option('--path <dir>', 'Directory or file to validate', '.')
     .option('--strict', 'Treat warnings as errors', false)
     .option('--format <format>', 'Output format (text|json)', 'text')
     .action(
-      (opts: { path: string; strict: boolean; format: string }) => {
+      (path: string | undefined, opts: { strict: boolean; format: string }) => {
+        const targetPath = path ?? '.';
         const summary = runValidate({
-          path: opts.path,
+          path: targetPath,
           strict: opts.strict,
           format: opts.format,
         });
@@ -365,7 +365,7 @@ export function registerValidateCommand(program: Command): void {
         if (opts.format === 'json') {
           console.log(JSON.stringify(summary, null, 2));
         } else {
-          const basePath = resolve(opts.path);
+          const basePath = resolve(targetPath);
           console.log(formatTextOutput(summary, basePath));
         }
 
