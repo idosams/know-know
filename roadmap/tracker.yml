@@ -1,0 +1,467 @@
+# CodeGraph Project Tracker
+# Machine-readable roadmap — parseable by CodeGraph itself
+# Last updated: 2026-02-15
+
+project: codegraph
+version: 0.1.0
+schema_version: "1.0"
+
+summary:
+  total_phases: 9
+  completed_phases: 4
+  in_progress_phases: 2
+  not_started_phases: 3
+  overall_progress: 42%
+
+phases:
+
+  - id: phase-0
+    name: Foundation
+    status: complete
+    progress: 100%
+    started: 2026-02-14
+    completed: 2026-02-14
+    description: Schema specification, monorepo setup, build tooling
+    tasks:
+      - id: p0-schema
+        name: JSON Schema v1.0 (core, extended, manifest)
+        status: done
+      - id: p0-zod
+        name: Zod validation schemas with TypeScript types
+        status: done
+      - id: p0-monorepo
+        name: Monorepo (pnpm workspaces + Turborepo)
+        status: done
+      - id: p0-tooling
+        name: TypeScript strict, ESLint, Vitest
+        status: done
+      - id: p0-ci
+        name: GitHub Actions CI pipeline
+        status: done
+      - id: p0-docs
+        name: README.md and CONTRIBUTING.md
+        status: done
+      - id: p0-examples
+        name: Schema examples (Python, TypeScript, Go, Java)
+        status: done
+
+  - id: phase-1
+    name: Core Parsing Engine
+    status: complete
+    progress: 100%
+    started: 2026-02-14
+    completed: 2026-02-14
+    description: Multi-language parsers for @codegraph metadata extraction
+    tasks:
+      - id: p1-python-parser
+        name: Python parser (docstring extraction)
+        status: done
+      - id: p1-typescript-parser
+        name: TypeScript/JavaScript parser (JSDoc extraction)
+        status: done
+      - id: p1-generic-parser
+        name: Generic fallback parser (regex-based)
+        status: done
+      - id: p1-metadata-extractor
+        name: Metadata extractor with YAML + Zod validation
+        status: done
+      - id: p1-registry
+        name: Parser registry with extension routing
+        status: done
+      - id: p1-cli-parse
+        name: "CLI: codegraph parse"
+        status: done
+
+  - id: phase-1b
+    name: Extended Language Support
+    status: not_started
+    progress: 0%
+    description: Additional language parsers and AST-based parsing
+    blocked_by: []
+    tasks:
+      - id: p1b-go-parser
+        name: Go parser (codegraph prefix comments)
+        status: todo
+        priority: high
+      - id: p1b-java-parser
+        name: Java parser (JavaDoc with @codegraph)
+        status: todo
+        priority: high
+      - id: p1b-rust-parser
+        name: Rust parser (doc comments)
+        status: todo
+        priority: medium
+      - id: p1b-ruby-parser
+        name: Ruby parser (YARD-style comments)
+        status: todo
+        priority: low
+      - id: p1b-tree-sitter
+        name: Tree-sitter integration for AST-based parsing
+        status: todo
+        priority: medium
+
+  - id: phase-2
+    name: Graph Builder & Indexer
+    status: complete
+    progress: 100%
+    started: 2026-02-14
+    completed: 2026-02-14
+    description: SQLite knowledge graph with FTS5 full-text search
+    tasks:
+      - id: p2-sqlite-schema
+        name: SQLite schema with FTS5
+        status: done
+      - id: p2-entity-crud
+        name: Entity CRUD operations
+        status: done
+      - id: p2-relationships
+        name: Relationship graph (deps, dependents)
+        status: done
+      - id: p2-tags-links
+        name: Tag and link storage
+        status: done
+      - id: p2-incremental
+        name: Incremental indexing (MD5 hashing)
+        status: done
+      - id: p2-gitignore
+        name: .gitignore-aware scanning
+        status: done
+      - id: p2-progress
+        name: Progress reporting
+        status: done
+      - id: p2-cli-index
+        name: "CLI: codegraph index"
+        status: done
+
+  - id: phase-2b
+    name: Advanced Indexing
+    status: not_started
+    progress: 0%
+    description: Vector search, monorepo support, link validation
+    blocked_by: []
+    tasks:
+      - id: p2b-embeddings
+        name: Vector embeddings for semantic search
+        status: todo
+        priority: high
+        notes: "Options: LanceDB (recommended), ChromaDB, pgvector"
+      - id: p2b-monorepo
+        name: Monorepo support (multiple .codegraph.yml)
+        status: todo
+        priority: medium
+      - id: p2b-link-validation
+        name: External link URL validation
+        status: todo
+        priority: low
+
+  - id: phase-3
+    name: Query Interface & MCP Server
+    status: complete
+    progress: 100%
+    started: 2026-02-14
+    completed: 2026-02-14
+    description: AI-queryable interfaces via MCP protocol
+    tasks:
+      - id: p3-query-engine
+        name: Query engine (FTS5 search, filters, pagination)
+        status: done
+      - id: p3-dep-traversal
+        name: Dependency traversal
+        status: done
+      - id: p3-mcp-tools
+        name: MCP server with 7 tools
+        status: done
+      - id: p3-stdio
+        name: stdio transport for Claude
+        status: done
+      - id: p3-cli-serve
+        name: "CLI: codegraph serve"
+        status: done
+      - id: p3-cli-query
+        name: "CLI: codegraph query"
+        status: done
+      - id: p3-claude-config
+        name: Claude Desktop config generator
+        status: done
+
+  - id: phase-3b
+    name: Advanced Query Features
+    status: not_started
+    progress: 0%
+    description: Semantic search, auto-reload, MCP resources
+    blocked_by: [phase-2b]
+    tasks:
+      - id: p3b-semantic-search
+        name: Semantic search MCP tool (vector similarity)
+        status: todo
+        priority: high
+        depends_on: p2b-embeddings
+      - id: p3b-auto-reload
+        name: Auto-reload on index changes
+        status: todo
+        priority: medium
+      - id: p3b-mcp-resources
+        name: MCP resources (entity details on demand)
+        status: todo
+        priority: low
+
+  - id: phase-4
+    name: External Knowledge Connectors
+    status: not_started
+    progress: 0%
+    description: Enrich graph with external tool metadata
+    blocked_by: []
+    tasks:
+      - id: p4-plugin-arch
+        name: Connector plugin architecture
+        status: todo
+        priority: critical
+      - id: p4-notion
+        name: Notion connector
+        status: todo
+        priority: high
+        package: "@codegraph/connector-notion"
+      - id: p4-jira
+        name: Jira connector
+        status: todo
+        priority: high
+        package: "@codegraph/connector-jira"
+      - id: p4-linear
+        name: Linear connector (GraphQL)
+        status: todo
+        priority: medium
+        package: "@codegraph/connector-linear"
+      - id: p4-webhook
+        name: Generic webhook connector
+        status: todo
+        priority: medium
+        package: "@codegraph/connector-webhook"
+      - id: p4-auth
+        name: Connector auth and token management
+        status: todo
+        priority: high
+      - id: p4-caching
+        name: Rate limiting and caching layer
+        status: todo
+        priority: high
+      - id: p4-broken-links
+        name: Broken link detection and reporting
+        status: todo
+        priority: medium
+      - id: p4-cli-sync
+        name: "CLI: codegraph sync"
+        status: todo
+        priority: high
+
+  - id: phase-5
+    name: Developer Experience
+    status: in_progress
+    progress: 30%
+    started: 2026-02-14
+    description: Frictionless adoption for teams
+    tasks:
+      - id: p5-init-wizard
+        name: "codegraph init wizard"
+        status: done
+      - id: p5-lang-detect
+        name: Auto-detect project languages
+        status: done
+      - id: p5-suggest-files
+        name: Suggest high-impact files to annotate
+        status: done
+      - id: p5-self-doc
+        name: Self-documentation (CodeGraph indexes itself)
+        status: done
+      - id: p5-coverage-report
+        name: Documentation coverage reporting
+        status: todo
+        priority: high
+      - id: p5-coverage-breakdown
+        name: Coverage breakdown by module/team/type
+        status: todo
+        priority: medium
+      - id: p5-html-report
+        name: HTML coverage report
+        status: todo
+        priority: low
+      - id: p5-precommit
+        name: Pre-commit hook for validation
+        status: todo
+        priority: high
+      - id: p5-ci-gate
+        name: CI quality gate (coverage threshold)
+        status: todo
+        priority: medium
+      - id: p5-migration
+        name: LLM-assisted migration assistant
+        status: todo
+        priority: medium
+      - id: p5-cli-suggest
+        name: "CLI: codegraph suggest"
+        status: todo
+        priority: medium
+      - id: p5-cli-validate
+        name: "CLI: codegraph validate"
+        status: todo
+        priority: high
+      - id: p5-cli-coverage
+        name: "CLI: codegraph coverage"
+        status: todo
+        priority: high
+      - id: p5-cli-migrate
+        name: "CLI: codegraph migrate"
+        status: todo
+        priority: low
+
+  - id: phase-6
+    name: Alternative AI Interfaces
+    status: not_started
+    progress: 0%
+    description: REST API, GraphQL, Cursor Rules, skills export
+    blocked_by: []
+    tasks:
+      - id: p6-cursor-rules
+        name: Cursor Rules generator (.cursorrules)
+        status: todo
+        priority: high
+        package: "@codegraph/cursor-export"
+      - id: p6-skills-export
+        name: Generic AI skills export (markdown)
+        status: todo
+        priority: medium
+      - id: p6-rest-api
+        name: REST API server (Express + OpenAPI)
+        status: todo
+        priority: high
+        package: "@codegraph/rest-api"
+      - id: p6-graphql
+        name: GraphQL API server
+        status: todo
+        priority: medium
+        package: "@codegraph/graphql-api"
+      - id: p6-auth
+        name: API authentication (API keys)
+        status: todo
+        priority: high
+      - id: p6-rate-limit
+        name: Rate limiting
+        status: todo
+        priority: medium
+      - id: p6-cli-export
+        name: "CLI: codegraph export"
+        status: todo
+        priority: high
+
+  - id: phase-7
+    name: Documentation & Community
+    status: in_progress
+    progress: 25%
+    started: 2026-02-14
+    description: Docs, tooling, and community prep for launch
+    tasks:
+      - id: p7-readme
+        name: README with quickstart
+        status: done
+      - id: p7-contributing
+        name: CONTRIBUTING.md
+        status: done
+      - id: p7-example-python
+        name: Example project (Python FastAPI)
+        status: done
+      - id: p7-example-typescript
+        name: Example project (TypeScript Express)
+        status: done
+      - id: p7-getting-started
+        name: Getting Started guide
+        status: todo
+        priority: high
+      - id: p7-schema-ref
+        name: Schema reference documentation
+        status: todo
+        priority: high
+      - id: p7-parser-guide
+        name: Parser development guide
+        status: todo
+        priority: medium
+      - id: p7-connector-guide
+        name: Connector development guide
+        status: todo
+        priority: medium
+      - id: p7-api-ref
+        name: API reference (MCP, REST, GraphQL)
+        status: todo
+        priority: medium
+      - id: p7-best-practices
+        name: Best practices guide
+        status: todo
+        priority: medium
+      - id: p7-vscode
+        name: VSCode extension
+        status: todo
+        priority: high
+        package: "@codegraph/vscode"
+      - id: p7-jetbrains
+        name: JetBrains plugin
+        status: todo
+        priority: low
+      - id: p7-github-action
+        name: GitHub Action for CI indexing
+        status: todo
+        priority: high
+      - id: p7-demo-video
+        name: Demo video (5 minutes)
+        status: todo
+        priority: medium
+
+  - id: phase-8
+    name: Launch & Growth
+    status: not_started
+    progress: 0%
+    description: Public release and community building
+    blocked_by: [phase-7]
+    tasks:
+      - id: p8-npm-publish
+        name: npm package publishing
+        status: todo
+        priority: critical
+      - id: p8-github-release
+        name: GitHub release with binaries
+        status: todo
+        priority: high
+      - id: p8-product-hunt
+        name: Product Hunt launch
+        status: todo
+        priority: medium
+      - id: p8-hackernews
+        name: Hacker News Show HN
+        status: todo
+        priority: medium
+      - id: p8-devto
+        name: Dev.to article
+        status: todo
+        priority: medium
+      - id: p8-discord
+        name: Discord community server
+        status: todo
+        priority: high
+      - id: p8-discussions
+        name: GitHub Discussions
+        status: todo
+        priority: high
+      - id: p8-issue-templates
+        name: Issue templates and triage
+        status: todo
+        priority: medium
+      - id: p8-feature-voting
+        name: Feature voting system
+        status: todo
+        priority: low
+      - id: p8-additional-parsers
+        name: Additional parsers (Rust, C++, Ruby, Kotlin, Swift)
+        status: todo
+        priority: medium
+      - id: p8-saas
+        name: SaaS hosted version
+        status: todo
+        priority: low
+        notes: "Optional — evaluate based on demand"

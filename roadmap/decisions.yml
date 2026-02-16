@@ -1,0 +1,225 @@
+# CodeGraph Decision Log
+# Architecture Decision Records (ADRs) in YAML format
+# Last updated: 2026-02-15
+
+decisions:
+
+  - id: ADR-001
+    title: Monorepo with pnpm workspaces + Turborepo
+    date: 2026-02-14
+    status: accepted
+    context: >
+      CodeGraph has multiple packages (core, cli, mcp-server) that share
+      types and utilities. Need a structure that supports independent
+      versioning while sharing code.
+    decision: >
+      Use pnpm workspaces for dependency management and Turborepo for
+      build orchestration. Three packages: @codegraph/core, @codegraph/cli,
+      @codegraph/mcp-server.
+    consequences:
+      - Shared types via @codegraph/core dependency
+      - Parallel builds with Turborepo caching
+      - Single CI pipeline for all packages
+    alternatives:
+      - name: Single package
+        rejected_because: Poor separation of concerns, harder to publish independently
+      - name: Nx monorepo
+        rejected_because: Heavier tooling, more configuration overhead for a small project
+
+  - id: ADR-002
+    title: SQLite with FTS5 for knowledge graph storage
+    date: 2026-02-14
+    status: accepted
+    context: >
+      Need a storage layer for code entities, relationships, tags, and links
+      that supports full-text search and works without external services.
+    decision: >
+      Use SQLite via better-sqlite3 with FTS5 virtual tables for full-text
+      search. Single .codegraph/index.db file per project.
+    consequences:
+      - Zero-config storage (no database server needed)
+      - Fast full-text search via FTS5
+      - Portable — database is a single file
+      - No concurrent write support (acceptable for CLI tool)
+    alternatives:
+      - name: PostgreSQL
+        rejected_because: Requires running a database server, overkill for local tool
+      - name: JSON files
+        rejected_because: No query capabilities, poor performance at scale
+      - name: LevelDB
+        rejected_because: No SQL queries, no built-in full-text search
+
+  - id: ADR-003
+    title: MCP protocol for AI integration
+    date: 2026-02-14
+    status: accepted
+    context: >
+      Primary use case is making code knowledge available to AI assistants.
+      Need a standard protocol that works with Claude Desktop, Claude Code,
+      and potentially other AI tools.
+    decision: >
+      Implement MCP (Model Context Protocol) server with stdio transport
+      as the primary AI interface. Seven tools exposed via MCP.
+    consequences:
+      - Native integration with Claude Desktop and Claude Code
+      - Standard protocol that other AI tools may adopt
+      - stdio transport works locally without network config
+    alternatives:
+      - name: REST API only
+        rejected_because: No native AI assistant integration, requires custom tool definitions
+      - name: Language Server Protocol (LSP)
+        rejected_because: Designed for IDE features, not AI queries
+
+  - id: ADR-004
+    title: Zod for schema validation with TypeScript type inference
+    date: 2026-02-14
+    status: accepted
+    context: >
+      Need runtime validation for @codegraph metadata extracted from code
+      comments, with TypeScript type safety.
+    decision: >
+      Use Zod schemas as the single source of truth for both runtime
+      validation and TypeScript types (via z.infer).
+    consequences:
+      - Single source of truth for types and validation
+      - Runtime safety when parsing user-authored metadata
+      - Clear error messages on validation failure
+    alternatives:
+      - name: JSON Schema + ajv
+        rejected_because: Separate type definitions needed, more boilerplate
+      - name: io-ts
+        rejected_because: Less ergonomic API, smaller ecosystem
+
+  - id: ADR-005
+    title: Regex-based parsing over AST for initial release
+    date: 2026-02-14
+    status: accepted
+    context: >
+      Need to extract @codegraph metadata from code comments across
+      multiple languages. AST-based parsing is more robust but requires
+      per-language parser implementations.
+    decision: >
+      Use regex-based parsing for initial release with language-specific
+      comment extraction (JSDoc for TS/JS, docstrings for Python).
+      Plan tree-sitter integration for Phase 1b.
+    consequences:
+      - Fast to implement for multiple languages
+      - Works for well-formatted comments (covers 95% of cases)
+      - May miss edge cases that AST parsing would catch
+      - Clear upgrade path to tree-sitter
+    alternatives:
+      - name: Tree-sitter from day one
+        rejected_because: Significant implementation effort, WASM dependency, delays initial release
+      - name: Language-specific AST parsers (ts-morph, etc.)
+        rejected_because: Different parser per language, no unified approach
+
+  - id: ADR-006
+    title: Incremental indexing via MD5 file hashing
+    date: 2026-02-14
+    status: accepted
+    context: >
+      Re-indexing an entire codebase on every run is slow. Need a way to
+      skip files that haven't changed.
+    decision: >
+      Store MD5 hash of each indexed file. On re-index, compare current
+      hash to stored hash and skip unchanged files.
+    consequences:
+      - Fast re-indexing (only changed files processed)
+      - Simple implementation
+      - Slight overhead for hash computation (negligible)
+    alternatives:
+      - name: File modification timestamps
+        rejected_because: Unreliable across git operations (clone, checkout, rebase)
+      - name: Git diff-based detection
+        rejected_because: Only works in git repos, misses untracked files
+
+  - id: ADR-007
+    title: YAML metadata format inside code comments
+    date: 2026-02-14
+    status: accepted
+    context: >
+      Need a format for developers to annotate their code with structured
+      metadata. Must be readable, writable by humans, and parseable by tools.
+    decision: >
+      Use YAML blocks inside language-native comments, triggered by the
+      @codegraph marker. Example for TypeScript:
+      /** @codegraph
+       * type: module
+       * description: ...
+       */
+    consequences:
+      - Familiar YAML syntax for developers
+      - Lives in code comments (no separate files per entity)
+      - Language-native comment styles (JSDoc, docstrings, etc.)
+      - IDE syntax highlighting works out of the box
+    alternatives:
+      - name: JSON in comments
+        rejected_because: Verbose, hard to write by hand, no comments support
+      - name: Separate YAML/TOML files per module
+        rejected_because: Disconnected from code, easy to get out of sync
+      - name: Custom DSL
+        rejected_because: Learning curve, no tooling support
+
+  - id: ADR-008
+    title: Commander.js for CLI framework
+    date: 2026-02-14
+    status: accepted
+    context: >
+      Need a CLI framework for the codegraph command with subcommands
+      (parse, index, query, serve, init).
+    decision: >
+      Use Commander.js for CLI argument parsing and command routing.
+    consequences:
+      - Well-maintained, widely used
+      - Built-in help generation
+      - Supports subcommands and options
+    alternatives:
+      - name: yargs
+        rejected_because: More complex API for similar functionality
+      - name: oclif
+        rejected_because: Heavy framework, more suited for large CLI apps
+      - name: Custom argument parsing
+        rejected_because: Reinventing the wheel
+
+  - id: ADR-009
+    title: Vector embeddings deferred to Phase 2b
+    date: 2026-02-15
+    status: proposed
+    context: >
+      Semantic search via vector embeddings would significantly improve
+      query quality, but adds complexity and external dependencies.
+    decision: >
+      Defer vector embeddings to Phase 2b. FTS5 full-text search covers
+      most use cases for initial release. Evaluate LanceDB as the
+      recommended embedding store when ready.
+    consequences:
+      - Simpler initial release (no ML dependencies)
+      - FTS5 handles keyword-based queries well
+      - Clear upgrade path when semantic search is needed
+    alternatives:
+      - name: Include in Phase 2
+        rejected_because: Delays core functionality, adds dependency on embedding models
+    open_questions:
+      - Local vs API-based embeddings?
+      - Which embedding model? (OpenAI, Cohere, local ONNX)
+      - LanceDB vs ChromaDB vs pgvector?
+
+  - id: ADR-010
+    title: Connector plugin architecture for external tools
+    date: 2026-02-15
+    status: proposed
+    context: >
+      Phase 4 requires integrating with external tools (Notion, Jira,
+      Linear). Need a plugin system that's extensible.
+    decision: >
+      Define a Connector interface with standard lifecycle methods
+      (authenticate, sync, validate). Each connector is a separate
+      npm package (@codegraph/connector-*).
+    consequences:
+      - Clean separation of concerns
+      - Users install only connectors they need
+      - Third-party connectors possible
+    open_questions:
+      - OAuth flow for browser-based auth?
+      - Token storage location and encryption?
+      - Webhook vs polling for change detection?
