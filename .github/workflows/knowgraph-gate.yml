@@ -1,0 +1,29 @@
+name: KnowGraph Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  knowgraph-gate:
+    name: Documentation Quality Gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo build
+
+      # NOTE: The `knowgraph coverage` command is added in a parallel PR.
+      # This step will work once that PR is merged.
+      - name: Check annotation coverage
+        run: npx knowgraph coverage . --threshold 50
+
+      - name: Validate annotations
+        run: npx knowgraph parse . --validate

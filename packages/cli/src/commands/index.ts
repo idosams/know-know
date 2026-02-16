@@ -6,3 +6,4 @@ export { registerInitCommand } from './init.js';
 export { registerValidateCommand } from './validate.js';
 export { registerCoverageCommand } from './coverage.js';
 export { registerSuggestCommand } from './suggest.js';
+export { registerHookCommand } from './hook.js';

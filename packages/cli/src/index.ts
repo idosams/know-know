@@ -20,6 +20,7 @@ import {
   registerValidateCommand,
   registerCoverageCommand,
   registerSuggestCommand,
+  registerHookCommand,
 } from './commands/index.js';
 
 const program = new Command();
@@ -37,5 +38,6 @@ registerInitCommand(program);
 registerValidateCommand(program);
 registerCoverageCommand(program);
 registerSuggestCommand(program);
+registerHookCommand(program);
 
 program.parse();
