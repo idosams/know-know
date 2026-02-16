@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Language-agnostic fallback parser using regex-based comment extraction
- * owner: codegraph-core
+ * owner: knowgraph-core
  * status: stable
  * tags: [parser, generic, regex, fallback]
  * context:
@@ -128,8 +128,8 @@ export function createGenericParser(): Parser {
       while ((match = blockRegex.exec(content)) !== null) {
         const stripped = stripBlockComment(match[0]);
         if (
-          !stripped.includes('@codegraph') &&
-          !stripped.includes('codegraph:')
+          !stripped.includes('@knowgraph') &&
+          !stripped.includes('knowgraph:')
         ) {
           continue;
         }
@@ -160,8 +160,8 @@ export function createGenericParser(): Parser {
       while ((match = lineRegex.exec(content)) !== null) {
         const stripped = stripLineComments(match[0]);
         if (
-          !stripped.includes('@codegraph') &&
-          !stripped.includes('codegraph:')
+          !stripped.includes('@knowgraph') &&
+          !stripped.includes('knowgraph:')
         ) {
           continue;
         }

@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: Type definitions for stored entities, index operations, and progress tracking
- * owner: codegraph-core
+ * owner: knowgraph-core
  * status: stable
  * tags: [indexer, types, interface, storage]
  * context:

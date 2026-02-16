@@ -1,34 +1,34 @@
 import { describe, it, expect } from 'vitest';
 import {
-  extractCodegraphYaml,
+  extractKnowgraphYaml,
   parseAndValidateMetadata,
   extractMetadata,
 } from '../metadata-extractor.js';
 
-describe('extractCodegraphYaml', () => {
-  it('extracts YAML after @codegraph marker', () => {
+describe('extractKnowgraphYaml', () => {
+  it('extracts YAML after @knowgraph marker', () => {
     const block = `
-@codegraph
+@knowgraph
 type: function
 description: My function
     `;
-    const result = extractCodegraphYaml(block);
+    const result = extractKnowgraphYaml(block);
     expect(result).toContain('type: function');
     expect(result).toContain('description: My function');
   });
 
-  it('returns null when no @codegraph marker present', () => {
+  it('returns null when no @knowgraph marker present', () => {
     const block = 'This is just a regular comment block.';
-    expect(extractCodegraphYaml(block)).toBeNull();
+    expect(extractKnowgraphYaml(block)).toBeNull();
   });
 
   it('strips leading asterisks from JSDoc style', () => {
     const block = `
- * @codegraph
+ * @knowgraph
  * type: class
  * description: A class
     `;
-    const result = extractCodegraphYaml(block);
+    const result = extractKnowgraphYaml(block);
     expect(result).toContain('type: class');
     expect(result).toContain('description: A class');
     expect(result).not.toContain('*');
@@ -36,18 +36,18 @@ description: My function
 
   it('strips leading hashes from Python comment style', () => {
     const block = `
-# @codegraph
+# @knowgraph
 # type: module
 # description: A module
     `;
-    const result = extractCodegraphYaml(block);
+    const result = extractKnowgraphYaml(block);
     expect(result).toContain('type: module');
     expect(result).toContain('description: A module');
   });
 
-  it('handles @codegraph on same line as other content before it', () => {
-    const block = 'Some preamble @codegraph\ntype: function\ndescription: Test';
-    const result = extractCodegraphYaml(block);
+  it('handles @knowgraph on same line as other content before it', () => {
+    const block = 'Some preamble @knowgraph\ntype: function\ndescription: Test';
+    const result = extractKnowgraphYaml(block);
     expect(result).toContain('type: function');
   });
 });
@@ -141,7 +141,7 @@ tags: [auth, security]
 describe('extractMetadata', () => {
   it('extracts and validates metadata from a comment block', () => {
     const block = `
-@codegraph
+@knowgraph
 type: function
 description: Authenticates a user
 owner: auth-team
@@ -153,7 +153,7 @@ owner: auth-team
     expect(result.errors).toHaveLength(0);
   });
 
-  it('returns empty result when no @codegraph marker', () => {
+  it('returns empty result when no @knowgraph marker', () => {
     const block = 'Just a regular comment.';
     const result = extractMetadata(block);
     expect(result.metadata).toBeNull();
@@ -163,7 +163,7 @@ owner: auth-team
 
   it('returns errors for invalid metadata', () => {
     const block = `
-@codegraph
+@knowgraph
 type: invalid_type
 description: Something
     `;

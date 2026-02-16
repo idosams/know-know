@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Language detection and file suggestion utilities for project initialization
- * owner: codegraph-cli
+ * owner: knowgraph-cli
  * status: stable
  * tags: [cli, detection, languages, init]
  * context:

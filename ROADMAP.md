@@ -1,4 +1,4 @@
-# CodeGraph Roadmap
+# KnowGraph Roadmap
 
 > Machine-readable tracker: [`roadmap/tracker.yml`](roadmap/tracker.yml)
 > Decision log: [`roadmap/decisions.yml`](roadmap/decisions.yml)
@@ -22,16 +22,16 @@ Schema specification, monorepo setup, build tooling, testing framework.
 
 ## Phase 1: Core Parsing Engine `COMPLETE`
 
-Multi-language parsers for extracting @codegraph metadata from code.
+Multi-language parsers for extracting @knowgraph metadata from code.
 
-- [x] Python parser (docstrings with @codegraph blocks)
-- [x] TypeScript/JavaScript parser (JSDoc with @codegraph tags)
+- [x] Python parser (docstrings with @knowgraph blocks)
+- [x] TypeScript/JavaScript parser (JSDoc with @knowgraph tags)
 - [x] Generic fallback parser (regex-based for any language)
 - [x] Metadata extractor with YAML parsing and Zod validation
 - [x] Parser registry with extension-based routing
-- [x] CLI: `codegraph parse` command
-- [ ] Go parser (comments with codegraph: prefix)
-- [ ] Java parser (JavaDoc with @codegraph tags)
+- [x] CLI: `knowgraph parse` command
+- [ ] Go parser (comments with knowgraph: prefix)
+- [ ] Java parser (JavaDoc with @knowgraph tags)
 - [ ] Tree-sitter integration for robust AST-based parsing
 
 ---
@@ -47,9 +47,9 @@ SQLite-based knowledge graph with full-text search.
 - [x] Incremental indexing via MD5 file hashing
 - [x] .gitignore-aware file scanning
 - [x] Progress reporting
-- [x] CLI: `codegraph index` command
+- [x] CLI: `knowgraph index` command
 - [ ] Vector embeddings for semantic search
-- [ ] Monorepo support (multiple .codegraph.yml files)
+- [ ] Monorepo support (multiple .knowgraph.yml files)
 - [ ] External link URL validation
 
 ---
@@ -62,8 +62,8 @@ AI-queryable interfaces for the code knowledge graph.
 - [x] Dependency traversal (find all deps of entity X)
 - [x] MCP server with 7 tools (search, owner, business goal, deps, details, links, overview)
 - [x] stdio transport for Claude Desktop / Claude Code
-- [x] CLI: `codegraph serve` command
-- [x] CLI: `codegraph query` command
+- [x] CLI: `knowgraph serve` command
+- [x] CLI: `knowgraph query` command
 - [x] Claude Desktop MCP config generator
 - [ ] Semantic search tool (vector similarity)
 - [ ] Auto-reload on index changes
@@ -83,7 +83,7 @@ Enrich the graph with metadata from external tools.
 - [ ] Connector authentication and token management
 - [ ] Rate limiting and caching layer
 - [ ] Broken link detection and reporting
-- [ ] CLI: `codegraph sync` command
+- [ ] CLI: `knowgraph sync` command
 
 ---
 
@@ -91,20 +91,20 @@ Enrich the graph with metadata from external tools.
 
 Make adoption frictionless for teams.
 
-- [x] `codegraph init` wizard with language detection
+- [x] `knowgraph init` wizard with language detection
 - [x] Auto-detect project languages from file extensions
 - [x] Suggest high-impact files to annotate
-- [x] Self-documentation (CodeGraph indexes itself)
+- [x] Self-documentation (KnowGraph indexes itself)
 - [ ] Documentation coverage reporting (% of code annotated)
 - [ ] Coverage breakdown by module, team, type
 - [ ] HTML coverage report generation
 - [ ] Pre-commit hook for annotation validation
 - [ ] CI quality gate (fail if coverage drops)
 - [ ] Migration assistant (suggest annotations via LLM)
-- [ ] CLI: `codegraph suggest` (where to annotate next)
-- [ ] CLI: `codegraph validate` (check all annotations)
-- [ ] CLI: `codegraph coverage` (documentation coverage)
-- [ ] CLI: `codegraph migrate` (LLM-assisted migration)
+- [ ] CLI: `knowgraph suggest` (where to annotate next)
+- [ ] CLI: `knowgraph validate` (check all annotations)
+- [ ] CLI: `knowgraph coverage` (documentation coverage)
+- [ ] CLI: `knowgraph migrate` (LLM-assisted migration)
 
 ---
 
@@ -118,7 +118,7 @@ Support non-MCP AI tools and custom integrations.
 - [ ] GraphQL API server (Apollo/Yoga)
 - [ ] API authentication (API keys)
 - [ ] Rate limiting
-- [ ] CLI: `codegraph export` (cursor, skills, openapi, graphql)
+- [ ] CLI: `knowgraph export` (cursor, skills, openapi, graphql)
 
 ---
 
@@ -153,7 +153,7 @@ Prepare for public launch.
 
 Public release and community building.
 
-- [x] npm package publishing (`npm install -g @codegraph/cli`)
+- [x] npm package publishing (`npm install -g @knowgraph/cli`)
 - [x] Release workflow (GitHub Actions → npm with provenance)
 - [x] Version 0.2.0 released
 - [x] Issue templates and triage process

@@ -13,10 +13,10 @@ describe('TypescriptParser', () => {
   });
 
   describe('class JSDoc', () => {
-    it('parses JSDoc with @codegraph on classes', () => {
+    it('parses JSDoc with @knowgraph on classes', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: REST controller for user operations
  * owner: platform-team
@@ -38,7 +38,7 @@ export class UserController {
     it('parses abstract class', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: Base repository
  */
@@ -52,10 +52,10 @@ export abstract class BaseRepository {
   });
 
   describe('function JSDoc', () => {
-    it('parses JSDoc with @codegraph on functions', () => {
+    it('parses JSDoc with @knowgraph on functions', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Hashes a password using bcrypt
  * tags: [security, auth]
@@ -75,7 +75,7 @@ export async function hashPassword(password: string): Promise<string> {
     it('parses function without return type', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Logs an event
  */
@@ -93,7 +93,7 @@ function logEvent(event: Event) {
     it('parses exported interfaces', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: User data transfer object
  * tags: [users, dto]
@@ -112,7 +112,7 @@ export interface UserDTO {
     it('parses interface with extends', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: Extended user with admin fields
  */
@@ -131,7 +131,7 @@ export interface AdminUser extends UserDTO {
       const content = `
 export class UserController {
     /**
-     * @codegraph
+     * @knowgraph
      * type: method
      * description: Creates a new user account
      * tags: [users, registration]
@@ -139,7 +139,7 @@ export class UserController {
     async createUser(req: Request): Promise<Response> { }
 
     /**
-     * @codegraph
+     * @knowgraph
      * type: method
      * description: Deletes a user account
      */
@@ -164,7 +164,7 @@ export class UserController {
   describe('module-level JSDoc', () => {
     it('handles module-level JSDoc', () => {
       const content = `/**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Authentication utilities
  * owner: auth-team
@@ -183,7 +183,7 @@ import { hash } from 'bcrypt';
     it('parses type aliases', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: Valid user roles
  */
@@ -199,7 +199,7 @@ export type UserRole = 'admin' | 'user' | 'guest';
     it('parses enum declarations', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: enum
  * description: HTTP status codes used in the app
  */
@@ -219,7 +219,7 @@ export enum StatusCode {
     it('handles malformed YAML', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: [invalid yaml
  */
 export class Broken {}
@@ -228,7 +228,7 @@ export class Broken {}
       expect(results).toHaveLength(0);
     });
 
-    it('handles missing @codegraph gracefully', () => {
+    it('handles missing @knowgraph gracefully', () => {
       const content = `
 /**
  * This is just a regular JSDoc comment.
@@ -258,7 +258,7 @@ export function simple() { return x; }
     it('validates metadata against schema', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: A function with full metadata
  * owner: core-team
@@ -277,7 +277,7 @@ export function fullMetadata(): void {}
     it('rejects invalid entity type', () => {
       const content = `
 /**
- * @codegraph
+ * @knowgraph
  * type: widget
  * description: Not a valid type
  */

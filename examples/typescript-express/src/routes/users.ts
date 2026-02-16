@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: User management routes for registration, authentication, and profile operations
  * owner: platform-team
@@ -24,7 +24,7 @@ import { validateBody } from '../utils/validation';
 export const userRoutes = Router();
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Registers a new user with email/password, sends verification email, and returns JWT
  * owner: platform-team
@@ -43,7 +43,7 @@ async function registerUser(req: Request, res: Response): Promise<void> {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Authenticates a user with email/password credentials and returns a JWT access token
  * owner: platform-team
@@ -58,7 +58,7 @@ async function loginUser(req: Request, res: Response): Promise<void> {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Returns the authenticated user's full profile including preferences and stats
  * owner: platform-team

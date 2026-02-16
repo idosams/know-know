@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a bug in CodeGraph
+description: Report a bug in KnowGraph
 labels: ["bug"]
 body:
   - type: markdown
@@ -22,8 +22,8 @@ body:
       label: Steps to Reproduce
       description: Steps to reproduce the behavior.
       placeholder: |
-        1. Run `codegraph index ./src`
-        2. Run `codegraph query "auth"`
+        1. Run `knowgraph index ./src`
+        2. Run `knowgraph query "auth"`
         3. See error...
     validations:
       required: true
@@ -47,8 +47,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: CodeGraph Version
-      description: Output of `codegraph --version`
+      label: KnowGraph Version
+      description: Output of `knowgraph --version`
       placeholder: "0.1.0"
     validations:
       required: true

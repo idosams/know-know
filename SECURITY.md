@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in CodeGraph, please report it responsibly.
+If you discover a security vulnerability in KnowGraph, please report it responsibly.
 
 **Please do NOT open a public GitHub issue for security vulnerabilities.**
 
@@ -47,4 +47,4 @@ Security issues we are particularly interested in:
 
 ## Recognition
 
-We appreciate the security research community's efforts in helping keep CodeGraph safe. Contributors who responsibly disclose vulnerabilities will be acknowledged in our CHANGELOG (unless they prefer to remain anonymous).
+We appreciate the security research community's efforts in helping keep KnowGraph safe. Contributors who responsibly disclose vulnerabilities will be acknowledged in our CHANGELOG (unless they prefer to remain anonymous).

@@ -1,4 +1,4 @@
-# CodeGraph — Complete Project Documentation
+# KnowGraph — Complete Project Documentation
 
 > Make your codebase AI-navigable by bridging code documentation with business context
 
@@ -10,9 +10,9 @@
 - [2. Architecture Overview](#2-architecture-overview)
 - [3. Monorepo Structure](#3-monorepo-structure)
 - [4. Data Flow](#4-data-flow)
-- [5. Core Package — @codegraph/core](#5-core-package--codegraphcore)
-- [6. CLI Package — @codegraph/cli](#6-cli-package--codegraphcli)
-- [7. MCP Server Package — @codegraph/mcp-server](#7-mcp-server-package--codegraphmcp-server)
+- [5. Core Package — @knowgraph/core](#5-core-package--knowgraphcore)
+- [6. CLI Package — @knowgraph/cli](#6-cli-package--knowgraphcli)
+- [7. MCP Server Package — @knowgraph/mcp-server](#7-mcp-server-package--knowgraphmcp-server)
 - [8. Schema & Type System](#8-schema--type-system)
 - [9. Annotation Format](#9-annotation-format)
 - [10. Database Design](#10-database-design)
@@ -40,9 +40,9 @@ AI coding assistants are great at reading code, but they lack context about:
 
 ### The Solution
 
-CodeGraph is an open-source documentation orchestration tool that:
+KnowGraph is an open-source documentation orchestration tool that:
 
-1. **Extracts** structured metadata from code annotations (`@codegraph` markers)
+1. **Extracts** structured metadata from code annotations (`@knowgraph` markers)
 2. **Builds** a queryable knowledge graph stored in SQLite with FTS5 full-text search
 3. **Exposes** the graph to AI assistants via the Model Context Protocol (MCP)
 
@@ -50,7 +50,7 @@ This means AI assistants can understand not just *what* your code does, but *why
 
 ### Key Differentiators
 
-| Feature | CodeGraph | Traditional Docs | Code Comments |
+| Feature | KnowGraph | Traditional Docs | Code Comments |
 |---------|-----------|------------------|---------------|
 | Machine-readable | Yes (structured YAML) | Partially | No |
 | AI-queryable | Yes (MCP + FTS5) | No | No |
@@ -68,7 +68,7 @@ This means AI assistants can understand not just *what* your code does, but *why
 ```mermaid
 graph TD
     subgraph "Developer Workflow"
-        A[Source Code with @codegraph annotations] --> B[codegraph index]
+        A[Source Code with @knowgraph annotations] --> B[knowgraph index]
         B --> C[(SQLite DB<br/>FTS5 full-text)]
     end
 
@@ -79,9 +79,9 @@ graph TD
     end
 
     subgraph "CLI Interface"
-        C --> G[codegraph query]
-        A --> H[codegraph parse]
-        I[codegraph init] --> A
+        C --> G[knowgraph query]
+        A --> H[knowgraph parse]
+        I[knowgraph init] --> A
     end
 
     style C fill:#f9f,stroke:#333,stroke-width:2px
@@ -92,9 +92,9 @@ graph TD
 
 ```mermaid
 graph LR
-    CLI["@codegraph/cli<br/>Commander.js CLI"]
-    MCP["@codegraph/mcp-server<br/>MCP Protocol Server"]
-    CORE["@codegraph/core<br/>Parsers, Indexer, Query Engine"]
+    CLI["@knowgraph/cli<br/>Commander.js CLI"]
+    MCP["@knowgraph/mcp-server<br/>MCP Protocol Server"]
+    CORE["@knowgraph/core<br/>Parsers, Indexer, Query Engine"]
 
     CLI --> CORE
     CLI --> MCP
@@ -109,7 +109,7 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph "@codegraph/core"
+    subgraph "@knowgraph/core"
         direction TB
         subgraph "Parsers"
             PR[Parser Registry] --> TP[TypeScript Parser]
@@ -131,7 +131,7 @@ graph TB
         end
     end
 
-    subgraph "@codegraph/mcp-server"
+    subgraph "@knowgraph/mcp-server"
         SRV[MCP Server] --> TL[Tool Registry]
         TL --> T1[search_code]
         TL --> T2[find_by_owner]
@@ -143,7 +143,7 @@ graph TB
         SRV --> MDB[Read-only DB Layer]
     end
 
-    subgraph "@codegraph/cli"
+    subgraph "@knowgraph/cli"
         CMD[Commander.js] --> C1[init]
         CMD --> C2[parse]
         CMD --> C3[index]
@@ -169,13 +169,13 @@ graph TB
 ## 3. Monorepo Structure
 
 ```
-codegraph/
+knowgraph/
 ├── packages/
-│   ├── core/                          # @codegraph/core — the engine
+│   ├── core/                          # @knowgraph/core — the engine
 │   │   ├── src/
 │   │   │   ├── types/
 │   │   │   │   ├── entity.ts          # Zod schemas: EntityType, Metadata, Compliance
-│   │   │   │   ├── manifest.ts        # Zod schema for .codegraph.yml config
+│   │   │   │   ├── manifest.ts        # Zod schema for .knowgraph.yml config
 │   │   │   │   ├── parse-result.ts    # ParseResult interface (parser output)
 │   │   │   │   └── index.ts
 │   │   │   ├── parsers/
@@ -198,14 +198,14 @@ codegraph/
 │   │   │   └── index.ts              # Core barrel export
 │   │   └── package.json
 │   │
-│   ├── cli/                           # @codegraph/cli — the user interface
+│   ├── cli/                           # @knowgraph/cli — the user interface
 │   │   ├── src/
 │   │   │   ├── commands/
 │   │   │   │   ├── init.ts            # Project setup wizard
-│   │   │   │   ├── parse.ts           # codegraph parse
-│   │   │   │   ├── index-cmd.ts       # codegraph index
-│   │   │   │   ├── query.ts           # codegraph query
-│   │   │   │   ├── serve.ts           # codegraph serve (MCP)
+│   │   │   │   ├── parse.ts           # knowgraph parse
+│   │   │   │   ├── index-cmd.ts       # knowgraph index
+│   │   │   │   ├── query.ts           # knowgraph query
+│   │   │   │   ├── serve.ts           # knowgraph serve (MCP)
 │   │   │   │   └── index.ts
 │   │   │   ├── utils/
 │   │   │   │   ├── detect.ts          # Language detection + file suggestions
@@ -214,7 +214,7 @@ codegraph/
 │   │   │   └── index.ts              # CLI entrypoint
 │   │   └── package.json
 │   │
-│   └── mcp-server/                    # @codegraph/mcp-server — AI bridge
+│   └── mcp-server/                    # @knowgraph/mcp-server — AI bridge
 │       ├── src/
 │       │   ├── tools/
 │       │   │   ├── search-code.ts
@@ -236,7 +236,7 @@ codegraph/
 ├── examples/                          # Annotated example projects
 ├── roadmap/                           # Machine-readable tracker + ADRs
 ├── .github/workflows/                 # CI + Release pipelines
-├── .codegraph.yml                     # CodeGraph indexes itself
+├── .knowgraph.yml                     # KnowGraph indexes itself
 ├── turbo.json                         # Turborepo orchestration
 └── CONTRIBUTING.md                    # Contribution guidelines
 ```
@@ -250,7 +250,7 @@ codegraph/
 ```mermaid
 sequenceDiagram
     participant Dev as Developer
-    participant CLI as codegraph CLI
+    participant CLI as knowgraph CLI
     participant Reg as Parser Registry
     participant Par as Language Parser
     participant Ext as Metadata Extractor
@@ -258,7 +258,7 @@ sequenceDiagram
     participant Idx as Indexer
     participant DB as SQLite + FTS5
 
-    Dev->>CLI: codegraph index ./src
+    Dev->>CLI: knowgraph index ./src
     CLI->>Idx: index({ rootDir, incremental })
     Idx->>Idx: Scan files (.gitignore aware)
 
@@ -270,7 +270,7 @@ sequenceDiagram
         Reg->>Par: parse(content, filePath)
         Par->>Par: Extract comment blocks
         Par->>Ext: extractMetadata(commentBlock)
-        Ext->>Ext: Find @codegraph marker
+        Ext->>Ext: Find @knowgraph marker
         Ext->>Ext: Strip comment syntax, extract YAML
         Ext->>Zod: Validate against ExtendedMetadataSchema
         Zod-->>Ext: Validated metadata
@@ -306,7 +306,7 @@ sequenceDiagram
 
 ---
 
-## 5. Core Package — @codegraph/core
+## 5. Core Package — @knowgraph/core
 
 The core package (`packages/core/`) contains all the business logic.
 
@@ -341,9 +341,9 @@ interface Parser {
 }
 ```
 
-**TypeScript Parser** — Extracts from JSDoc `/** @codegraph ... */` blocks, then matches to: class declarations, function declarations, arrow functions, interface declarations, type aliases, enum declarations, method declarations (with parent class detection), and module-level docs.
+**TypeScript Parser** — Extracts from JSDoc `/** @knowgraph ... */` blocks, then matches to: class declarations, function declarations, arrow functions, interface declarations, type aliases, enum declarations, method declarations (with parent class detection), and module-level docs.
 
-**Python Parser** — Extracts from triple-quoted docstrings containing `@codegraph`, then matches to: function/method definitions (with parent class detection), class definitions, module-level docstrings, and collects decorators.
+**Python Parser** — Extracts from triple-quoted docstrings containing `@knowgraph`, then matches to: function/method definitions (with parent class detection), class definitions, module-level docstrings, and collects decorators.
 
 **Generic Parser** — Regex-based fallback for JSDoc, hash-style, and line-comment patterns. Works for Go, Java, Ruby, and any language.
 
@@ -351,7 +351,7 @@ interface Parser {
 
 The pipeline in `parsers/metadata-extractor.ts`:
 
-1. **Find marker** — Locate `@codegraph` in comment block
+1. **Find marker** — Locate `@knowgraph` in comment block
 2. **Strip syntax** — Remove `*`, `#`, whitespace from each line
 3. **Dedent** — Remove common leading whitespace
 4. **Parse YAML** — Using the `yaml` library
@@ -383,27 +383,27 @@ The indexer (`indexer/indexer.ts`) orchestrates file scanning and database popul
 
 ---
 
-## 6. CLI Package — @codegraph/cli
+## 6. CLI Package — @knowgraph/cli
 
 Uses [Commander.js](https://github.com/tj/commander.js/) with five commands:
 
 | Command | Description |
 |---------|-------------|
-| `codegraph init` | Interactive project setup wizard with language detection |
-| `codegraph parse <path>` | Parse files and output entities as JSON |
-| `codegraph index <path>` | Build/update the SQLite index |
-| `codegraph query <text>` | Search with `--owner`, `--tags`, `--type` filters |
-| `codegraph serve` | Start the MCP server (stdio transport) |
+| `knowgraph init` | Interactive project setup wizard with language detection |
+| `knowgraph parse <path>` | Parse files and output entities as JSON |
+| `knowgraph index <path>` | Build/update the SQLite index |
+| `knowgraph query <text>` | Search with `--owner`, `--tags`, `--type` filters |
+| `knowgraph serve` | Start the MCP server (stdio transport) |
 
 ### Init Wizard Flow
 
 ```mermaid
 flowchart TD
-    A[codegraph init] --> B{.codegraph.yml exists?}
+    A[knowgraph init] --> B{.knowgraph.yml exists?}
     B -->|Yes| C[Warn: use -y to overwrite]
     B -->|No| D[Detect languages from file extensions]
     D --> E[Prompt for project name]
-    E --> F[Generate .codegraph.yml]
+    E --> F[Generate .knowgraph.yml]
     F --> G[Suggest high-impact files to annotate]
     G --> H[Print next steps]
 ```
@@ -418,7 +418,7 @@ flowchart TD
 
 ---
 
-## 7. MCP Server Package — @codegraph/mcp-server
+## 7. MCP Server Package — @knowgraph/mcp-server
 
 ### 7.1 Tools
 
@@ -448,9 +448,9 @@ Read-only SQLite layer (`db.ts`) that:
 ```json
 {
   "mcpServers": {
-    "codegraph": {
-      "command": "codegraph",
-      "args": ["serve", "--db", ".codegraph/codegraph.db"]
+    "knowgraph": {
+      "command": "knowgraph",
+      "args": ["serve", "--db", ".knowgraph/knowgraph.db"]
     }
   }
 }
@@ -528,13 +528,13 @@ classDiagram
 
 ## 9. Annotation Format
 
-All annotations use YAML inside standard comments, prefixed with `@codegraph`.
+All annotations use YAML inside standard comments, prefixed with `@knowgraph`.
 
 ### TypeScript / JavaScript
 
 ```typescript
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: REST controller handling user CRUD operations
  * owner: platform-team
@@ -556,7 +556,7 @@ export class UserController { }
 ```python
 def process_payment(customer_id: str, amount_cents: int) -> PaymentResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Processes a one-time payment charge through Stripe
     owner: payments-team
@@ -575,7 +575,7 @@ def process_payment(customer_id: str, amount_cents: int) -> PaymentResult:
 ### Go
 
 ```go
-// codegraph:
+// knowgraph:
 //   type: function
 //   description: HTTP handler for user registration
 //   owner: auth-team
@@ -689,8 +689,8 @@ pnpm format              # Prettier
 
 ```mermaid
 graph LR
-    CORE["@codegraph/core<br/>tsc"] --> MCP["@codegraph/mcp-server<br/>tsc"]
-    CORE --> CLI["@codegraph/cli<br/>tsc"]
+    CORE["@knowgraph/core<br/>tsc"] --> MCP["@knowgraph/mcp-server<br/>tsc"]
+    CORE --> CLI["@knowgraph/cli<br/>tsc"]
     MCP --> CLI
 ```
 
@@ -712,7 +712,7 @@ flowchart LR
 Triggered by GitHub Release. Publishes to npm in dependency order with `--provenance`:
 
 ```
-@codegraph/core → @codegraph/mcp-server → @codegraph/cli
+@knowgraph/core → @knowgraph/mcp-server → @knowgraph/cli
 ```
 
 ---
@@ -752,7 +752,7 @@ Triggered by GitHub Release. Publishes to npm in dependency order with `--proven
 
 ## 15. Configuration Reference
 
-### .codegraph.yml
+### .knowgraph.yml
 
 ```yaml
 version: "1.0"
@@ -761,7 +761,7 @@ languages: [typescript, python]
 include: ["packages/*/src/**/*"]
 exclude: [node_modules, dist, .git, __tests__]
 index:
-  output_dir: .codegraph
+  output_dir: .knowgraph
   incremental: true
 ```
 
@@ -792,7 +792,7 @@ Full details: [`roadmap/decisions.yml`](../roadmap/decisions.yml)
 
 ```mermaid
 gantt
-    title CodeGraph Roadmap
+    title KnowGraph Roadmap
     dateFormat YYYY-MM-DD
     axisFormat %b
 
@@ -835,4 +835,4 @@ Full details: [`ROADMAP.md`](../ROADMAP.md) and [`roadmap/tracker.yml`](../roadm
 
 ---
 
-*Generated from the CodeGraph source code and project files.*
+*Generated from the KnowGraph source code and project files.*

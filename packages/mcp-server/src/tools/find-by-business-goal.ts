@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: MCP tool that finds code entities linked to a business objective
- * owner: codegraph-mcp
+ * owner: knowgraph-mcp
  * status: stable
  * tags: [mcp, tool, business, goal]
  * context:

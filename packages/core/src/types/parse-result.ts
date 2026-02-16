@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: ParseResult interface defining the output shape of all language parsers
- * owner: codegraph-core
+ * owner: knowgraph-core
  * status: stable
  * tags: [parser, types, interface]
  * context:

@@ -40,12 +40,12 @@ describe('ManifestSchema', () => {
         },
         webhook: {
           enabled: true,
-          url: 'https://hooks.example.com/codegraph',
+          url: 'https://hooks.example.com/knowgraph',
           events: ['entity.created' as const, 'index.complete' as const],
         },
       },
       index: {
-        output_dir: '.codegraph',
+        output_dir: '.knowgraph',
         incremental: true,
       },
     };
@@ -55,7 +55,7 @@ describe('ManifestSchema', () => {
     expect(result.parsers?.typescript?.annotation_style).toBe('jsdoc');
     expect(result.connectors?.notion?.enabled).toBe(true);
     expect(result.connectors?.webhook?.events).toHaveLength(2);
-    expect(result.index?.output_dir).toBe('.codegraph');
+    expect(result.index?.output_dir).toBe('.knowgraph');
   });
 
   it('rejects invalid version', () => {
@@ -117,7 +117,7 @@ describe('ManifestSchema', () => {
       version: '1.0',
       index: {},
     });
-    expect(result.index?.output_dir).toBe('.codegraph');
+    expect(result.index?.output_dir).toBe('.knowgraph');
     expect(result.index?.incremental).toBe(true);
   });
 });

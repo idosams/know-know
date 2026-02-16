@@ -1,7 +1,7 @@
 package com.example.payments;
 
 /**
- * @codegraph
+ * @knowgraph
  * type: class
  * description: Service handling payment processing, refunds, and subscription billing
  * owner: payments-team
@@ -33,7 +33,7 @@ package com.example.payments;
 public class PaymentService {
 
     /**
-     * @codegraph
+     * @knowgraph
      * type: method
      * description: Processes a one-time payment charge through the configured payment gateway
      * owner: payments-team
@@ -52,7 +52,7 @@ public class PaymentService {
     }
 
     /**
-     * @codegraph
+     * @knowgraph
      * type: method
      * description: Issues a full or partial refund for a completed payment
      * owner: payments-team
@@ -67,7 +67,7 @@ public class PaymentService {
     }
 
     /**
-     * @codegraph
+     * @knowgraph
      * type: method
      * description: Creates or updates a recurring subscription for a customer
      * owner: payments-team

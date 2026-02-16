@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Parser registry that routes files to appropriate language parsers by extension
- * owner: codegraph-core
+ * owner: knowgraph-core
  * status: stable
  * tags: [parser, registry, factory, routing]
  * context:

@@ -1,7 +1,7 @@
 {
-  "name": "@codegraph/core",
+  "name": "@knowgraph/core",
   "version": "0.2.0",
-  "description": "Core library for CodeGraph - code knowledge graph",
+  "description": "Core library for KnowGraph - code knowledge graph",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -14,7 +14,7 @@
     "url": "https://github.com/idosams/know-know/issues"
   },
   "keywords": [
-    "codegraph",
+    "knowgraph",
     "code-knowledge",
     "metadata",
     "parser",

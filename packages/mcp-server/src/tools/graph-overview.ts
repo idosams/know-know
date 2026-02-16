@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: MCP tool that provides codebase-wide statistics and summary
- * owner: codegraph-mcp
+ * owner: knowgraph-mcp
  * status: stable
  * tags: [mcp, tool, overview, statistics]
  * context:

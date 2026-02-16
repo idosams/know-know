@@ -1,15 +1,15 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Output formatting utilities for table and JSON display of query results
- * owner: codegraph-cli
+ * owner: knowgraph-cli
  * status: stable
  * tags: [cli, formatting, output, table]
  * context:
  *   business_goal: Present code graph data in human-readable formats
  *   domain: cli
  */
-import type { StoredEntity } from '@codegraph/core';
+import type { StoredEntity } from '@knowgraph/core';
 
 export function truncate(str: string, maxLen: number): string {
   if (str.length <= maxLen) return str;

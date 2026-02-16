@@ -1,5 +1,5 @@
 version: "1.0"
-name: codegraph
+name: knowgraph
 languages:
   - typescript
 include:
@@ -14,5 +14,5 @@ exclude:
   - "*.test.ts"
   - "*.spec.ts"
 index:
-  output_dir: .codegraph
+  output_dir: .knowgraph
   incremental: true

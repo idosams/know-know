@@ -1,12 +1,12 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
- * description: TypeScript/JavaScript parser that extracts @codegraph annotations from JSDoc comments
- * owner: codegraph-core
+ * description: TypeScript/JavaScript parser that extracts @knowgraph annotations from JSDoc comments
+ * owner: knowgraph-core
  * status: stable
  * tags: [parser, typescript, jsdoc, javascript]
  * context:
- *   business_goal: Enable TypeScript and JavaScript codebases to be indexed by CodeGraph
+ *   business_goal: Enable TypeScript and JavaScript codebases to be indexed by KnowGraph
  *   domain: parser-engine
  */
 import type { ParseResult } from '../types/parse-result.js';

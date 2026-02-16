@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: User management REST endpoints handling registration, profiles, and account operations
 owner: platform-team
@@ -26,7 +26,7 @@ router = APIRouter(tags=["users"])
 
 def create_user(user_data: UserCreate) -> UserResponse:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Registers a new user account with email verification and welcome notification
     owner: platform-team
@@ -47,7 +47,7 @@ def get_user_profile(
     current_user: CurrentUser = Depends(get_current_user),
 ) -> UserResponse:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Returns the authenticated user's profile information
     owner: platform-team
@@ -65,7 +65,7 @@ def update_user_profile(
     current_user: CurrentUser = Depends(get_current_user),
 ) -> UserResponse:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Updates the authenticated user's profile fields
     owner: platform-team
@@ -85,7 +85,7 @@ def delete_user_account(
     current_user: CurrentUser = Depends(get_current_user),
 ) -> dict:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Soft-deletes a user account and triggers GDPR data cleanup workflows
     owner: platform-team

@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Express application entry point for the blog platform API
  * owner: platform-team

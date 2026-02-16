@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// codegraph:
+// knowgraph:
 //   type: module
 //   description: HTTP handlers for user authentication endpoints
 //   owner: auth-team
@@ -32,7 +32,7 @@ type RegisterResponse struct {
 	Token  string `json:"token"`
 }
 
-// codegraph:
+// knowgraph:
 //   type: function
 //   description: HTTP handler for user registration with input validation and duplicate checking
 //   owner: auth-team
@@ -66,7 +66,7 @@ func HandleRegister(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
-// codegraph:
+// knowgraph:
 //   type: function
 //   description: HTTP handler for user login that validates credentials and issues JWT tokens
 //   owner: auth-team

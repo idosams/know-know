@@ -1,8 +1,8 @@
-# CodeGraph Project Tracker
-# Machine-readable roadmap — parseable by CodeGraph itself
+# KnowGraph Project Tracker
+# Machine-readable roadmap — parseable by KnowGraph itself
 # Last updated: 2026-02-16
 
-project: codegraph
+project: knowgraph
 version: 0.2.0
 schema_version: "1.0"
 
@@ -51,7 +51,7 @@ phases:
     progress: 100%
     started: 2026-02-14
     completed: 2026-02-14
-    description: Multi-language parsers for @codegraph metadata extraction
+    description: Multi-language parsers for @knowgraph metadata extraction
     tasks:
       - id: p1-python-parser
         name: Python parser (docstring extraction)
@@ -69,7 +69,7 @@ phases:
         name: Parser registry with extension routing
         status: done
       - id: p1-cli-parse
-        name: "CLI: codegraph parse"
+        name: "CLI: knowgraph parse"
         status: done
 
   - id: phase-1b
@@ -80,11 +80,11 @@ phases:
     blocked_by: []
     tasks:
       - id: p1b-go-parser
-        name: Go parser (codegraph prefix comments)
+        name: Go parser (knowgraph prefix comments)
         status: todo
         priority: high
       - id: p1b-java-parser
-        name: Java parser (JavaDoc with @codegraph)
+        name: Java parser (JavaDoc with @knowgraph)
         status: todo
         priority: high
       - id: p1b-rust-parser
@@ -130,7 +130,7 @@ phases:
         name: Progress reporting
         status: done
       - id: p2-cli-index
-        name: "CLI: codegraph index"
+        name: "CLI: knowgraph index"
         status: done
 
   - id: phase-2b
@@ -146,7 +146,7 @@ phases:
         priority: high
         notes: "Options: LanceDB (recommended), ChromaDB, pgvector"
       - id: p2b-monorepo
-        name: Monorepo support (multiple .codegraph.yml)
+        name: Monorepo support (multiple .knowgraph.yml)
         status: todo
         priority: medium
       - id: p2b-link-validation
@@ -175,10 +175,10 @@ phases:
         name: stdio transport for Claude
         status: done
       - id: p3-cli-serve
-        name: "CLI: codegraph serve"
+        name: "CLI: knowgraph serve"
         status: done
       - id: p3-cli-query
-        name: "CLI: codegraph query"
+        name: "CLI: knowgraph query"
         status: done
       - id: p3-claude-config
         name: Claude Desktop config generator
@@ -220,22 +220,22 @@ phases:
         name: Notion connector
         status: todo
         priority: high
-        package: "@codegraph/connector-notion"
+        package: "@knowgraph/connector-notion"
       - id: p4-jira
         name: Jira connector
         status: todo
         priority: high
-        package: "@codegraph/connector-jira"
+        package: "@knowgraph/connector-jira"
       - id: p4-linear
         name: Linear connector (GraphQL)
         status: todo
         priority: medium
-        package: "@codegraph/connector-linear"
+        package: "@knowgraph/connector-linear"
       - id: p4-webhook
         name: Generic webhook connector
         status: todo
         priority: medium
-        package: "@codegraph/connector-webhook"
+        package: "@knowgraph/connector-webhook"
       - id: p4-auth
         name: Connector auth and token management
         status: todo
@@ -249,7 +249,7 @@ phases:
         status: todo
         priority: medium
       - id: p4-cli-sync
-        name: "CLI: codegraph sync"
+        name: "CLI: knowgraph sync"
         status: todo
         priority: high
 
@@ -261,7 +261,7 @@ phases:
     description: Frictionless adoption for teams
     tasks:
       - id: p5-init-wizard
-        name: "codegraph init wizard"
+        name: "knowgraph init wizard"
         status: done
       - id: p5-lang-detect
         name: Auto-detect project languages
@@ -270,7 +270,7 @@ phases:
         name: Suggest high-impact files to annotate
         status: done
       - id: p5-self-doc
-        name: Self-documentation (CodeGraph indexes itself)
+        name: Self-documentation (KnowGraph indexes itself)
         status: done
       - id: p5-coverage-report
         name: Documentation coverage reporting
@@ -297,19 +297,19 @@ phases:
         status: todo
         priority: medium
       - id: p5-cli-suggest
-        name: "CLI: codegraph suggest"
+        name: "CLI: knowgraph suggest"
         status: todo
         priority: medium
       - id: p5-cli-validate
-        name: "CLI: codegraph validate"
+        name: "CLI: knowgraph validate"
         status: todo
         priority: high
       - id: p5-cli-coverage
-        name: "CLI: codegraph coverage"
+        name: "CLI: knowgraph coverage"
         status: todo
         priority: high
       - id: p5-cli-migrate
-        name: "CLI: codegraph migrate"
+        name: "CLI: knowgraph migrate"
         status: todo
         priority: low
 
@@ -324,7 +324,7 @@ phases:
         name: Cursor Rules generator (.cursorrules)
         status: todo
         priority: high
-        package: "@codegraph/cursor-export"
+        package: "@knowgraph/cursor-export"
       - id: p6-skills-export
         name: Generic AI skills export (markdown)
         status: todo
@@ -333,12 +333,12 @@ phases:
         name: REST API server (Express + OpenAPI)
         status: todo
         priority: high
-        package: "@codegraph/rest-api"
+        package: "@knowgraph/rest-api"
       - id: p6-graphql
         name: GraphQL API server
         status: todo
         priority: medium
-        package: "@codegraph/graphql-api"
+        package: "@knowgraph/graphql-api"
       - id: p6-auth
         name: API authentication (API keys)
         status: todo
@@ -348,7 +348,7 @@ phases:
         status: todo
         priority: medium
       - id: p6-cli-export
-        name: "CLI: codegraph export"
+        name: "CLI: knowgraph export"
         status: todo
         priority: high
 
@@ -417,7 +417,7 @@ phases:
         name: VSCode extension
         status: todo
         priority: high
-        package: "@codegraph/vscode"
+        package: "@knowgraph/vscode"
       - id: p7-jetbrains
         name: JetBrains plugin
         status: todo

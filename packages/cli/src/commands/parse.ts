@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
- * description: CLI command that parses source files and displays extracted @codegraph annotations
- * owner: codegraph-cli
+ * description: CLI command that parses source files and displays extracted @knowgraph annotations
+ * owner: knowgraph-cli
  * status: stable
  * tags: [cli, command, parse, output]
  * context:
@@ -13,8 +13,8 @@ import { readFileSync, statSync, readdirSync } from 'node:fs';
 import { join, resolve, extname } from 'node:path';
 import type { Command } from 'commander';
 import chalk from 'chalk';
-import { createDefaultRegistry } from '@codegraph/core';
-import type { ParseResult } from '@codegraph/core';
+import { createDefaultRegistry } from '@knowgraph/core';
+import type { ParseResult } from '@knowgraph/core';
 import { formatJson } from '../utils/format.js';
 
 function collectFilePaths(targetPath: string): readonly string[] {
@@ -152,7 +152,7 @@ function printSummary(entityCount: number, fileCount: number): void {
 export function registerParseCommand(program: Command): void {
   program
     .command('parse <path>')
-    .description('Parse a file or directory for codegraph annotations')
+    .description('Parse a file or directory for knowgraph annotations')
     .option('--format <format>', 'Output format (json|yaml)', 'json')
     .option('--validate', 'Validate metadata against schema')
     .option('--language <lang>', 'Override language auto-detection')

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: MCP server entrypoint with exports and direct-run capability
- * owner: codegraph-mcp
+ * owner: knowgraph-mcp
  * status: stable
  * tags: [mcp, entrypoint, exports]
  * context:
@@ -30,7 +30,7 @@ const isDirectRun =
   process.argv[1]?.endsWith('mcp-server/src/index.ts');
 
 if (isDirectRun) {
-  const dbPath = process.argv[2] || '.codegraph/codegraph.db';
+  const dbPath = process.argv[2] || '.knowgraph/knowgraph.db';
   const verbose = process.argv.includes('--verbose');
 
   startServer({ dbPath, verbose }).catch((error) => {

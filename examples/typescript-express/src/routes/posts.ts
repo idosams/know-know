@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Blog post CRUD routes for content creation, publishing, and discovery
  * owner: content-team
@@ -24,7 +24,7 @@ import { authMiddleware } from '../middleware/auth';
 export const postRoutes = Router();
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Returns paginated list of published blog posts with optional tag and author filters
  * owner: content-team
@@ -39,7 +39,7 @@ async function listPosts(req: Request, res: Response): Promise<void> {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Retrieves a single blog post by slug with author info and comment count
  * owner: content-team
@@ -54,7 +54,7 @@ async function getPost(req: Request, res: Response): Promise<void> {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Creates a new blog post as a draft or immediately publishes it
  * owner: content-team
@@ -69,7 +69,7 @@ async function createPost(req: Request, res: Response): Promise<void> {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Updates an existing blog post's content, tags, or publish status
  * owner: content-team

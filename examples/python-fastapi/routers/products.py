@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: Product catalog REST endpoints for browsing, searching, and managing products
 owner: catalog-team
@@ -33,7 +33,7 @@ def list_products(
     limit: int = Query(20, ge=1, le=100),
 ) -> list[ProductResponse]:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Returns paginated product listings with optional category and price filters
     owner: catalog-team
@@ -48,7 +48,7 @@ def list_products(
 
 def get_product(product_id: str) -> ProductResponse:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Retrieves detailed product information by ID including inventory status
     owner: catalog-team
@@ -66,7 +66,7 @@ def create_product(
     current_user: CurrentUser = Depends(get_current_user),
 ) -> ProductResponse:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Creates a new product listing in the catalog (admin only)
     owner: catalog-team
@@ -85,7 +85,7 @@ def search_products(
     limit: int = Query(20, ge=1, le=100),
 ) -> list[ProductResponse]:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Full-text search across product names, descriptions, and tags
     owner: catalog-team

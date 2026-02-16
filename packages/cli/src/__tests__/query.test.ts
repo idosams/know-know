@@ -6,8 +6,8 @@ import {
   createDatabaseManager,
   createIndexer,
   createQueryEngine,
-} from '@codegraph/core';
-import type { DatabaseManager } from '@codegraph/core';
+} from '@knowgraph/core';
+import type { DatabaseManager } from '@knowgraph/core';
 import { formatTable, formatJson } from '../utils/format.js';
 
 const FIXTURES_DIR = resolve(__dirname, 'fixtures');
@@ -28,7 +28,7 @@ let dbManager: DatabaseManager;
 
 beforeAll(() => {
   mkdirSync(TEMP_DIR, { recursive: true });
-  const dbPath = join(TEMP_DIR, 'codegraph.db');
+  const dbPath = join(TEMP_DIR, 'knowgraph.db');
 
   const registry = createDefaultRegistry();
   const adapter = createAdapter(registry);

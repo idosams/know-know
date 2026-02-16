@@ -1,18 +1,18 @@
-# @codegraph/mcp-server
+# @knowgraph/mcp-server
 
-MCP (Model Context Protocol) server for [CodeGraph](https://github.com/idosams/know-know) — connect your code knowledge graph to AI assistants.
+MCP (Model Context Protocol) server for [KnowGraph](https://github.com/idosams/know-know) — connect your code knowledge graph to AI assistants.
 
 ## Installation
 
 ```bash
-npm install -g @codegraph/cli
+npm install -g @knowgraph/cli
 # The MCP server is included with the CLI
 ```
 
 Or install standalone:
 
 ```bash
-npm install @codegraph/mcp-server
+npm install @knowgraph/mcp-server
 ```
 
 ## Usage with Claude Desktop
@@ -22,9 +22,9 @@ Add to your Claude Desktop configuration (`claude_desktop_config.json`):
 ```json
 {
   "mcpServers": {
-    "codegraph": {
-      "command": "codegraph",
-      "args": ["serve", "--db", "/path/to/project/.codegraph/codegraph.db"]
+    "knowgraph": {
+      "command": "knowgraph",
+      "args": ["serve", "--db", "/path/to/project/.knowgraph/knowgraph.db"]
     }
   }
 }

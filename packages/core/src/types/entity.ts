@@ -1,12 +1,12 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Zod schemas and TypeScript types for code entities, metadata, and validation
- * owner: codegraph-core
+ * owner: knowgraph-core
  * status: stable
  * tags: [schema, validation, zod, types]
  * context:
- *   business_goal: Provide type-safe entity definitions for the entire CodeGraph system
+ *   business_goal: Provide type-safe entity definitions for the entire KnowGraph system
  *   domain: core-types
  */
 import { z } from 'zod';

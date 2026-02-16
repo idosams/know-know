@@ -1,7 +1,7 @@
 {
-  "name": "@codegraph/cli",
+  "name": "@knowgraph/cli",
   "version": "0.2.0",
-  "description": "CLI tool for CodeGraph",
+  "description": "CLI tool for KnowGraph",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -14,7 +14,7 @@
     "url": "https://github.com/idosams/know-know/issues"
   },
   "keywords": [
-    "codegraph",
+    "knowgraph",
     "cli",
     "code-knowledge",
     "metadata",
@@ -35,7 +35,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "codegraph": "dist/index.js"
+    "knowgraph": "dist/index.js"
   },
   "publishConfig": {
     "access": "public"
@@ -48,8 +48,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@codegraph/core": "workspace:*",
-    "@codegraph/mcp-server": "workspace:*",
+    "@knowgraph/core": "workspace:*",
+    "@knowgraph/mcp-server": "workspace:*",
     "chalk": "^5.4.0",
     "commander": "^13.0.0",
     "inquirer": "^12.0.0",

@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: User entity model and type definitions for the blog platform
  * owner: platform-team
@@ -11,7 +11,7 @@
  */
 
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: Core user entity representing a registered blog platform user
  * owner: platform-team
@@ -33,7 +33,7 @@ export interface User {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: interface
  * description: Input schema for creating a new user account
  * owner: platform-team

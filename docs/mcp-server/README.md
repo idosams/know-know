@@ -1,8 +1,8 @@
-# MCP Server (`@codegraph/mcp-server`)
+# MCP Server (`@knowgraph/mcp-server`)
 
-The MCP (Model Context Protocol) server exposes the CodeGraph knowledge graph to AI assistants such as Claude Desktop and Claude Code. It provides 7 read-only tools that allow AI assistants to search, navigate, and understand an indexed codebase.
+The MCP (Model Context Protocol) server exposes the KnowGraph knowledge graph to AI assistants such as Claude Desktop and Claude Code. It provides 7 read-only tools that allow AI assistants to search, navigate, and understand an indexed codebase.
 
-**Package:** `@codegraph/mcp-server` (v0.2.0)
+**Package:** `@knowgraph/mcp-server` (v0.2.0)
 **Transport:** stdio
 **Database:** Read-only SQLite via `better-sqlite3`
 **Source:** [`packages/mcp-server/src/`](../../packages/mcp-server/src/)
@@ -71,10 +71,10 @@ sequenceDiagram
 
 ### Error Handling: Database Unavailable
 
-When the database file does not exist or cannot be opened, `createServer` does **not** throw. Instead, it catches the error and registers a single fallback tool (`get_graph_overview`) that returns an error message directing the user to run `codegraph index`:
+When the database file does not exist or cannot be opened, `createServer` does **not** throw. Instead, it catches the error and registers a single fallback tool (`get_graph_overview`) that returns an error message directing the user to run `knowgraph index`:
 
 ```
-Database not available at .codegraph/codegraph.db. Run 'codegraph index' to create it.
+Database not available at .knowgraph/knowgraph.db. Run 'knowgraph index' to create it.
 ```
 
 This ensures the MCP server always starts successfully, even without a database.
@@ -401,7 +401,7 @@ Get statistics and overview of the indexed codebase.
 
 **Example response:**
 ```markdown
-## CodeGraph Overview
+## KnowGraph Overview
 
 **Total Entities:** 4
 **Total Links:** 3
@@ -424,7 +424,7 @@ typescript, python
 
 ## Database Layer
 
-The database layer (`src/db.ts`) provides read-only access to the CodeGraph SQLite database. It exports the `McpDatabase` interface and two factory functions.
+The database layer (`src/db.ts`) provides read-only access to the KnowGraph SQLite database. It exports the `McpDatabase` interface and two factory functions.
 
 ### McpDatabase Interface
 
@@ -452,7 +452,7 @@ interface McpDatabase {
 
 The database contains three tables:
 
-**`entities`** -- Code entities extracted from `@codegraph` annotations.
+**`entities`** -- Code entities extracted from `@knowgraph` annotations.
 
 | Column | Type | Notes |
 |--------|------|-------|
@@ -525,11 +525,11 @@ Add the following to your Claude Desktop MCP configuration file (`~/Library/Appl
 ```json
 {
   "mcpServers": {
-    "codegraph": {
+    "knowgraph": {
       "command": "node",
       "args": [
-        "/absolute/path/to/project/node_modules/@codegraph/mcp-server/dist/index.js",
-        "/absolute/path/to/project/.codegraph/codegraph.db"
+        "/absolute/path/to/project/node_modules/@knowgraph/mcp-server/dist/index.js",
+        "/absolute/path/to/project/.knowgraph/knowgraph.db"
       ]
     }
   }
@@ -539,7 +539,7 @@ Add the following to your Claude Desktop MCP configuration file (`~/Library/Appl
 You can also generate this configuration programmatically:
 
 ```typescript
-import { generateClaudeDesktopConfig } from '@codegraph/mcp-server';
+import { generateClaudeDesktopConfig } from '@knowgraph/mcp-server';
 
 const config = generateClaudeDesktopConfig('/path/to/your/project');
 // Returns the JSON object shown above
@@ -552,11 +552,11 @@ Add to your project's `.mcp.json` or use the Claude Code MCP settings:
 ```json
 {
   "mcpServers": {
-    "codegraph": {
+    "knowgraph": {
       "command": "node",
       "args": [
-        "./node_modules/@codegraph/mcp-server/dist/index.js",
-        ".codegraph/codegraph.db"
+        "./node_modules/@knowgraph/mcp-server/dist/index.js",
+        ".knowgraph/knowgraph.db"
       ]
     }
   }
@@ -569,31 +569,31 @@ The package can also be run directly from the command line:
 
 ```bash
 # After building the package
-node packages/mcp-server/dist/index.js .codegraph/codegraph.db
+node packages/mcp-server/dist/index.js .knowgraph/knowgraph.db
 
 # With verbose logging
-node packages/mcp-server/dist/index.js .codegraph/codegraph.db --verbose
+node packages/mcp-server/dist/index.js .knowgraph/knowgraph.db --verbose
 ```
 
-Or via the `codegraph-mcp` binary (if installed globally or via npx):
+Or via the `knowgraph-mcp` binary (if installed globally or via npx):
 
 ```bash
-codegraph-mcp .codegraph/codegraph.db
+knowgraph-mcp .knowgraph/knowgraph.db
 ```
 
 ### Programmatic Usage
 
 ```typescript
-import { createServer, startServer, openDatabase } from '@codegraph/mcp-server';
+import { createServer, startServer, openDatabase } from '@knowgraph/mcp-server';
 
 // Option 1: Full server with stdio transport
-await startServer({ dbPath: '.codegraph/codegraph.db', verbose: true });
+await startServer({ dbPath: '.knowgraph/knowgraph.db', verbose: true });
 
 // Option 2: Create server without starting transport (for testing/embedding)
-const server = createServer({ dbPath: '.codegraph/codegraph.db' });
+const server = createServer({ dbPath: '.knowgraph/knowgraph.db' });
 
 // Option 3: Use the database layer directly
-const db = openDatabase('.codegraph/codegraph.db');
+const db = openDatabase('.knowgraph/knowgraph.db');
 const results = db.search('authentication', { type: 'service' });
 db.close();
 ```
@@ -601,7 +601,7 @@ db.close();
 ### Testing with In-Memory Database
 
 ```typescript
-import { createInMemoryDatabase } from '@codegraph/mcp-server';
+import { createInMemoryDatabase } from '@knowgraph/mcp-server';
 
 const { db, rawDb } = createInMemoryDatabase();
 
@@ -623,6 +623,6 @@ Before the MCP server can serve data, you must index your project:
 pnpm install
 pnpm turbo build
 
-# Index the codebase (creates .codegraph/codegraph.db)
-codegraph index .
+# Index the codebase (creates .knowgraph/knowgraph.db)
+knowgraph index .
 ```

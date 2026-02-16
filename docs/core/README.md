@@ -1,6 +1,6 @@
-# @codegraph/core
+# @knowgraph/core
 
-The core library that powers CodeGraph. It provides parsers for extracting `@codegraph` annotations from source code, an indexer for scanning and storing code entities in SQLite, and a query engine for searching and traversing the knowledge graph.
+The core library that powers KnowGraph. It provides parsers for extracting `@knowgraph` annotations from source code, an indexer for scanning and storing code entities in SQLite, and a query engine for searching and traversing the knowledge graph.
 
 ## Architecture Overview
 
@@ -52,7 +52,7 @@ graph TB
 
 ## 1. Parser System
 
-The parser system extracts `@codegraph` YAML annotations from source code comments and produces structured `ParseResult` objects. It uses a registry pattern that routes files to the appropriate language parser based on file extension.
+The parser system extracts `@knowgraph` YAML annotations from source code comments and produces structured `ParseResult` objects. It uses a registry pattern that routes files to the appropriate language parser based on file extension.
 
 ### Parser Interface
 
@@ -86,7 +86,7 @@ The `createDefaultRegistry()` factory in `parsers/registry.ts` creates a registr
 3. If a specific parser is found, use it. Otherwise, fall back to the generic parser.
 
 ```typescript
-import { createDefaultRegistry } from '@codegraph/core';
+import { createDefaultRegistry } from '@knowgraph/core';
 
 const registry = createDefaultRegistry();
 
@@ -106,20 +106,20 @@ All three parsers share the same metadata extraction pipeline in `parsers/metada
 
 ```mermaid
 graph LR
-    A[Comment Block] --> B[extractCodegraphYaml]
+    A[Comment Block] --> B[extractKnowgraphYaml]
     B --> C[parseAndValidateMetadata]
     C --> D[ExtractionResult]
 
-    B -- "no @codegraph marker" --> E[null]
+    B -- "no @knowgraph marker" --> E[null]
     C -- "invalid YAML" --> F[errors array]
     C -- "valid" --> G[CoreMetadata or ExtendedMetadata]
 ```
 
-**Stage 1: `extractCodegraphYaml(commentBlock)`**
+**Stage 1: `extractKnowgraphYaml(commentBlock)`**
 
-Searches for the `@codegraph` marker in a comment block and extracts the YAML content that follows it. Strips comment syntax (leading `*` for JSDoc, `#` for Python/shell), then dedents the result to handle indented docstrings.
+Searches for the `@knowgraph` marker in a comment block and extracts the YAML content that follows it. Strips comment syntax (leading `*` for JSDoc, `#` for Python/shell), then dedents the result to handle indented docstrings.
 
-Returns `null` if no `@codegraph` marker is found.
+Returns `null` if no `@knowgraph` marker is found.
 
 **Stage 2: `parseAndValidateMetadata(yamlString, baseLineOffset)`**
 
@@ -154,7 +154,7 @@ The TypeScript parser operates in two phases:
 
 1. **Find JSDoc blocks** -- Scans the source using a regex matching `/** ... */` patterns. Each block is stripped of JSDoc formatting (`/**`, `*/`, leading `*`).
 
-2. **Match to code entities** -- For each JSDoc block containing a valid `@codegraph` annotation, the parser examines the next non-empty line of code after the comment. It attempts to match the line against these patterns (in order):
+2. **Match to code entities** -- For each JSDoc block containing a valid `@knowgraph` annotation, the parser examines the next non-empty line of code after the comment. It attempts to match the line against these patterns (in order):
    - Class declaration (`class Foo {`)
    - Function declaration (`function foo()`)
    - Arrow/const function (`const foo = () =>`)
@@ -176,7 +176,7 @@ The Python parser operates similarly:
 
 1. **Find docstrings** -- Scans using a regex matching `"""..."""` and `'''...'''` patterns.
 
-2. **Match to definitions** -- For each docstring with a `@codegraph` annotation, the parser examines the line *above* the docstring (Python docstrings follow the definition they document). It matches against:
+2. **Match to definitions** -- For each docstring with a `@knowgraph` annotation, the parser examines the line *above* the docstring (Python docstrings follow the definition they document). It matches against:
    - Function/method definition (`def foo():` or `async def foo():`)
    - Class definition (`class Foo:`)
    - Module-level (if the docstring is at the top of the file)
@@ -189,7 +189,7 @@ For methods vs. functions, the parser checks indentation. If the `def` is indent
 **Extensions:** `[]` (empty -- serves as fallback)
 **Language identifier:** inferred from extension via a built-in map (supports 20+ languages including Ruby, Go, Rust, Java, etc.)
 
-The generic parser finds `@codegraph` annotations in two comment styles:
+The generic parser finds `@knowgraph` annotations in two comment styles:
 - Block comments: `/* ... */`, `"""..."""`, `'''...'''`
 - Consecutive single-line comments: `//` or `#` groups
 
@@ -256,10 +256,10 @@ import {
   createDefaultRegistry,
   createDatabaseManager,
   createIndexer,
-} from '@codegraph/core';
+} from '@knowgraph/core';
 
 const registry = createDefaultRegistry();
-const db = createDatabaseManager('/path/to/.codegraph/codegraph.db');
+const db = createDatabaseManager('/path/to/.knowgraph/knowgraph.db');
 db.initialize();
 
 // Adapter: the indexer expects (filePath, content) -> ParseResult[]
@@ -385,9 +385,9 @@ Each returned entity is "hydrated" with its tags and links from the respective t
 import {
   createDatabaseManager,
   createQueryEngine,
-} from '@codegraph/core';
+} from '@knowgraph/core';
 
-const db = createDatabaseManager('/path/to/.codegraph/codegraph.db');
+const db = createDatabaseManager('/path/to/.knowgraph/knowgraph.db');
 db.initialize();
 const engine = createQueryEngine(db);
 
@@ -428,10 +428,10 @@ The database layer uses `better-sqlite3` for synchronous SQLite access with WAL 
 ### Initialization
 
 ```typescript
-import { createDatabaseManager } from '@codegraph/core';
+import { createDatabaseManager } from '@knowgraph/core';
 
 // File-based database
-const db = createDatabaseManager('/path/to/codegraph.db');
+const db = createDatabaseManager('/path/to/knowgraph.db');
 
 // In-memory database (for testing)
 const memDb = createDatabaseManager();
@@ -532,7 +532,7 @@ erDiagram
 Entity IDs are deterministic SHA-256 hashes of `filePath:name:line`:
 
 ```typescript
-import { generateEntityId } from '@codegraph/core';
+import { generateEntityId } from '@knowgraph/core';
 
 const id = generateEntityId('src/auth.ts', 'login', 42);
 // Returns SHA-256 hex digest of "src/auth.ts:login:42"
@@ -690,7 +690,7 @@ public | internal | confidential | restricted
 
 ### CoreMetadata
 
-The base metadata that every `@codegraph` annotation must provide:
+The base metadata that every `@knowgraph` annotation must provide:
 
 ```typescript
 interface CoreMetadata {
@@ -781,7 +781,7 @@ interface StoredEntity {
 
 ### Manifest Schema
 
-The `.codegraph.yml` project configuration file schema:
+The `.knowgraph.yml` project configuration file schema:
 
 ```typescript
 interface Manifest {

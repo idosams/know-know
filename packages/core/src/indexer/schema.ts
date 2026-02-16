@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: SQLite schema definitions with FTS5 full-text search and relationship tables
- * owner: codegraph-core
+ * owner: knowgraph-core
  * status: stable
  * tags: [database, schema, sqlite, fts5]
  * context:

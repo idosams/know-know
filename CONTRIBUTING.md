@@ -1,6 +1,6 @@
-# Contributing to CodeGraph
+# Contributing to KnowGraph
 
-Thank you for your interest in contributing to CodeGraph! This guide covers everything you need to get started.
+Thank you for your interest in contributing to KnowGraph! This guide covers everything you need to get started.
 
 ## Development Setup
 
@@ -22,7 +22,7 @@ pnpm turbo test
 ### Project Structure
 
 ```
-codegraph/
+knowgraph/
   packages/
     core/           # Parsers, indexer, query engine
       src/
@@ -51,7 +51,7 @@ pnpm clean             # Clean all build artifacts
 
 ## Adding a New Language Parser
 
-CodeGraph uses a plugin architecture for language parsers. To add support for a new language:
+KnowGraph uses a plugin architecture for language parsers. To add support for a new language:
 
 ### 1. Create the parser file
 
@@ -70,7 +70,7 @@ export function createMyLanguageParser(): Parser {
     supportedExtensions: EXTENSIONS,
 
     parse(content: string, filePath: string): readonly ParseResult[] {
-      // 1. Find comment blocks containing @codegraph
+      // 1. Find comment blocks containing @knowgraph
       // 2. Extract YAML metadata using extractMetadata()
       // 3. Determine the associated code entity (function, class, etc.)
       // 4. Return ParseResult objects
@@ -120,7 +120,7 @@ Create `schema/examples/<language>/` with annotated example files demonstrating 
 
 ## Adding a New MCP Tool
 
-MCP tools let AI assistants query the CodeGraph index. To add a new tool:
+MCP tools let AI assistants query the KnowGraph index. To add a new tool:
 
 ### 1. Create the tool file
 
@@ -214,4 +214,4 @@ Open an issue on GitHub with:
 - Steps to reproduce
 - Expected behavior
 - Actual behavior
-- CodeGraph version and Node.js version
+- KnowGraph version and Node.js version

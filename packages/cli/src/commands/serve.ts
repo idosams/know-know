@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: CLI command that starts the MCP server for AI agent integration
- * owner: codegraph-cli
+ * owner: knowgraph-cli
  * status: stable
  * tags: [cli, command, serve, mcp]
  * context:
@@ -25,13 +25,13 @@ async function runServe(options: ServeOptions): Promise<void> {
   if (!existsSync(dbPath)) {
     console.error(chalk.red(`Error: Database not found at ${dbPath}`));
     console.error(
-      chalk.yellow("Run 'codegraph index' first to create the database."),
+      chalk.yellow("Run 'knowgraph index' first to create the database."),
     );
     process.exitCode = 1;
     return;
   }
 
-  console.log(chalk.bold('Starting CodeGraph MCP server...'));
+  console.log(chalk.bold('Starting KnowGraph MCP server...'));
   console.log(`  Database: ${chalk.cyan(dbPath)}`);
   console.log('');
   console.log(chalk.dim('Add this to your Claude Desktop config:'));
@@ -41,9 +41,9 @@ async function runServe(options: ServeOptions): Promise<void> {
       JSON.stringify(
         {
           mcpServers: {
-            codegraph: {
+            knowgraph: {
               command: 'npx',
-              args: ['codegraph', 'serve', '--db', dbPath],
+              args: ['knowgraph', 'serve', '--db', dbPath],
             },
           },
         },
@@ -55,7 +55,7 @@ async function runServe(options: ServeOptions): Promise<void> {
   console.log('');
 
   try {
-    const { startServer } = await import('@codegraph/mcp-server');
+    const { startServer } = await import('@knowgraph/mcp-server');
     await startServer({ dbPath, verbose: options.verbose });
   } catch (err) {
     console.error(
@@ -71,7 +71,7 @@ export function registerServeCommand(program: Command): void {
   program
     .command('serve')
     .description('Start the MCP server')
-    .option('--db <path>', 'Database path', '.codegraph/codegraph.db')
+    .option('--db <path>', 'Database path', '.knowgraph/knowgraph.db')
     .option('--verbose', 'Enable verbose logging')
     .action((options: ServeOptions) => {
       runServe(options);

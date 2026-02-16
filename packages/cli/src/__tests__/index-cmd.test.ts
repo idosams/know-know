@@ -5,7 +5,7 @@ import {
   createDefaultRegistry,
   createDatabaseManager,
   createIndexer,
-} from '@codegraph/core';
+} from '@knowgraph/core';
 
 const FIXTURES_DIR = resolve(__dirname, 'fixtures');
 const TEMP_DIR = resolve(__dirname, '.tmp-test-output');
@@ -30,7 +30,7 @@ afterEach(() => {
 describe('index command logic', () => {
   it('should index a sample directory', () => {
     mkdirSync(TEMP_DIR, { recursive: true });
-    const dbPath = join(TEMP_DIR, 'codegraph.db');
+    const dbPath = join(TEMP_DIR, 'knowgraph.db');
 
     const registry = createDefaultRegistry();
     const adapter = createAdapter(registry);
@@ -52,7 +52,7 @@ describe('index command logic', () => {
 
   it('should support incremental indexing', () => {
     mkdirSync(TEMP_DIR, { recursive: true });
-    const dbPath = join(TEMP_DIR, 'codegraph.db');
+    const dbPath = join(TEMP_DIR, 'knowgraph.db');
 
     const registry = createDefaultRegistry();
     const adapter = createAdapter(registry);
@@ -84,7 +84,7 @@ describe('index command logic', () => {
 
   it('should respect exclude patterns', () => {
     mkdirSync(TEMP_DIR, { recursive: true });
-    const dbPath = join(TEMP_DIR, 'codegraph.db');
+    const dbPath = join(TEMP_DIR, 'knowgraph.db');
 
     const registry = createDefaultRegistry();
     const adapter = createAdapter(registry);

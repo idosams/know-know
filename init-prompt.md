@@ -1,6 +1,6 @@
-# CodeGraph Project Initialization Prompt
+# KnowGraph Project Initialization Prompt
 
-You are tasked with planning and architecting **CodeGraph**, an open-source documentation orchestration tool that makes codebases AI-navigable by bridging code documentation with business context and external knowledge sources.
+You are tasked with planning and architecting **KnowGraph**, an open-source documentation orchestration tool that makes codebases AI-navigable by bridging code documentation with business context and external knowledge sources.
 
 ## Project Vision
 
@@ -41,10 +41,10 @@ A minimal, language-agnostic schema embedded in code comments/docstrings:
 
 ### Layer 2: Multi-Language Parsers
 Support for major languages through tree-sitter with fallback regex:
-- Python (docstrings with @codegraph blocks)
-- TypeScript/JavaScript (JSDoc with @codegraph tags)
-- Go (comments with codegraph: prefix)
-- Java (JavaDoc with @codegraph tags)
+- Python (docstrings with @knowgraph blocks)
+- TypeScript/JavaScript (JSDoc with @knowgraph tags)
+- Go (comments with knowgraph: prefix)
+- Java (JavaDoc with @knowgraph tags)
 - Rust, C++, Ruby, etc. (progressively add)
 
 ### Layer 3: Knowledge Graph Index
@@ -106,7 +106,7 @@ Multiple consumption interfaces for different AI tools:
 1. **Schema Specification v1.0**
    - Core schema JSON Schema definition
    - Extended schema JSON Schema
-   - Repository manifest (.codegraph.yml) format
+   - Repository manifest (.knowgraph.yml) format
    - Create 10+ examples across Python, TypeScript, Go, Java
    - Document migration path from unstructured → basic → rich
 
@@ -130,19 +130,19 @@ Multiple consumption interfaces for different AI tools:
 
 **Deliverables**:
 1. **Tree-sitter Parsers**
-   - Python parser (docstring extraction + @codegraph blocks)
-   - TypeScript parser (JSDoc extraction + @codegraph tags)
-   - Go parser (comment extraction + codegraph: prefix)
+   - Python parser (docstring extraction + @knowgraph blocks)
+   - TypeScript parser (JSDoc extraction + @knowgraph tags)
+   - Go parser (comment extraction + knowgraph: prefix)
    - Generic fallback parser (regex-based for unsupported languages)
 
 2. **Metadata Extractor**
-   - Parse and validate @codegraph blocks
+   - Parse and validate @knowgraph blocks
    - Extract standard docstring/JSDoc content
    - Validate against JSON Schema
    - Report syntax errors with line numbers
    - Handle partial/incomplete metadata gracefully
 
-3. **CLI: `codegraph parse`**
+3. **CLI: `knowgraph parse`**
    - Input: file path or directory
    - Output: JSON array of entities with metadata
    - Flags: --validate, --format (json|yaml), --language (auto-detect)
@@ -170,11 +170,11 @@ Multiple consumption interfaces for different AI tools:
    - Respect .gitignore and custom exclude patterns
    - Incremental indexing (only reprocess changed files)
    - Progress reporting for large repos
-   - Handle monorepos (multiple .codegraph.yml files)
+   - Handle monorepos (multiple .knowgraph.yml files)
 
-4. **CLI: `codegraph index`**
+4. **CLI: `knowgraph index`**
    - Input: repository root
-   - Output: .codegraph/ directory with SQLite + embeddings
+   - Output: .knowgraph/ directory with SQLite + embeddings
    - Flags: --exclude, --incremental, --verbose
 
 **Tests**: Index large repos (100K+ LOC) in <30 seconds
@@ -200,7 +200,7 @@ Multiple consumption interfaces for different AI tools:
    - Tool: `search_code_semantically` (vector similarity)
    - Resource: Code entity details on demand
 
-3. **CLI: `codegraph serve`**
+3. **CLI: `knowgraph serve`**
    - Start MCP server (stdio transport)
    - Auto-reload on index changes
    - Logging and debugging support
@@ -239,7 +239,7 @@ Multiple consumption interfaces for different AI tools:
    - Custom header support
    - For internal wikis, custom tools
 
-5. **CLI: `codegraph sync`**
+5. **CLI: `knowgraph sync`**
    - Refresh external knowledge cache
    - Report broken links
    - Flag: --connector (notion|jira|linear|all)
@@ -251,9 +251,9 @@ Multiple consumption interfaces for different AI tools:
 
 **Deliverables**:
 1. **Smart Initialization**
-   - `codegraph init` wizard
+   - `knowgraph init` wizard
    - Auto-detect language, framework, structure
-   - Generate .codegraph.yml with intelligent defaults
+   - Generate .knowgraph.yml with intelligent defaults
    - Suggest high-impact files to annotate first
 
 2. **Coverage Reporting**
@@ -269,14 +269,14 @@ Multiple consumption interfaces for different AI tools:
 
 4. **Migration Assistant**
    - Analyze existing docs (README, wiki, comments)
-   - Suggest @codegraph annotations using LLM
+   - Suggest @knowgraph annotations using LLM
    - Generate draft annotations for review
 
 5. **CLI Enhancements**
-   - `codegraph suggest`: where to annotate next
-   - `codegraph validate`: check all annotations
-   - `codegraph coverage`: report documentation coverage
-   - `codegraph migrate`: assist migration
+   - `knowgraph suggest`: where to annotate next
+   - `knowgraph validate`: check all annotations
+   - `knowgraph coverage`: report documentation coverage
+   - `knowgraph migrate`: assist migration
 
 **Tests**: Onboard 5 real repos, measure time-to-first-index
 
@@ -305,7 +305,7 @@ Multiple consumption interfaces for different AI tools:
    - Schema matches graph structure
    - Efficient nested queries
 
-5. **CLI: `codegraph export`**
+5. **CLI: `knowgraph export`**
    - Flags: --format (cursor|skills|openapi|graphql)
    - Output: formatted files for each interface
 
@@ -344,7 +344,7 @@ Multiple consumption interfaces for different AI tools:
 
 **Deliverables**:
 1. **Public Release**
-   - npm package: `npm install -g codegraph`
+   - npm package: `npm install -g knowgraph`
    - GitHub release with binaries
    - Product Hunt launch
    - Hacker News Show HN post
@@ -367,7 +367,7 @@ Multiple consumption interfaces for different AI tools:
 ## Repository Structure
 
 ```
-codegraph/
+knowgraph/
 ├── packages/
 │   ├── core/              # Core library (parsers, indexer, graph)
 │   ├── cli/               # Command-line interface

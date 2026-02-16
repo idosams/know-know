@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: SQLite database manager with CRUD operations for entities, tags, links, and relationships
- * owner: codegraph-core
+ * owner: knowgraph-core
  * status: stable
  * tags: [database, sqlite, crud, storage]
  * context:

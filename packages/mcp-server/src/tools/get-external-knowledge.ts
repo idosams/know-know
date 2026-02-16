@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: MCP tool that retrieves external documentation links for entities
- * owner: codegraph-mcp
+ * owner: knowgraph-mcp
  * status: stable
  * tags: [mcp, tool, links, documentation]
  * context:

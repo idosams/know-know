@@ -47,7 +47,7 @@ describe('init command logic', () => {
     expect(languages.length).toBeGreaterThanOrEqual(2);
   });
 
-  it('should generate valid .codegraph.yml content', () => {
+  it('should generate valid .knowgraph.yml content', () => {
     const manifest = {
       version: '1.0',
       name: 'test-project',
@@ -55,14 +55,14 @@ describe('init command logic', () => {
       include: ['**/*'],
       exclude: ['node_modules', '.git', 'dist', 'build', '__pycache__'],
       index: {
-        output_dir: '.codegraph',
+        output_dir: '.knowgraph',
         incremental: true,
       },
     };
 
     mkdirSync(TEMP_DIR, { recursive: true });
     const yamlContent = stringify(manifest);
-    const configPath = join(TEMP_DIR, '.codegraph.yml');
+    const configPath = join(TEMP_DIR, '.knowgraph.yml');
     writeFileSync(configPath, yamlContent, 'utf-8');
 
     const content = readFileSync(configPath, 'utf-8');

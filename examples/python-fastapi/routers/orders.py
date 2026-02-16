@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: Order management REST endpoints handling order creation, tracking, and fulfillment
 owner: orders-team
@@ -33,7 +33,7 @@ def create_order(
     current_user: CurrentUser = Depends(get_current_user),
 ) -> OrderResponse:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Creates a new order, reserves inventory, and initiates payment processing
     owner: orders-team
@@ -56,7 +56,7 @@ def get_order(
     current_user: CurrentUser = Depends(get_current_user),
 ) -> OrderResponse:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Retrieves order details including line items and current fulfillment status
     owner: orders-team
@@ -73,7 +73,7 @@ def list_orders(
     current_user: CurrentUser = Depends(get_current_user),
 ) -> list[OrderResponse]:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Lists all orders for the authenticated user with pagination
     owner: orders-team
@@ -91,7 +91,7 @@ def cancel_order(
     current_user: CurrentUser = Depends(get_current_user),
 ) -> OrderResponse:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Cancels a pending order, releases inventory holds, and initiates refund if payment was captured
     owner: orders-team

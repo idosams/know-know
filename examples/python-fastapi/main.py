@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: FastAPI application entry point for the e-commerce API
 owner: platform-team
@@ -38,7 +38,7 @@ app.include_router(orders.router, prefix="/api/v1/orders")
 
 def create_app() -> FastAPI:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Factory function that creates and configures the FastAPI application instance
     owner: platform-team

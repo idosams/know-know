@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: CLI command for searching the code graph with filters and formatted output
- * owner: codegraph-cli
+ * owner: knowgraph-cli
  * status: stable
  * tags: [cli, command, query, search]
  * context:
@@ -12,8 +12,8 @@
 import { resolve } from 'node:path';
 import type { Command } from 'commander';
 import chalk from 'chalk';
-import { createDatabaseManager, createQueryEngine } from '@codegraph/core';
-import type { EntityType } from '@codegraph/core';
+import { createDatabaseManager, createQueryEngine } from '@knowgraph/core';
+import type { EntityType } from '@knowgraph/core';
 import { formatTable, formatJson } from '../utils/format.js';
 
 interface QueryCommandOptions {
@@ -34,7 +34,7 @@ function runQuery(searchTerm: string, options: QueryCommandOptions): void {
   } catch {
     console.error(chalk.red(`Error: Could not open database at ${dbPath}`));
     console.error(
-      chalk.yellow("Run 'codegraph index' first to create the database."),
+      chalk.yellow("Run 'knowgraph index' first to create the database."),
     );
     process.exitCode = 1;
     return;
@@ -92,7 +92,7 @@ export function registerQueryCommand(program: Command): void {
     .option('--tags <tags>', 'Comma-separated tag filter')
     .option('--format <format>', 'Output format (json|table)', 'table')
     .option('--limit <n>', 'Max results', '20')
-    .option('--db <path>', 'Database path', '.codegraph/codegraph.db')
+    .option('--db <path>', 'Database path', '.knowgraph/knowgraph.db')
     .action((searchTerm: string, options: QueryCommandOptions) => {
       runQuery(searchTerm, options);
     });

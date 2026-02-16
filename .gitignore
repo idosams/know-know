@@ -4,8 +4,8 @@ node_modules/
 # Build output
 dist/
 
-# CodeGraph data
-.codegraph/
+# KnowGraph data
+.knowgraph/
 
 # TypeScript build info
 *.tsbuildinfo

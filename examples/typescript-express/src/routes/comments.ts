@@ -1,5 +1,5 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: Comment management routes for blog post discussions and moderation
  * owner: content-team
@@ -20,7 +20,7 @@ import { authMiddleware } from '../middleware/auth';
 export const commentRoutes = Router();
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Returns threaded comments for a specific blog post with pagination
  * owner: content-team
@@ -35,7 +35,7 @@ async function listComments(req: Request, res: Response): Promise<void> {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Adds a new comment to a blog post with spam detection and profanity filtering
  * owner: content-team
@@ -52,7 +52,7 @@ async function addComment(req: Request, res: Response): Promise<void> {
 }
 
 /**
- * @codegraph
+ * @knowgraph
  * type: function
  * description: Soft-deletes a comment (author or admin only) and removes from visible threads
  * owner: content-team

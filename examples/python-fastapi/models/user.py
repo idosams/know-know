@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: User data models and Pydantic schemas for request/response validation
 owner: platform-team
@@ -18,7 +18,7 @@ from datetime import datetime
 @dataclass(frozen=True)
 class UserCreate:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Pydantic schema for user registration request validation
     owner: platform-team
@@ -33,7 +33,7 @@ class UserCreate:
 @dataclass(frozen=True)
 class UserUpdate:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Pydantic schema for user profile update request with optional fields
     owner: platform-team
@@ -48,7 +48,7 @@ class UserUpdate:
 @dataclass(frozen=True)
 class UserResponse:
     """
-    @codegraph
+    @knowgraph
     type: class
     description: Pydantic schema for user API responses, excludes sensitive fields like password
     owner: platform-team

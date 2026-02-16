@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: Notification service handling email, SMS, and push notifications for user events
 owner: platform-team
@@ -36,7 +36,7 @@ def send_email(
     template_data: dict,
 ) -> NotificationResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Sends a transactional email using SendGrid templates with retry and tracking
     owner: platform-team
@@ -57,7 +57,7 @@ def send_order_confirmation(
     order_total_cents: int,
 ) -> NotificationResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Sends order confirmation email with receipt and tracking information
     owner: platform-team

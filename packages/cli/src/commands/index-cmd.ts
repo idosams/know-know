@@ -1,8 +1,8 @@
 /**
- * @codegraph
+ * @knowgraph
  * type: module
  * description: CLI command that builds the SQLite code graph index from annotated source files
- * owner: codegraph-cli
+ * owner: knowgraph-cli
  * status: stable
  * tags: [cli, command, index, build]
  * context:
@@ -18,8 +18,8 @@ import {
   createDefaultRegistry,
   createDatabaseManager,
   createIndexer,
-} from '@codegraph/core';
-import type { IndexProgress } from '@codegraph/core';
+} from '@knowgraph/core';
+import type { IndexProgress } from '@knowgraph/core';
 
 interface IndexOptions {
   readonly output: string;
@@ -44,7 +44,7 @@ function createParserRegistryAdapter(
 function runIndex(targetPath: string, options: IndexOptions): void {
   const rootDir = resolve(targetPath);
   const outputDir = resolve(options.output);
-  const dbPath = join(outputDir, 'codegraph.db');
+  const dbPath = join(outputDir, 'knowgraph.db');
 
   mkdirSync(outputDir, { recursive: true });
 
@@ -122,7 +122,7 @@ export function registerIndexCommand(program: Command): void {
   program
     .command('index [path]')
     .description('Scan repository and build the SQLite index')
-    .option('--output <dir>', 'Output directory', '.codegraph')
+    .option('--output <dir>', 'Output directory', '.knowgraph')
     .option('--exclude <patterns>', 'Comma-separated glob patterns to exclude')
     .option(
       '--incremental',

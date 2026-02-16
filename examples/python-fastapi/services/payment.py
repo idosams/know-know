@@ -1,5 +1,5 @@
 """
-@codegraph
+@knowgraph
 type: module
 description: Payment processing service integrating with Stripe for charges, refunds, and subscription billing
 owner: payments-team
@@ -52,7 +52,7 @@ def process_payment(
     payment_method_id: str,
 ) -> PaymentResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Processes a one-time payment charge through Stripe with idempotency and retry logic
     owner: payments-team
@@ -73,7 +73,7 @@ def process_refund(
     refund_amount_cents: int,
 ) -> PaymentResult:
     """
-    @codegraph
+    @knowgraph
     type: function
     description: Issues a full or partial refund for a completed payment through Stripe
     owner: payments-team
