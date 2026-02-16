@@ -32,6 +32,18 @@ pnpm turbo typecheck      # tsc --noEmit
 
 All four checks must pass before creating a PR.
 
+## CI Requirements
+
+PRs cannot be merged until the `build-and-test` CI job passes. The CI enforces:
+
+- **Build** — all packages must compile
+- **Tests** — all tests must pass
+- **Coverage** — 80% minimum (statements, branches, functions, lines)
+- **Lint** — no ESLint errors
+- **Typecheck** — no TypeScript errors
+
+Branch protection is enabled on `main` — the CI status check is required.
+
 ## Self-Indexing
 
 KnowGraph indexes itself. After modifying @knowgraph annotations:
@@ -47,7 +59,7 @@ pnpm turbo build && node packages/cli/dist/index.js index .
 - **Status values** — only `experimental`, `stable`, or `deprecated` (NOT `active`)
 - **@knowgraph annotations** — JSDoc blocks with `@knowgraph` YAML marker before imports
 - **File size** — 200-400 lines typical, 800 max
-- **Test coverage** — 80%+ required
+- **Test coverage** — 80%+ required (enforced by CI)
 
 ## Roadmap
 
