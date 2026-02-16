@@ -18,6 +18,7 @@ import {
   registerServeCommand,
   registerInitCommand,
   registerValidateCommand,
+  registerCoverageCommand,
 } from './commands/index.js';
 
 const program = new Command();
@@ -33,5 +34,6 @@ registerQueryCommand(program);
 registerServeCommand(program);
 registerInitCommand(program);
 registerValidateCommand(program);
+registerCoverageCommand(program);
 
 program.parse();

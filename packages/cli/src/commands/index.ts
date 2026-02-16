@@ -4,3 +4,4 @@ export { registerQueryCommand } from './query.js';
 export { registerServeCommand } from './serve.js';
 export { registerInitCommand } from './init.js';
 export { registerValidateCommand } from './validate.js';
+export { registerCoverageCommand } from './coverage.js';
