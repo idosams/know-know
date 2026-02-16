@@ -20,10 +20,5 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo build
 
-      # NOTE: The `knowgraph coverage` command is added in a parallel PR.
-      # This step will work once that PR is merged.
-      - name: Check annotation coverage
-        run: npx knowgraph coverage . --threshold 50
-
       - name: Validate annotations
         run: npx knowgraph parse . --validate
