@@ -12,6 +12,7 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo build
-      - run: pnpm turbo test
+      - name: Run tests with coverage
+        run: pnpm turbo test -- --coverage
       - run: pnpm turbo lint
       - run: pnpm turbo typecheck
