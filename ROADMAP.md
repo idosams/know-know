@@ -2,6 +2,7 @@
 
 > Machine-readable tracker: [`roadmap/tracker.yml`](roadmap/tracker.yml)
 > Decision log: [`roadmap/decisions.yml`](roadmap/decisions.yml)
+> Project documentation: [`docs/`](docs/)
 
 ---
 
@@ -129,12 +130,18 @@ Prepare for public launch.
 - [x] CONTRIBUTING.md
 - [x] Example projects (Python FastAPI, TypeScript Express)
 - [x] Schema examples (Python, TypeScript, Go, Java)
-- [ ] Getting Started guide
-- [ ] Schema reference documentation
-- [ ] Parser development guide (add new languages)
-- [ ] Connector development guide (add new sources)
-- [ ] API reference (MCP tools, REST, GraphQL)
-- [ ] Best practices guide
+- [x] Project architecture documentation ([docs/](docs/))
+- [x] Core package implementation docs ([docs/core/](docs/core/))
+- [x] CLI package implementation docs ([docs/cli/](docs/cli/))
+- [x] MCP server implementation docs ([docs/mcp-server/](docs/mcp-server/))
+- [x] Annotation guide and schema reference ([docs/annotations/](docs/annotations/))
+- [x] SECURITY.md
+- [x] CODE_OF_CONDUCT.md (Contributor Covenant)
+- [x] CHANGELOG.md
+- [x] CODEOWNERS
+- [x] Issue templates (bug report, feature request)
+- [x] Pull request template
+- [ ] Getting Started tutorial (step-by-step walkthrough)
 - [ ] VSCode extension (syntax highlighting, autocomplete)
 - [ ] JetBrains plugin (basic support)
 - [ ] GitHub Action for automated indexing
@@ -142,18 +149,20 @@ Prepare for public launch.
 
 ---
 
-## Phase 8: Launch & Growth `NOT STARTED`
+## Phase 8: Launch & Growth `IN PROGRESS`
 
 Public release and community building.
 
-- [ ] npm package publishing (`npm install -g codegraph`)
+- [x] npm package publishing (`npm install -g @codegraph/cli`)
+- [x] Release workflow (GitHub Actions → npm with provenance)
+- [x] Version 0.2.0 released
+- [x] Issue templates and triage process
 - [ ] GitHub release with binaries
 - [ ] Product Hunt launch
 - [ ] Hacker News Show HN
 - [ ] Dev.to article
 - [ ] Discord community server
 - [ ] GitHub Discussions
-- [ ] Issue templates and triage process
 - [ ] Feature voting system
 - [ ] Weekly office hours
 - [ ] Additional language parsers (Rust, C++, Ruby, Kotlin, Swift)

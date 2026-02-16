@@ -1,17 +1,17 @@
 # CodeGraph Project Tracker
 # Machine-readable roadmap — parseable by CodeGraph itself
-# Last updated: 2026-02-15
+# Last updated: 2026-02-16
 
 project: codegraph
-version: 0.1.0
+version: 0.2.0
 schema_version: "1.0"
 
 summary:
   total_phases: 9
   completed_phases: 4
-  in_progress_phases: 2
-  not_started_phases: 3
-  overall_progress: 42%
+  in_progress_phases: 3
+  not_started_phases: 2
+  overall_progress: 55%
 
 phases:
 
@@ -355,7 +355,7 @@ phases:
   - id: phase-7
     name: Documentation & Community
     status: in_progress
-    progress: 25%
+    progress: 75%
     started: 2026-02-14
     description: Docs, tooling, and community prep for launch
     tasks:
@@ -371,30 +371,48 @@ phases:
       - id: p7-example-typescript
         name: Example project (TypeScript Express)
         status: done
-      - id: p7-getting-started
-        name: Getting Started guide
-        status: todo
-        priority: high
+      - id: p7-project-docs
+        name: Project architecture documentation (docs/)
+        status: done
+        completed: 2026-02-16
+      - id: p7-core-docs
+        name: Core package implementation docs (docs/core/)
+        status: done
+        completed: 2026-02-16
+      - id: p7-cli-docs
+        name: CLI package implementation docs (docs/cli/)
+        status: done
+        completed: 2026-02-16
+      - id: p7-mcp-docs
+        name: MCP server implementation docs (docs/mcp-server/)
+        status: done
+        completed: 2026-02-16
       - id: p7-schema-ref
-        name: Schema reference documentation
+        name: Annotation guide and schema reference (docs/annotations/)
+        status: done
+        completed: 2026-02-16
+      - id: p7-security
+        name: SECURITY.md
+        status: done
+      - id: p7-coc
+        name: CODE_OF_CONDUCT.md (Contributor Covenant)
+        status: done
+      - id: p7-changelog
+        name: CHANGELOG.md
+        status: done
+      - id: p7-codeowners
+        name: CODEOWNERS
+        status: done
+      - id: p7-issue-templates
+        name: Issue templates (bug report, feature request)
+        status: done
+      - id: p7-pr-template
+        name: Pull request template
+        status: done
+      - id: p7-getting-started
+        name: Getting Started tutorial (step-by-step walkthrough)
         status: todo
         priority: high
-      - id: p7-parser-guide
-        name: Parser development guide
-        status: todo
-        priority: medium
-      - id: p7-connector-guide
-        name: Connector development guide
-        status: todo
-        priority: medium
-      - id: p7-api-ref
-        name: API reference (MCP, REST, GraphQL)
-        status: todo
-        priority: medium
-      - id: p7-best-practices
-        name: Best practices guide
-        status: todo
-        priority: medium
       - id: p7-vscode
         name: VSCode extension
         status: todo
@@ -415,15 +433,25 @@ phases:
 
   - id: phase-8
     name: Launch & Growth
-    status: not_started
-    progress: 0%
+    status: in_progress
+    progress: 30%
+    started: 2026-02-16
     description: Public release and community building
-    blocked_by: [phase-7]
+    blocked_by: []
     tasks:
       - id: p8-npm-publish
         name: npm package publishing
-        status: todo
-        priority: critical
+        status: done
+        completed: 2026-02-16
+        notes: "v0.2.0 published to npm with provenance"
+      - id: p8-release-workflow
+        name: Release workflow (GitHub Actions -> npm)
+        status: done
+        completed: 2026-02-16
+      - id: p8-issue-templates
+        name: Issue templates and triage
+        status: done
+        completed: 2026-02-16
       - id: p8-github-release
         name: GitHub release with binaries
         status: todo
@@ -448,10 +476,6 @@ phases:
         name: GitHub Discussions
         status: todo
         priority: high
-      - id: p8-issue-templates
-        name: Issue templates and triage
-        status: todo
-        priority: medium
       - id: p8-feature-voting
         name: Feature voting system
         status: todo
