@@ -1,9 +1,44 @@
 {
   "name": "@codegraph/mcp-server",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MCP server for CodeGraph",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idosams/know-know.git",
+    "directory": "packages/mcp-server"
+  },
+  "homepage": "https://github.com/idosams/know-know#readme",
+  "bugs": {
+    "url": "https://github.com/idosams/know-know/issues"
+  },
+  "keywords": [
+    "codegraph",
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "code-knowledge"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "codegraph-mcp": "dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "test": "vitest run",

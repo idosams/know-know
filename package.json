@@ -1,6 +1,15 @@
 {
   "name": "codegraph",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idosams/know-know.git"
+  },
+  "homepage": "https://github.com/idosams/know-know#readme",
+  "bugs": {
+    "url": "https://github.com/idosams/know-know/issues"
+  },
   "scripts": {
     "build": "turbo build",
     "test": "turbo test",

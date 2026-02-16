@@ -1,8 +1,26 @@
 # CodeGraph
 
+[![CI](https://github.com/idosams/know-know/actions/workflows/ci.yml/badge.svg)](https://github.com/idosams/know-know/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@codegraph/cli.svg)](https://www.npmjs.com/package/@codegraph/cli)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 > Make your codebase AI-navigable by bridging code documentation with business context
 
 CodeGraph is an open-source documentation orchestration tool that extracts structured metadata from code annotations and builds a queryable knowledge graph. AI coding assistants can then understand not just *what* your code does, but *why* it exists and how it connects to business goals.
+
+## Table of Contents
+
+- [The Problem](#the-problem)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Annotation Format](#annotation-format)
+- [CLI Commands](#cli-commands)
+- [MCP Server Tools](#mcp-server-tools)
+- [Architecture](#architecture)
+- [Examples](#examples)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## The Problem
 
@@ -262,8 +280,8 @@ These examples demonstrate all annotation features including business context, c
 
 ```bash
 # Clone and install
-git clone https://github.com/example/codegraph.git
-cd codegraph
+git clone https://github.com/idosams/know-know.git
+cd know-know
 pnpm install
 
 # Build all packages
@@ -275,6 +293,12 @@ pnpm turbo test
 # Type checking
 pnpm turbo typecheck
 ```
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to get started.
+
+If you find a bug or have a feature request, please [open an issue](https://github.com/idosams/know-know/issues).
 
 ## License
 

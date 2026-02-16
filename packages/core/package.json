@@ -1,9 +1,43 @@
 {
   "name": "@codegraph/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Core library for CodeGraph - code knowledge graph",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idosams/know-know.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/idosams/know-know#readme",
+  "bugs": {
+    "url": "https://github.com/idosams/know-know/issues"
+  },
+  "keywords": [
+    "codegraph",
+    "code-knowledge",
+    "metadata",
+    "parser",
+    "indexer",
+    "sqlite",
+    "ai"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "test": "vitest run",

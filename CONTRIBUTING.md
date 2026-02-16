@@ -12,8 +12,8 @@ Thank you for your interest in contributing to CodeGraph! This guide covers ever
 ### Getting Started
 
 ```bash
-git clone https://github.com/example/codegraph.git
-cd codegraph
+git clone https://github.com/idosams/know-know.git
+cd know-know
 pnpm install
 pnpm turbo build
 pnpm turbo test
