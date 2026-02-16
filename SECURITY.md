@@ -42,6 +42,7 @@ Security issues we are particularly interested in:
 
 | Version | Supported |
 |---------|-----------|
+| 0.2.x   | Yes       |
 | 0.1.x   | Yes       |
 
 ## Recognition

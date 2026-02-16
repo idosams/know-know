@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-02-16
+
+### Added
+
+- npm package publishing configuration for all packages (`files`, `exports`, `publishConfig`)
+- `"type": "module"` to `@codegraph/core` and `@codegraph/mcp-server`
+- `codegraph-mcp` binary for standalone MCP server usage
+- MIT LICENSE file
+- README badges (CI, npm version, license) and table of contents
+- Contributing section in README linking to CONTRIBUTING.md
+- SECURITY.md with responsible disclosure policy
+- CODE_OF_CONDUCT.md (Contributor Covenant v2.1)
+- CODEOWNERS file
+- GitHub issue templates (bug report, feature request) and PR template
+- Example project READMEs for python-fastapi and typescript-express
+- GitHub Actions release workflow for npm publishing with provenance
+
+### Fixed
+
+- Clone URL in README and CONTRIBUTING.md now points to correct repository
+
 ## [0.1.0] - 2026-02-16
 
 ### Added
@@ -41,4 +62,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Python FastAPI e-commerce API with 30+ annotated entities
   - TypeScript Express blog platform with 30+ annotated entities
 
+[0.2.0]: https://github.com/idosams/know-know/releases/tag/v0.2.0
 [0.1.0]: https://github.com/idosams/know-know/releases/tag/v0.1.0
