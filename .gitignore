@@ -10,8 +10,8 @@ dist/
 # TypeScript build info
 *.tsbuildinfo
 
-# Test coverage output
-/coverage/
+# Test coverage
+coverage/
 
 # IDE
 .vscode/
