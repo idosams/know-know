@@ -9,7 +9,14 @@
  *   business_goal: Automate annotation validation on every commit via git hooks
  *   domain: cli
  */
-import { existsSync, readFileSync, writeFileSync, chmodSync, mkdirSync, unlinkSync } from 'node:fs';
+import {
+  existsSync,
+  readFileSync,
+  writeFileSync,
+  chmodSync,
+  mkdirSync,
+  unlinkSync,
+} from 'node:fs';
 import { join } from 'node:path';
 import { execSync } from 'node:child_process';
 import type { Command } from 'commander';
@@ -61,18 +68,23 @@ export function buildHookScript(): string {
     'STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E "\\.(ts|tsx|js|jsx|py)$")',
     '',
     'if [ -z "$STAGED_FILES" ]; then',
-    `  exit 0`,
+    '  exit 0',
     'fi',
     '',
     'echo "KnowGraph: Validating annotations in staged files..."',
     '',
-    'for file in $STAGED_FILES; do',
+    'echo "$STAGED_FILES" | while IFS= read -r file; do',
     '  npx knowgraph parse "$file" --validate 2>&1',
     '  if [ $? -ne 0 ]; then',
     '    echo "KnowGraph: Validation failed for $file"',
     '    exit 1',
     '  fi',
     'done',
+    '',
+    '# Propagate validation failure from subshell',
+    'if [ $? -ne 0 ]; then',
+    '  exit 1',
+    'fi',
     '',
     'echo "KnowGraph: All annotations valid"',
     HOOK_MARKER_END,
@@ -91,7 +103,9 @@ function getGitRoot(): string | null {
 }
 
 function hasKnowgraphSection(content: string): boolean {
-  return content.includes(HOOK_MARKER_START) && content.includes(HOOK_MARKER_END);
+  return (
+    content.includes(HOOK_MARKER_START) && content.includes(HOOK_MARKER_END)
+  );
 }
 
 function removeKnowgraphSection(content: string): string {
@@ -140,13 +154,15 @@ export function installHook(options: InstallOptions = {}): InstallResult {
         return { success: false, alreadyInstalled: true };
       }
       const updated = removeKnowgraphSection(existingContent);
-      const newContent = updated.trimEnd() + '\n\n' + extractKnowgraphSection() + '\n';
+      const newContent =
+        updated.trimEnd() + '\n\n' + extractKnowgraphSection() + '\n';
       writeFileSync(hookPath, newContent);
       chmodSync(hookPath, 0o755);
       return { success: true, appended: false };
     }
 
-    const newContent = existingContent.trimEnd() + '\n\n' + extractKnowgraphSection() + '\n';
+    const newContent =
+      existingContent.trimEnd() + '\n\n' + extractKnowgraphSection() + '\n';
     writeFileSync(hookPath, newContent);
     chmodSync(hookPath, 0o755);
     return { success: true, appended: true };
@@ -278,7 +294,9 @@ export function registerHookCommand(program: Command): void {
       }
 
       if (status.installed) {
-        console.log(chalk.green(`KnowGraph hook is installed at ${status.hookPath}`));
+        console.log(
+          chalk.green(`KnowGraph hook is installed at ${status.hookPath}`),
+        );
       } else {
         console.log(chalk.yellow('KnowGraph hook is not installed.'));
         console.log(chalk.dim('Run `knowgraph hook install` to install it.'));
