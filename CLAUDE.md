@@ -61,6 +61,39 @@ pnpm turbo build && node packages/cli/dist/index.js index .
 - **File size** — 200-400 lines typical, 800 max
 - **Test coverage** — 80%+ required (enforced by CI)
 
+## Documentation
+
+Comprehensive project documentation lives in `docs/`:
+
+- **[docs/README.md](docs/README.md)** — Complete project overview with diagrams
+- **[docs/architecture.md](docs/architecture.md)** — System architecture deep-dive
+- **[docs/design-decisions.md](docs/design-decisions.md)** — ADR-style decision records
+
+### Core Package
+
+- **[docs/core/types.md](docs/core/types.md)** — Zod schemas and type system
+- **[docs/core/parsers.md](docs/core/parsers.md)** — Parser registry and language parsers
+- **[docs/core/indexer.md](docs/core/indexer.md)** — SQLite indexer and incremental indexing
+- **[docs/core/query-engine.md](docs/core/query-engine.md)** — FTS5 query engine
+- **[docs/core/validation.md](docs/core/validation.md)** — Annotation validation rules
+- **[docs/core/coverage.md](docs/core/coverage.md)** — Documentation coverage calculator
+- **[docs/core/suggest.md](docs/core/suggest.md)** — File suggestion engine
+
+### CLI & MCP Server
+
+- **[docs/cli/getting-started.md](docs/cli/getting-started.md)** — Quick start guide
+- **[docs/cli/commands.md](docs/cli/commands.md)** — Complete CLI command reference
+- **[docs/mcp-server/overview.md](docs/mcp-server/overview.md)** — MCP server architecture
+- **[docs/mcp-server/tools.md](docs/mcp-server/tools.md)** — MCP tools reference
+
+### Development
+
+- **[docs/development/contributing.md](docs/development/contributing.md)** — Contributing guide
+- **[docs/development/testing.md](docs/development/testing.md)** — Testing guide (Vitest)
+- **[docs/development/annotations.md](docs/development/annotations.md)** — @knowgraph annotation guide
+- **[docs/development/api-reference.md](docs/development/api-reference.md)** — Core API reference
+- **[docs/annotations/README.md](docs/annotations/README.md)** — Full annotation schema reference
+
 ## Roadmap
 
 Machine-readable tracker: `roadmap/tracker.yml`
