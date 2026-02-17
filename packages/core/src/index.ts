@@ -23,3 +23,4 @@ export { createDefaultRegistry } from './parsers/registry.js';
 export * from './indexer/index.js';
 export * from './query/index.js';
 export * from './validation/index.js';
+export * from './coverage/index.js';
