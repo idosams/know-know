@@ -14,6 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Verify release notes exist
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          if ! grep -q "## \[${VERSION}\]" CHANGELOG.md; then
+            echo "::error::No CHANGELOG.md entry found for version ${VERSION}."
+            echo "::error::Add a '## [${VERSION}]' section to CHANGELOG.md before releasing."
+            exit 1
+          fi
+          echo "Release notes found for v${VERSION}"
+
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
