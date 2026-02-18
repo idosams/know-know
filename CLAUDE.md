@@ -90,9 +90,14 @@ Comprehensive project documentation lives in `docs/`:
 
 - **[docs/development/contributing.md](docs/development/contributing.md)** — Contributing guide
 - **[docs/development/testing.md](docs/development/testing.md)** — Testing guide (Vitest)
-- **[docs/development/annotations.md](docs/development/annotations.md)** — @knowgraph annotation guide
 - **[docs/development/api-reference.md](docs/development/api-reference.md)** — Core API reference
-- **[docs/annotations/README.md](docs/annotations/README.md)** — Full annotation schema reference
+- **[docs/annotations/README.md](docs/annotations/README.md)** — Full annotation guide & schema reference
+
+## Release Process
+
+- **Release notes are mandatory.** The release workflow will fail if `CHANGELOG.md` does not contain a `## [<version>]` entry matching the release tag. Always add release notes before tagging a release.
+- `CHANGELOG.md` follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format.
+- Plan files in `docs/plans/` must be named by version number (e.g., `docs/plans/v0.3.0.md`), never generic names like "next-phase".
 
 ## Roadmap
 

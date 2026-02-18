@@ -435,6 +435,36 @@ pnpm turbo build && node packages/cli/dist/index.js index .
 
 This updates the internal `.knowgraph/knowgraph.db` database.
 
+## Release Process
+
+### Release Notes Requirement
+
+**Every release must have a corresponding entry in `CHANGELOG.md`.** The release CI workflow will fail if a `## [<version>]` section is not found in `CHANGELOG.md` for the version being released.
+
+Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/):
+
+```markdown
+## [0.3.0] - 2026-03-01
+
+### Added
+- New feature description
+
+### Fixed
+- Bug fix description
+
+### Changed
+- Change description
+```
+
+### Plan File Naming
+
+Plan files in `docs/plans/` must be named by version number:
+
+- `docs/plans/v0.3.0.md`
+- `docs/plans/v0.4.0.md`
+
+Never use generic names like "next-phase" or "upcoming".
+
 ## Pull Request Checklist
 
 Before submitting a PR, ensure:
@@ -447,3 +477,4 @@ Before submitting a PR, ensure:
 - [ ] Commit messages follow conventional format
 - [ ] No hardcoded secrets or sensitive data
 - [ ] Branch is up-to-date with `main`
+- [ ] If this is a release: `CHANGELOG.md` has an entry for the version
