@@ -48,6 +48,15 @@ packages/
 
 Defined in `turbo.json`:
 
+```mermaid
+flowchart TD
+    B[build] -->|depends on| UB["^build\n(upstream)"]
+    T[test] -->|depends on| B
+    TC[typecheck] -->|depends on| UB
+    L[lint]
+    CL[clean]
+```
+
 | Task | Depends On | Outputs |
 |------|-----------|---------|
 | `build` | `^build` (upstream packages first) | `dist/**` |
@@ -71,6 +80,17 @@ Packages reference each other using pnpm workspace protocol:
 ```
 
 ## Git Workflow
+
+```mermaid
+flowchart LR
+    A[Fork/Clone] --> B[Create Feature\nBranch]
+    B --> C[Write Code\n& Tests]
+    C --> D[Build & Test\n& Lint & Typecheck]
+    D --> E[Commit &\nPush]
+    E --> F[Create PR]
+    F --> G[CI Passes]
+    G --> H[Merge to\nMain]
+```
 
 ### Branch Strategy
 

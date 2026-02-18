@@ -942,6 +942,50 @@ Planned connector packages:
 
 ---
 
+## Technology Stack Overview
+
+```mermaid
+graph TD
+    subgraph "AI Integration"
+        MCP["MCP Protocol<br/>(stdio transport)"]
+        SDK["@modelcontextprotocol/sdk"]
+    end
+
+    subgraph "CLI Layer"
+        Commander["Commander.js"]
+        Inquirer["inquirer<br/>(interactive prompts)"]
+        Ora["ora<br/>(spinners)"]
+    end
+
+    subgraph "Core Engine"
+        Zod["Zod<br/>(schemas + types)"]
+        Regex["Regex-based Parsers"]
+        YAML["yaml library"]
+    end
+
+    subgraph "Storage"
+        SQLite["SQLite<br/>(better-sqlite3)"]
+        FTS5["FTS5<br/>(full-text search)"]
+        MD5["MD5<br/>(incremental hashing)"]
+    end
+
+    subgraph "Build & CI"
+        pnpm["pnpm Workspaces"]
+        Turbo["Turborepo"]
+        Vitest["Vitest<br/>(testing)"]
+        GH["GitHub Actions"]
+    end
+
+    Commander --> Zod
+    MCP --> SQLite
+    SDK --> MCP
+    Zod --> Regex
+    Regex --> YAML
+    YAML --> SQLite
+    SQLite --> FTS5
+    pnpm --> Turbo
+```
+
 ## Summary of Key Decisions
 
 | Decision | Core Choice | Primary Rationale |

@@ -16,20 +16,17 @@ MCP uses a client-server architecture where AI assistants (like Claude, Cursor, 
 
 KnowGraph's MCP server bridges your code knowledge graph with AI assistants:
 
-```
-AI Assistant (Claude, Cursor, etc.)
-        |
-        | MCP Protocol (stdio transport)
-        |
-   KnowGraph MCP Server
-        |
-        | SQL queries
-        |
-   SQLite Database (.knowgraph/knowgraph.db)
-        |
-        | Built by `knowgraph index`
-        |
-   Your Codebase (@knowgraph annotations)
+```mermaid
+sequenceDiagram
+    participant AI as AI Assistant<br/>(Claude, Cursor)
+    participant MCP as KnowGraph MCP Server
+    participant DB as SQLite Database<br/>(.knowgraph/knowgraph.db)
+
+    AI->>MCP: MCP tool call via stdio
+    MCP->>DB: SQL query (read-only)
+    DB-->>MCP: Result rows
+    MCP->>MCP: Format as markdown
+    MCP-->>AI: Structured response
 ```
 
 When an AI assistant needs to understand your codebase, it can use KnowGraph's MCP tools to:
@@ -266,6 +263,18 @@ The server uses **stdio transport**, so any MCP client that supports stdio can c
 ```
 
 ## Registered Tools
+
+```mermaid
+graph LR
+    S["MCP Server<br/>(knowgraph)"]
+    S --> T1["search_code"]
+    S --> T2["find_code_by_owner"]
+    S --> T3["find_code_by_business_goal"]
+    S --> T4["get_code_dependencies"]
+    S --> T5["get_entity_details"]
+    S --> T6["get_external_knowledge"]
+    S --> T7["get_graph_overview"]
+```
 
 The server registers 7 tools:
 

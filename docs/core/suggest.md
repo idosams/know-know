@@ -13,14 +13,16 @@ suggest/
 
 The suggestion flow:
 
-```
-Root directory
-  --> collectFiles() walks directory tree
-    --> analyzeFile() reads each file, counts lines/imports, checks for annotation
-      --> shouldExclude() filters out test files, config files, fixtures, annotated files
-        --> scoreFile() assigns a numeric score and reasons
-          --> Sort by score descending
-            --> Return top N suggestions
+```mermaid
+flowchart TD
+    A[Root Directory] --> B[collectFiles]
+    B --> C[analyzeFile\nRead & Count Lines/Imports]
+    C --> D{shouldExclude?}
+    D -->|Yes: Test/Config/Fixture/Annotated| E[Skip]
+    D -->|No| F[scoreFile]
+    F --> G[Assign Score\n& Reasons]
+    G --> H[Sort by Score\nDescending]
+    H --> I[Return Top N\nSuggestions]
 ```
 
 ## Types

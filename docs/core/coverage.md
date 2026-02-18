@@ -13,16 +13,20 @@ coverage/
 
 The coverage flow:
 
-```
-Root directory
-  --> collectParseableFiles() walks directory tree
-    --> For each file:
-        1. Determine language from extension
-        2. Parse with parser registry
-        3. Record hasAnnotation and entityCount
-      --> Compute overall percentage
-      --> Build breakdowns by language, directory, owner
-        --> Return CoverageResult
+```mermaid
+flowchart TD
+    A[Root Directory] --> B[collectParseableFiles]
+    B --> C{For Each File}
+    C --> D[Determine Language\nfrom Extension]
+    D --> E[Parse with\nParser Registry]
+    E --> F[Record hasAnnotation\n& entityCount]
+    F --> C
+    C -->|All Done| G[Compute Overall\nPercentage]
+    G --> H[Build Breakdowns]
+    H --> H1[By Language]
+    H --> H2[By Directory]
+    H --> H3[By Owner]
+    H1 & H2 & H3 --> I[Return CoverageResult]
 ```
 
 ## Types

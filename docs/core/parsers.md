@@ -17,13 +17,25 @@ parsers/
 
 Data flows through the parser system as follows:
 
-```
-Source file
-  --> Registry selects parser by extension
-    --> Parser finds comment blocks (JSDoc / docstrings / block comments)
-      --> extractKnowgraphYaml() finds @knowgraph marker and strips comment syntax
-        --> parseAndValidateMetadata() parses YAML and validates against Zod schemas
-          --> ParseResult[] returned with entity name, location, metadata
+```mermaid
+flowchart TD
+    A["Source File"] --> B{"File Extension?"}
+    B -->|".ts .tsx .js .jsx .mts .cts"| C["TypeScript Parser"]
+    B -->|".py .pyi"| D["Python Parser"]
+    B -->|"any other"| E["Generic Parser"]
+    C --> F["Find comment blocks"]
+    D --> F
+    E --> F
+    F --> G["extractKnowgraphYaml()"]
+    G --> H{"@knowgraph marker found?"}
+    H -->|No| I["Skip block"]
+    H -->|Yes| J["Strip comment syntax"]
+    J --> K["parseAndValidateMetadata()"]
+    K --> L{"Zod validation"}
+    L -->|"ExtendedMetadataSchema pass"| M["ParseResult[]"]
+    L -->|"Try CoreMetadataSchema"| N{"Core valid?"}
+    N -->|Yes| M
+    N -->|No| O["Return validation errors"]
 ```
 
 ## Interfaces
@@ -67,6 +79,19 @@ export interface ParserRegistry {
 ## Metadata Extraction Pipeline
 
 The extraction pipeline is the core of the parser system. It is shared by all parsers.
+
+The following diagram illustrates the metadata extraction pipeline shared by all parsers:
+
+```mermaid
+flowchart LR
+    A["Comment Block"] --> B["Find @knowgraph marker"]
+    B --> C["Take text after marker"]
+    C --> D["Strip comment syntax<br/>(*, #, //)"]
+    D --> E["Dedent"]
+    E --> F["Parse YAML"]
+    F --> G["Validate with Zod"]
+    G --> H["ExtractionResult"]
+```
 
 ### Step 1: `extractKnowgraphYaml(commentBlock)`
 

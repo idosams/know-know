@@ -14,11 +14,43 @@ types/
 
 Types flow through the system in this order:
 
-```
-Raw YAML  -->  Zod validation  -->  Inferred TypeScript types  -->  SQLite storage
+```mermaid
+flowchart LR
+    A[Raw YAML\nAnnotation] --> B[Zod Schema\nValidation]
+    B --> C[Inferred\nTypeScript Types]
+    C --> D[SQLite\nStorage]
 ```
 
 ## Entity Types
+
+```mermaid
+classDiagram
+    class CoreMetadata {
+        +EntityType type
+        +string description
+        +string? owner
+        +Status? status
+        +string[]? tags
+        +Link[]? links
+    }
+    class ExtendedMetadata {
+        +Context? context
+        +Dependencies? dependencies
+        +Compliance? compliance
+        +Operational? operational
+    }
+    class ParseResult {
+        +string name
+        +string filePath
+        +number line
+        +string language
+        +EntityType entityType
+        +CoreMetadata|ExtendedMetadata metadata
+    }
+    CoreMetadata <|-- ExtendedMetadata
+    CoreMetadata --* ParseResult
+    ExtendedMetadata --* ParseResult
+```
 
 ### EntityTypeSchema
 

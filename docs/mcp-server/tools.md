@@ -501,6 +501,16 @@ Common error scenarios:
 
 ## Typical AI Assistant Workflow
 
+```mermaid
+flowchart TD
+    A[get_graph_overview] -->|Understand codebase| B[search_code]
+    B -->|Find entities| C[get_entity_details]
+    C -->|Deep dive| D[get_code_dependencies]
+    C -->|Find docs| E[get_external_knowledge]
+    B -->|Team context| F[find_code_by_owner]
+    B -->|Business context| G[find_code_by_business_goal]
+```
+
 A typical workflow for an AI assistant exploring a codebase:
 
 1. **Orientation:** Call `get_graph_overview` to understand the codebase size, languages, teams, and entity types

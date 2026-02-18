@@ -109,14 +109,15 @@ know-know/
 
 ## 3. Package Dependency Graph
 
-```
-                    @knowgraph/cli
-                   /              \
-                  /                \
-    @knowgraph/core      @knowgraph/mcp-server
-                  \                /
-                   \              /
-                    @knowgraph/core
+```mermaid
+graph LR
+    CLI["@knowgraph/cli"]
+    MCP["@knowgraph/mcp-server"]
+    CORE["@knowgraph/core"]
+
+    CLI --> CORE
+    CLI --> MCP
+    MCP --> CORE
 ```
 
 More precisely:
@@ -159,6 +160,27 @@ The complete lifecycle of a KnowGraph annotation:
    */                  via Zod schemas
 ```
 
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant Parser as Parser Engine
+    participant Indexer as Indexer
+    participant DB as SQLite + FTS5
+    participant MCP as MCP Server
+    participant AI as AI Assistant
+
+    Dev->>Parser: Write @knowgraph annotation
+    Parser->>Parser: Detect language, extract YAML
+    Parser->>Parser: Validate against Zod schemas
+    Parser-->>Indexer: ParseResult[]
+    Indexer->>Indexer: Scan files, compute MD5 hashes
+    Indexer->>DB: Store entities, tags, links, relationships
+    AI->>MCP: MCP tool call (e.g. search_code)
+    MCP->>DB: SQL query with FTS5
+    DB-->>MCP: Matching rows
+    MCP-->>AI: Markdown-formatted results
+```
+
 ### Step-by-Step Data Flow
 
 **Step 1 -- Annotate**: Developer writes `@knowgraph` YAML inside language-native comments (JSDoc for TS/JS, docstrings for Python, generic comments for other languages).
@@ -189,29 +211,16 @@ The complete lifecycle of a KnowGraph annotation:
 
 The `@knowgraph/core` package is the heart of the system. It contains seven subsystems organized as a layered architecture:
 
-```
-                  +-------------------+
-                  |    Public API     |  (index.ts - barrel exports)
-                  +-------------------+
-                           |
-          +----------------+------------------+
-          |                |                  |
-  +-------+------+  +-----+-------+  +-------+-------+
-  |    Types     |  |   Parsers   |  |   Validation  |
-  | (Zod schemas)|  | (registry)  |  |  (rules)      |
-  +--------------+  +------+------+  +-------+-------+
-                           |
-                    +------+------+
-                    |   Indexer   |
-                    |  (SQLite)   |
-                    +------+------+
-                           |
-              +------------+------------+
-              |            |            |
-        +-----+-----+ +---+----+ +----+------+
-        |   Query   | |Coverage| | Suggestion|
-        |  Engine   | |  Calc  | |   Engine  |
-        +-----------+ +--------+ +-----------+
+```mermaid
+graph TD
+    API["Public API<br/>(index.ts barrel exports)"]
+    API --> Types["Types<br/>(Zod schemas)"]
+    API --> Parsers["Parsers<br/>(registry)"]
+    API --> Validation["Validation<br/>(rules)"]
+    Parsers --> Indexer["Indexer<br/>(SQLite)"]
+    Indexer --> Query["Query Engine"]
+    Indexer --> Coverage["Coverage Calculator"]
+    Indexer --> Suggest["Suggestion Engine"]
 ```
 
 ### 5.1 Type System (Zod Schemas)

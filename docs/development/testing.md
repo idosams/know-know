@@ -4,6 +4,17 @@ KnowGraph uses [Vitest](https://vitest.dev/) as its testing framework with V8 fo
 
 ## Quick Start
 
+```mermaid
+flowchart LR
+    A[pnpm turbo test] --> B[Build Core]
+    B --> C[Test Core\nvitest]
+    B --> D[Test CLI\nvitest]
+    C & D --> E[Coverage\nReport]
+    E --> F{Coverage\n≥ 80%?}
+    F -->|Yes| G[Pass]
+    F -->|No| H[Fail]
+```
+
 ```bash
 # Run all tests across the monorepo
 pnpm turbo test

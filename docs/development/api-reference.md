@@ -10,6 +10,20 @@ npm install @knowgraph/core
 import { createDefaultRegistry, createDatabaseManager, createIndexer } from '@knowgraph/core';
 ```
 
+```mermaid
+flowchart TD
+    subgraph Core["@knowgraph/core"]
+        P[Parsers] --> I[Indexer]
+        I --> DB[(SQLite DB)]
+        DB --> Q[Query Engine]
+        P --> V[Validator]
+        P --> C[Coverage Calculator]
+        P --> S[Suggestion Engine]
+    end
+    CLI["@knowgraph/cli"] --> Core
+    MCP["@knowgraph/mcp-server"] --> Core
+```
+
 ---
 
 ## Parsers

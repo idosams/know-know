@@ -2,6 +2,23 @@
 
 Complete reference for all `knowgraph` CLI commands.
 
+```mermaid
+graph TD
+    KG["knowgraph"]
+    KG --> init["init"]
+    KG --> parse["parse &lt;path&gt;"]
+    KG --> index["index [path]"]
+    KG --> query["query &lt;term&gt;"]
+    KG --> validate["validate [path]"]
+    KG --> coverage["coverage [path]"]
+    KG --> suggest["suggest [path]"]
+    KG --> hook["hook"]
+    KG --> serve["serve"]
+    hook --> install["hook install"]
+    hook --> uninstall["hook uninstall"]
+    hook --> status["hook status"]
+```
+
 ## Global Options
 
 ```

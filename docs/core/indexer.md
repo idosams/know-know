@@ -15,23 +15,79 @@ indexer/
 
 Data flows through the indexer as follows:
 
-```
-File system
-  --> collectFiles() walks directory, applies .gitignore + exclude patterns
-    --> Filter to parsable files
-      --> For each file:
-          1. Read content
-          2. Compute MD5 hash
-          3. Skip if hash unchanged (incremental mode)
-          4. Delete old entities for file
-          5. Parse file via parser registry
-          6. Insert each ParseResult as an entity
-          7. Insert tags, links, relationships
+```mermaid
+flowchart TD
+    A["File System"] --> B["collectFiles()<br/>walk directory"]
+    B --> C["Apply .gitignore +<br/>exclude patterns"]
+    C --> D["Filter to parsable files"]
+    D --> E["For each file"]
+    E --> F["Read content"]
+    F --> G["Compute MD5 hash"]
+    G --> H{"Incremental mode?"}
+    H -->|"Yes: hash unchanged"| I["Skip file"]
+    H -->|"No / hash changed"| J["Delete old entities<br/>for this file"]
+    J --> K["Parse file via<br/>parser registry"]
+    K --> L["Insert entities"]
+    L --> M["Insert tags, links,<br/>relationships"]
+    M --> E
 ```
 
 ## SQLite Schema
 
 The database uses five tables plus one FTS5 virtual table. All tables are created via `CREATE_TABLES_SQL` in `schema.ts`.
+
+```mermaid
+erDiagram
+    entities {
+        TEXT id PK "SHA256 hash"
+        TEXT file_path
+        TEXT name
+        TEXT entity_type
+        TEXT description
+        TEXT raw_docstring
+        TEXT signature
+        TEXT parent
+        TEXT language
+        INTEGER line
+        INTEGER column_num
+        TEXT owner
+        TEXT status
+        TEXT metadata_json
+        TEXT file_hash
+        TEXT created_at
+        TEXT updated_at
+    }
+    tags {
+        TEXT entity_id FK
+        TEXT tag
+    }
+    links {
+        INTEGER id PK
+        TEXT entity_id FK
+        TEXT link_type
+        TEXT url
+        TEXT title
+    }
+    relationships {
+        INTEGER id PK
+        TEXT source_id FK
+        TEXT target_id FK
+        TEXT relationship_type
+    }
+    entities_fts {
+        TEXT entity_id
+        TEXT name
+        TEXT description
+        TEXT tags_text
+        TEXT owner
+    }
+
+    entities ||--o{ tags : "has"
+    entities ||--o{ links : "has"
+    entities ||--o{ relationships : "source"
+    entities ||--o{ relationships : "target"
+    entities ||--|| entities_fts : "indexed in"
+```
 
 ### entities
 

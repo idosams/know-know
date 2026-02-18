@@ -12,12 +12,20 @@ query/
 
 The query engine sits between the database and consumers (CLI, MCP server):
 
-```
-CLI / MCP Server
-  --> QueryEngine
-    --> SQL generation with dynamic WHERE clauses
-      --> SQLite (entities, tags, links, relationships, entities_fts)
-        --> Hydrated StoredEntity results
+```mermaid
+flowchart TD
+    A["CLI / MCP Server"] --> B["QueryEngine.search()"]
+    B --> C["Build dynamic WHERE clauses"]
+    C --> D{"Has text query?"}
+    D -->|Yes| E["FTS5 MATCH on entities_fts"]
+    D -->|No| F["Skip FTS"]
+    E --> G["Combine with type, owner,<br/>status, tags, filePath filters"]
+    F --> G
+    G --> H["Execute COUNT(*) for total"]
+    G --> I["Execute SELECT with<br/>LIMIT/OFFSET"]
+    H --> J["Hydrate each row<br/>(fetch tags + links)"]
+    I --> J
+    J --> K["QueryResult<br/>{entities, total, query}"]
 ```
 
 ## QueryEngine Interface

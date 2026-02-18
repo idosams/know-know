@@ -31,6 +31,15 @@ knowgraph --version
 
 ## Quick Start
 
+```mermaid
+flowchart LR
+    A[knowgraph init] --> B[Add Annotations]
+    B --> C[knowgraph parse]
+    C --> D[knowgraph index]
+    D --> E[knowgraph query]
+    E --> F[knowgraph serve]
+```
+
 ### 1. Initialize Your Project
 
 Run `knowgraph init` in your project root. This creates a `.knowgraph.yml` configuration file:

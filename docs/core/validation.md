@@ -14,14 +14,18 @@ validation/
 
 The validation flow:
 
-```
-Directory path
-  --> collectFiles() walks directory tree
-    --> Filter to parsable extensions
-      --> Parse each file with parser registry
-        --> For each ParseResult, run all active validation rules
-          --> Collect ValidationIssues
-            --> Build ValidationResult with counts
+```mermaid
+flowchart TD
+    A["Directory Path"] --> B["collectFiles()<br/>walk directory tree"]
+    B --> C["Filter to parsable<br/>extensions (.ts, .py, .js, ...)"]
+    C --> D["Parse each file with<br/>parser registry"]
+    D --> E["For each ParseResult"]
+    E --> F["Run all active<br/>validation rules"]
+    F --> G["Collect ValidationIssues"]
+    G --> H["Aggregate results"]
+    H --> I{"errorCount === 0?"}
+    I -->|Yes| J["ValidationResult<br/>isValid: true"]
+    I -->|No| K["ValidationResult<br/>isValid: false"]
 ```
 
 ## Types

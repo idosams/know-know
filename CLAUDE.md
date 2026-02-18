@@ -90,9 +90,8 @@ Comprehensive project documentation lives in `docs/`:
 
 - **[docs/development/contributing.md](docs/development/contributing.md)** — Contributing guide
 - **[docs/development/testing.md](docs/development/testing.md)** — Testing guide (Vitest)
-- **[docs/development/annotations.md](docs/development/annotations.md)** — @knowgraph annotation guide
 - **[docs/development/api-reference.md](docs/development/api-reference.md)** — Core API reference
-- **[docs/annotations/README.md](docs/annotations/README.md)** — Full annotation schema reference
+- **[docs/annotations/README.md](docs/annotations/README.md)** — Full annotation guide & schema reference
 
 ## Roadmap
 
