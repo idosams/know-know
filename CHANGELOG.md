@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-02-19
+
+### Added
+
+- Go parser (functions, methods, structs, interfaces, const/var groups, packages)
+- Java parser (classes, interfaces, enums, records, methods, packages)
+- Export command (`knowgraph export --format cursorrules|markdown`)
+- GitHub Action for CI integration (`action.yml`)
+- CI quality gate workflow (`knowgraph-gate.yml`)
+- Version bump script (`scripts/bump-version.sh`)
+- Tag-based release workflow with pre-release support (`beta`, `rc` dist-tags)
+
+### Changed
+
+- Release workflow now triggers on tag push (`v*`) instead of GitHub Release events
+- Release workflow auto-creates GitHub Releases with pre-release detection
+
 ## [0.2.0] - 2026-02-16
 
 ### Added
@@ -62,5 +79,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Python FastAPI e-commerce API with 30+ annotated entities
   - TypeScript Express blog platform with 30+ annotated entities
 
+[0.3.0]: https://github.com/idosams/know-know/releases/tag/v0.3.0
 [0.2.0]: https://github.com/idosams/know-know/releases/tag/v0.2.0
 [0.1.0]: https://github.com/idosams/know-know/releases/tag/v0.1.0

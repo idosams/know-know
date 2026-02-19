@@ -11,4 +11,6 @@ export type {
 export { createPythonParser } from './python-parser.js';
 export { createTypescriptParser } from './typescript-parser.js';
 export { createGenericParser } from './generic-parser.js';
+export { createGoParser } from './go-parser.js';
+export { createJavaParser } from './java-parser.js';
 export { createDefaultRegistry } from './registry.js';

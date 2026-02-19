@@ -21,6 +21,7 @@ import {
   registerCoverageCommand,
   registerSuggestCommand,
   registerHookCommand,
+  registerExportCommand,
 } from './commands/index.js';
 
 const program = new Command();
@@ -28,7 +29,7 @@ const program = new Command();
 program
   .name('knowgraph')
   .description('AI-navigable code documentation tool')
-  .version('0.1.0');
+  .version('0.3.0');
 
 registerParseCommand(program);
 registerIndexCommand(program);
@@ -39,5 +40,6 @@ registerValidateCommand(program);
 registerCoverageCommand(program);
 registerSuggestCommand(program);
 registerHookCommand(program);
+registerExportCommand(program);
 
 program.parse();

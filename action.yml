@@ -1,0 +1,46 @@
+name: 'KnowGraph Index & Validate'
+description: 'Index your codebase with KnowGraph and enforce annotation coverage'
+branding:
+  icon: 'book-open'
+  color: 'blue'
+inputs:
+  command:
+    description: 'Command to run: index, validate, coverage, suggest'
+    required: false
+    default: 'index'
+  path:
+    description: 'Path to index/validate'
+    required: false
+    default: '.'
+  coverage-threshold:
+    description: 'Minimum annotation coverage percentage (0-100). Set to 0 to skip.'
+    required: false
+    default: '0'
+  validate-strict:
+    description: 'Treat validation warnings as errors'
+    required: false
+    default: 'false'
+  knowgraph-version:
+    description: 'Version of @knowgraph/cli to install'
+    required: false
+    default: 'latest'
+runs:
+  using: 'composite'
+  steps:
+    - name: Install KnowGraph CLI
+      shell: bash
+      run: npm install -g @knowgraph/cli@${{ inputs.knowgraph-version }}
+
+    - name: Run KnowGraph
+      shell: bash
+      run: knowgraph ${{ inputs.command }} ${{ inputs.path }}
+
+    - name: Check Coverage Threshold
+      if: inputs.coverage-threshold != '0'
+      shell: bash
+      run: knowgraph coverage ${{ inputs.path }} --threshold ${{ inputs.coverage-threshold }}
+
+    - name: Validate Annotations
+      if: inputs.validate-strict == 'true'
+      shell: bash
+      run: knowgraph validate ${{ inputs.path }} --strict

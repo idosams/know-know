@@ -3,15 +3,15 @@
 # Last updated: 2026-02-16
 
 project: knowgraph
-version: 0.2.0
+version: 0.3.0
 schema_version: "1.0"
 
 summary:
   total_phases: 9
   completed_phases: 4
-  in_progress_phases: 3
-  not_started_phases: 2
-  overall_progress: 55%
+  in_progress_phases: 4
+  not_started_phases: 1
+  overall_progress: 70%
 
 phases:
 
@@ -74,19 +74,21 @@ phases:
 
   - id: phase-1b
     name: Extended Language Support
-    status: not_started
-    progress: 0%
+    status: in_progress
+    progress: 40%
     description: Additional language parsers and AST-based parsing
     blocked_by: []
     tasks:
       - id: p1b-go-parser
-        name: Go parser (knowgraph prefix comments)
-        status: todo
+        name: Go parser (entity-level with functions, structs, methods, interfaces)
+        status: done
         priority: high
+        completed: 2026-02-18
       - id: p1b-java-parser
-        name: Java parser (JavaDoc with @knowgraph)
-        status: todo
+        name: Java parser (entity-level with classes, methods, interfaces, enums)
+        status: done
         priority: high
+        completed: 2026-02-18
       - id: p1b-rust-parser
         name: Rust parser (doc comments)
         status: todo
@@ -256,7 +258,7 @@ phases:
   - id: phase-5
     name: Developer Experience
     status: in_progress
-    progress: 30%
+    progress: 85%
     started: 2026-02-14
     description: Frictionless adoption for teams
     tasks:
@@ -274,40 +276,51 @@ phases:
         status: done
       - id: p5-coverage-report
         name: Documentation coverage reporting
-        status: todo
-        priority: high
+        status: done
+        completed: 2026-02-17
+        notes: "PR #12"
       - id: p5-coverage-breakdown
         name: Coverage breakdown by module/team/type
-        status: todo
-        priority: medium
+        status: done
+        completed: 2026-02-17
+        notes: "Built into coverage-calculator.ts, PR #12"
       - id: p5-html-report
         name: HTML coverage report
         status: todo
         priority: low
       - id: p5-precommit
         name: Pre-commit hook for validation
-        status: todo
-        priority: high
+        status: done
+        completed: 2026-02-17
+        notes: "PR #10"
       - id: p5-ci-gate
-        name: CI quality gate (coverage threshold)
-        status: todo
-        priority: medium
+        name: CI quality gate (knowgraph-gate.yml)
+        status: done
+        completed: 2026-02-18
       - id: p5-migration
         name: LLM-assisted migration assistant
         status: todo
         priority: medium
       - id: p5-cli-suggest
         name: "CLI: knowgraph suggest"
-        status: todo
-        priority: medium
+        status: done
+        completed: 2026-02-17
+        notes: "PR #13"
       - id: p5-cli-validate
         name: "CLI: knowgraph validate"
-        status: todo
-        priority: high
+        status: done
+        completed: 2026-02-17
+        notes: "PR #11"
       - id: p5-cli-coverage
         name: "CLI: knowgraph coverage"
-        status: todo
-        priority: high
+        status: done
+        completed: 2026-02-17
+        notes: "PR #12"
+      - id: p5-cli-hook
+        name: "CLI: knowgraph hook"
+        status: done
+        completed: 2026-02-17
+        notes: "PR #10"
       - id: p5-cli-migrate
         name: "CLI: knowgraph migrate"
         status: todo
@@ -315,20 +328,19 @@ phases:
 
   - id: phase-6
     name: Alternative AI Interfaces
-    status: not_started
-    progress: 0%
+    status: in_progress
+    progress: 30%
     description: REST API, GraphQL, Cursor Rules, skills export
     blocked_by: []
     tasks:
       - id: p6-cursor-rules
         name: Cursor Rules generator (.cursorrules)
-        status: todo
-        priority: high
-        package: "@knowgraph/cursor-export"
+        status: done
+        completed: 2026-02-18
       - id: p6-skills-export
         name: Generic AI skills export (markdown)
-        status: todo
-        priority: medium
+        status: done
+        completed: 2026-02-18
       - id: p6-rest-api
         name: REST API server (Express + OpenAPI)
         status: todo
@@ -349,8 +361,8 @@ phases:
         priority: medium
       - id: p6-cli-export
         name: "CLI: knowgraph export"
-        status: todo
-        priority: high
+        status: done
+        completed: 2026-02-18
 
   - id: phase-7
     name: Documentation & Community
@@ -424,8 +436,8 @@ phases:
         priority: low
       - id: p7-github-action
         name: GitHub Action for CI indexing
-        status: todo
-        priority: high
+        status: done
+        completed: 2026-02-18
       - id: p7-demo-video
         name: Demo video (5 minutes)
         status: todo

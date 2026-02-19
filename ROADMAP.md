@@ -30,8 +30,8 @@ Multi-language parsers for extracting @knowgraph metadata from code.
 - [x] Metadata extractor with YAML parsing and Zod validation
 - [x] Parser registry with extension-based routing
 - [x] CLI: `knowgraph parse` command
-- [ ] Go parser (comments with knowgraph: prefix)
-- [ ] Java parser (JavaDoc with @knowgraph tags)
+- [x] Go parser (entity-level: functions, structs, methods, interfaces)
+- [x] Java parser (entity-level: classes, methods, interfaces, enums)
 - [ ] Tree-sitter integration for robust AST-based parsing
 
 ---
@@ -87,7 +87,7 @@ Enrich the graph with metadata from external tools.
 
 ---
 
-## Phase 5: Developer Experience `IN PROGRESS`
+## Phase 5: Developer Experience `MOSTLY COMPLETE`
 
 Make adoption frictionless for teams.
 
@@ -95,30 +95,31 @@ Make adoption frictionless for teams.
 - [x] Auto-detect project languages from file extensions
 - [x] Suggest high-impact files to annotate
 - [x] Self-documentation (KnowGraph indexes itself)
-- [ ] Documentation coverage reporting (% of code annotated)
-- [ ] Coverage breakdown by module, team, type
+- [x] Documentation coverage reporting (% of code annotated) (PR #12)
+- [x] Coverage breakdown by module, team, type (PR #12)
+- [x] Pre-commit hook for annotation validation (PR #10)
+- [x] CI quality gate (knowgraph-gate.yml workflow)
+- [x] CLI: `knowgraph suggest` (where to annotate next) (PR #13)
+- [x] CLI: `knowgraph validate` (check all annotations) (PR #11)
+- [x] CLI: `knowgraph coverage` (documentation coverage) (PR #12)
+- [x] CLI: `knowgraph hook` (install pre-commit hook) (PR #10)
 - [ ] HTML coverage report generation
-- [ ] Pre-commit hook for annotation validation
-- [ ] CI quality gate (fail if coverage drops)
 - [ ] Migration assistant (suggest annotations via LLM)
-- [ ] CLI: `knowgraph suggest` (where to annotate next)
-- [ ] CLI: `knowgraph validate` (check all annotations)
-- [ ] CLI: `knowgraph coverage` (documentation coverage)
 - [ ] CLI: `knowgraph migrate` (LLM-assisted migration)
 
 ---
 
-## Phase 6: Alternative AI Interfaces `NOT STARTED`
+## Phase 6: Alternative AI Interfaces `IN PROGRESS`
 
 Support non-MCP AI tools and custom integrations.
 
-- [ ] Cursor Rules generator (.cursorrules export)
-- [ ] Generic AI skills export (markdown context files)
+- [x] Cursor Rules generator (.cursorrules export)
+- [x] Generic AI skills export (markdown context files)
+- [x] CLI: `knowgraph export` (--format cursorrules|markdown)
 - [ ] REST API server (Express.js + OpenAPI spec)
 - [ ] GraphQL API server (Apollo/Yoga)
 - [ ] API authentication (API keys)
 - [ ] Rate limiting
-- [ ] CLI: `knowgraph export` (cursor, skills, openapi, graphql)
 
 ---
 
@@ -144,7 +145,7 @@ Prepare for public launch.
 - [ ] Getting Started tutorial (step-by-step walkthrough)
 - [ ] VSCode extension (syntax highlighting, autocomplete)
 - [ ] JetBrains plugin (basic support)
-- [ ] GitHub Action for automated indexing
+- [x] GitHub Action for automated indexing
 - [ ] Demo video
 
 ---
