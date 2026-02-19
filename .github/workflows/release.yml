@@ -1,22 +1,65 @@
 name: Release
 
 on:
-  release:
-    types: [published]
+  push:
+    tags: ['v*']
 
 permissions:
-  contents: read
+  contents: write
   id-token: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Verify release notes exist
+      - name: Parse version from tag
+        id: version
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+          # Determine npm dist-tag and pre-release flag
+          if echo "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "dist_tag=latest" >> "$GITHUB_OUTPUT"
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          elif echo "$VERSION" | grep -q 'beta'; then
+            echo "dist_tag=beta" >> "$GITHUB_OUTPUT"
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          elif echo "$VERSION" | grep -q 'rc'; then
+            echo "dist_tag=rc" >> "$GITHUB_OUTPUT"
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "dist_tag=next" >> "$GITHUB_OUTPUT"
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          echo "Tag: $TAG"
+          echo "Version: $VERSION"
+
+      - name: Verify package versions match tag
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          ERRORS=0
+          for pkg in packages/core packages/cli packages/mcp-server; do
+            PKG_VERSION=$(node -p "require('./$pkg/package.json').version")
+            if [[ "$PKG_VERSION" != "$VERSION" ]]; then
+              echo "::error::$pkg/package.json version ($PKG_VERSION) does not match tag (v$VERSION)"
+              ERRORS=1
+            fi
+          done
+          if [[ "$ERRORS" -eq 1 ]]; then
+            exit 1
+          fi
+          echo "All package versions match v$VERSION"
+
+      - name: Verify release notes exist
+        if: steps.version.outputs.prerelease == 'false'
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
           if ! grep -q "## \[${VERSION}\]" CHANGELOG.md; then
             echo "::error::No CHANGELOG.md entry found for version ${VERSION}."
             echo "::error::Add a '## [${VERSION}]' section to CHANGELOG.md before releasing."
@@ -37,18 +80,24 @@ jobs:
       - run: pnpm turbo test
       - run: pnpm turbo typecheck
 
-      # Publish in dependency order: core → mcp-server → cli
+      # Publish in dependency order: core -> mcp-server -> cli
       - name: Publish @knowgraph/core
-        run: pnpm --filter @knowgraph/core publish --no-git-checks --provenance
+        run: pnpm --filter @knowgraph/core publish --no-git-checks --provenance --tag ${{ steps.version.outputs.dist_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish @knowgraph/mcp-server
-        run: pnpm --filter @knowgraph/mcp-server publish --no-git-checks --provenance
+        run: pnpm --filter @knowgraph/mcp-server publish --no-git-checks --provenance --tag ${{ steps.version.outputs.dist_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish @knowgraph/cli
-        run: pnpm --filter @knowgraph/cli publish --no-git-checks --provenance
+        run: pnpm --filter @knowgraph/cli publish --no-git-checks --provenance --tag ${{ steps.version.outputs.dist_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          prerelease: ${{ steps.version.outputs.prerelease == 'true' }}
