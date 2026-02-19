@@ -41,9 +41,14 @@ describe('ParserRegistry', () => {
       expect(parser?.name).toBe('generic');
     });
 
-    it('falls back to generic parser for Go files', () => {
+    it('auto-detects Go files', () => {
       const parser = registry.getParser('main.go');
-      expect(parser?.name).toBe('generic');
+      expect(parser?.name).toBe('go');
+    });
+
+    it('auto-detects Java files', () => {
+      const parser = registry.getParser('App.java');
+      expect(parser?.name).toBe('java');
     });
 
     it('falls back to generic parser for Rust files', () => {
@@ -79,16 +84,29 @@ export function testFn(): void {}
       expect(results[0]?.entityType).toBe('function');
     });
 
-    it('uses generic parser for unknown extensions', () => {
-      const content = `
-/* @knowgraph
-type: module
-description: A Go module
-*/
+    it('parses Go files through registry', () => {
+      const content = `// @knowgraph
+// type: module
+// description: A Go module
+package main
 `;
       const results = registry.parseFile(content, 'main.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.entityType).toBe('module');
+    });
+
+    it('parses Java files through registry', () => {
+      const content = `
+/**
+ * @knowgraph
+ * type: class
+ * description: A Java class
+ */
+public class App {}
+`;
+      const results = registry.parseFile(content, 'App.java');
+      expect(results).toHaveLength(1);
+      expect(results[0]?.entityType).toBe('class');
     });
 
     it('returns empty array for files without knowgraph annotations', () => {

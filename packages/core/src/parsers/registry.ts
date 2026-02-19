@@ -14,6 +14,8 @@ import type { Parser, ParserRegistry } from './types.js';
 import { createPythonParser } from './python-parser.js';
 import { createTypescriptParser } from './typescript-parser.js';
 import { createGenericParser } from './generic-parser.js';
+import { createGoParser } from './go-parser.js';
+import { createJavaParser } from './java-parser.js';
 
 function getExtension(filePath: string): string {
   const lastDot = filePath.lastIndexOf('.');
@@ -50,5 +52,7 @@ export function createDefaultRegistry(): ParserRegistry {
   const registry = createRegistry();
   registry.register(createPythonParser());
   registry.register(createTypescriptParser());
+  registry.register(createGoParser());
+  registry.register(createJavaParser());
   return registry;
 }
