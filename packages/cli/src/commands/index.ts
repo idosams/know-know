@@ -8,3 +8,4 @@ export { registerCoverageCommand } from './coverage.js';
 export { registerSuggestCommand } from './suggest.js';
 export { registerHookCommand } from './hook.js';
 export { registerExportCommand } from './export.js';
+export { registerSyncCommand } from './sync.js';
