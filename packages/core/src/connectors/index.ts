@@ -22,3 +22,9 @@ export type { ConnectorCache, CacheOptions } from './cache.js';
 export { createCache } from './cache.js';
 export type { RateLimiter, RateLimiterOptions } from './rate-limiter.js';
 export { createRateLimiter } from './rate-limiter.js';
+export type { JiraIssue, JiraApiClient } from './jira-connector.js';
+export {
+  createJiraConnector,
+  isJiraUrl,
+  extractJiraIssueKey,
+} from './jira-connector.js';
