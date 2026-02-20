@@ -28,3 +28,9 @@ export {
   isNotionUrl,
   extractNotionPageId,
 } from './notion-connector.js';
+export type { JiraIssue, JiraApiClient } from './jira-connector.js';
+export {
+  createJiraConnector,
+  isJiraUrl,
+  extractJiraIssueKey,
+} from './jira-connector.js';
