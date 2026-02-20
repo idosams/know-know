@@ -22,6 +22,7 @@ import {
   registerSuggestCommand,
   registerHookCommand,
   registerExportCommand,
+  registerSyncCommand,
 } from './commands/index.js';
 
 const program = new Command();
@@ -41,5 +42,6 @@ registerCoverageCommand(program);
 registerSuggestCommand(program);
 registerHookCommand(program);
 registerExportCommand(program);
+registerSyncCommand(program);
 
 program.parse();
