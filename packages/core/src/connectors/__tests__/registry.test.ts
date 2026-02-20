@@ -1,5 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
-import { createConnectorRegistry, createDefaultConnectorRegistry } from '../registry.js';
+import {
+  createConnectorRegistry,
+  createDefaultConnectorRegistry,
+} from '../registry.js';
 import type {
   Connector,
   ConnectorConfig,
@@ -99,22 +102,26 @@ describe('ConnectorRegistry', () => {
   describe('syncAll', () => {
     it('syncs all enabled connectors', async () => {
       const registry = createConnectorRegistry();
-      const notionSync = vi.fn<(options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>>().mockResolvedValue({
-        connector: 'notion',
-        entitiesProcessed: 10,
-        linksAdded: 5,
-        linksUpdated: 2,
-        errors: [],
-        duration: 100,
-      });
-      const jiraSync = vi.fn<(options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>>().mockResolvedValue({
-        connector: 'jira',
-        entitiesProcessed: 8,
-        linksAdded: 3,
-        linksUpdated: 1,
-        errors: [],
-        duration: 80,
-      });
+      const notionSync = vi
+        .fn<(options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>>()
+        .mockResolvedValue({
+          connector: 'notion',
+          entitiesProcessed: 10,
+          linksAdded: 5,
+          linksUpdated: 2,
+          errors: [],
+          duration: 100,
+        });
+      const jiraSync = vi
+        .fn<(options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>>()
+        .mockResolvedValue({
+          connector: 'jira',
+          entitiesProcessed: 8,
+          linksAdded: 3,
+          linksUpdated: 1,
+          errors: [],
+          duration: 80,
+        });
 
       registry.register(makeConnector('notion', { sync: notionSync }));
       registry.register(makeConnector('jira', { sync: jiraSync }));
@@ -135,7 +142,10 @@ describe('ConnectorRegistry', () => {
 
     it('skips disabled connectors', async () => {
       const registry = createConnectorRegistry();
-      const sync = vi.fn<(options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>>();
+      const sync =
+        vi.fn<
+          (options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>
+        >();
 
       registry.register(makeConnector('notion', { sync }));
 
@@ -153,7 +163,10 @@ describe('ConnectorRegistry', () => {
 
     it('skips connectors without config', async () => {
       const registry = createConnectorRegistry();
-      const sync = vi.fn<(options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>>();
+      const sync =
+        vi.fn<
+          (options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>
+        >();
 
       registry.register(makeConnector('notion', { sync }));
 
@@ -169,7 +182,10 @@ describe('ConnectorRegistry', () => {
 
     it('reports validation errors without syncing', async () => {
       const registry = createConnectorRegistry();
-      const sync = vi.fn<(options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>>();
+      const sync =
+        vi.fn<
+          (options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>
+        >();
 
       registry.register(
         makeConnector('notion', {
@@ -211,24 +227,35 @@ describe('ConnectorRegistry', () => {
       });
 
       expect(onProgress).toHaveBeenCalledTimes(2);
-      expect(onProgress).toHaveBeenCalledWith('notion', expect.objectContaining({ connector: 'notion' }));
-      expect(onProgress).toHaveBeenCalledWith('jira', expect.objectContaining({ connector: 'jira' }));
+      expect(onProgress).toHaveBeenCalledWith(
+        'notion',
+        expect.objectContaining({ connector: 'notion' }),
+      );
+      expect(onProgress).toHaveBeenCalledWith(
+        'jira',
+        expect.objectContaining({ connector: 'jira' }),
+      );
     });
 
     it('passes entityFilter and dryRun to connectors', async () => {
       const registry = createConnectorRegistry();
-      const sync = vi.fn<(options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>>().mockResolvedValue({
-        connector: 'notion',
-        entitiesProcessed: 0,
-        linksAdded: 0,
-        linksUpdated: 0,
-        errors: [],
-        duration: 0,
-      });
+      const sync = vi
+        .fn<(options: ConnectorSyncOptions) => Promise<ConnectorSyncResult>>()
+        .mockResolvedValue({
+          connector: 'notion',
+          entitiesProcessed: 0,
+          linksAdded: 0,
+          linksUpdated: 0,
+          errors: [],
+          duration: 0,
+        });
 
       registry.register(makeConnector('notion', { sync }));
 
-      const entityFilter = { owner: 'team-a', tags: ['important'] as readonly string[] };
+      const entityFilter = {
+        owner: 'team-a',
+        tags: ['important'] as readonly string[],
+      };
       await registry.syncAll({
         dbManager: {} as ConnectorSyncOptions['dbManager'],
         configs: { notion: makeConfig() },
@@ -246,9 +273,11 @@ describe('ConnectorRegistry', () => {
   });
 
   describe('createDefaultConnectorRegistry', () => {
-    it('creates an empty registry', () => {
+    it('includes built-in connectors', () => {
       const registry = createDefaultConnectorRegistry();
-      expect(registry.listConnectors()).toEqual([]);
+      const connectors = registry.listConnectors();
+      expect(connectors).toContain('notion');
+      expect(connectors).toContain('jira');
     });
   });
 });

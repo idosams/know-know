@@ -15,6 +15,8 @@ import type {
   ConnectorSyncResult,
   SyncAllOptions,
 } from './types.js';
+import { createNotionConnector } from './notion-connector.js';
+import { createJiraConnector } from './jira-connector.js';
 
 function createRegistry(): ConnectorRegistry {
   const connectors: Connector[] = [];
@@ -37,7 +39,9 @@ function createRegistry(): ConnectorRegistry {
       return connectors.map((c) => c.name);
     },
 
-    async syncAll(options: SyncAllOptions): Promise<readonly ConnectorSyncResult[]> {
+    async syncAll(
+      options: SyncAllOptions,
+    ): Promise<readonly ConnectorSyncResult[]> {
       const { configs, dbManager, entityFilter, dryRun, onProgress } = options;
       const results: ConnectorSyncResult[] = [];
 
@@ -90,5 +94,8 @@ export function createConnectorRegistry(): ConnectorRegistry {
 }
 
 export function createDefaultConnectorRegistry(): ConnectorRegistry {
-  return createRegistry();
+  const registry = createRegistry();
+  registry.register(createNotionConnector());
+  registry.register(createJiraConnector());
+  return registry;
 }

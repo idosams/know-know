@@ -180,9 +180,7 @@ function getAllEntities(dbManager: DatabaseManager): readonly StoredEntity[] {
 
     const links = (
       dbManager.db
-        .prepare(
-          'SELECT link_type, url, title FROM links WHERE entity_id = ?',
-        )
+        .prepare('SELECT link_type, url, title FROM links WHERE entity_id = ?')
         .all(row.id) as ReadonlyArray<{
         link_type: string | null;
         url: string;
@@ -234,9 +232,10 @@ function filterEntities(
   });
 }
 
-export function createNotionConnector(deps: NotionConnectorDeps = {}): Connector {
-  const cache =
-    deps.cache ?? createCache<NotionPage>({ ttlMs: 5 * 60 * 1000 });
+export function createNotionConnector(
+  deps: NotionConnectorDeps = {},
+): Connector {
+  const cache = deps.cache ?? createCache<NotionPage>({ ttlMs: 5 * 60 * 1000 });
   const rateLimiter =
     deps.rateLimiter ??
     createRateLimiter({ maxTokens: 3, refillRate: 3, refillIntervalMs: 1000 });
@@ -268,7 +267,7 @@ export function createNotionConnector(deps: NotionConnectorDeps = {}): Connector
       const startTime = Date.now();
       const { dbManager, config, entityFilter, dryRun } = options;
       const errors: ConnectorError[] = [];
-      let linksAdded = 0;
+      const linksAdded = 0;
       let linksUpdated = 0;
 
       const apiKey = config.api_key_env
@@ -320,9 +319,7 @@ export function createNotionConnector(deps: NotionConnectorDeps = {}): Connector
             if (!dryRun) {
               // Delete old link and insert updated one
               dbManager.db
-                .prepare(
-                  'DELETE FROM links WHERE entity_id = ? AND url = ?',
-                )
+                .prepare('DELETE FROM links WHERE entity_id = ? AND url = ?')
                 .run(entity.id, link.url);
               dbManager.insertLinks(entity.id, [
                 {
