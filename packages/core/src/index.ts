@@ -27,3 +27,4 @@ export * from './query/index.js';
 export * from './validation/index.js';
 export * from './coverage/index.js';
 export * from './suggest/index.js';
+export * from './connectors/index.js';

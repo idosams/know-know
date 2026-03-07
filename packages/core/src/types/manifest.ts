@@ -28,6 +28,9 @@ export const ConnectorConfigSchema = z.object({
   enabled: z.boolean().default(false),
   api_key_env: z.string().optional(),
   workspace: z.string().optional(),
+  base_url: z.string().url().optional(),
+  project: z.string().optional(),
+  sync_interval: z.number().positive().optional(),
 });
 
 export const WebhookEventSchema = z.enum([
