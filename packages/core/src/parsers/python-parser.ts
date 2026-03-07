@@ -121,13 +121,94 @@ function collectDecorators(
   return decorators;
 }
 
+/**
+ * Regex to match the closing line of a multi-line def/class: just `):`  or `) -> type:`
+ */
+const MULTILINE_CLOSE_REGEX = /^\s*\)(?:\s*->\s*([^:]+))?:\s*$/;
+
+/**
+ * Regex to match the opening of a multi-line function definition.
+ */
+const MULTILINE_FUNC_OPEN_REGEX = /^(\s*)(?:async\s+)?def\s+(\w+)\(/;
+
+/**
+ * Regex to match the opening of a multi-line class definition.
+ */
+const MULTILINE_CLASS_OPEN_REGEX = /^(\s*)class\s+(\w+)\(/;
+
+function findMultiLineDefinition(
+  content: string,
+  closeLineNumber: number,
+): DefinitionContext | null {
+  const lines = content.split('\n');
+  const closeLine = lines[closeLineNumber - 1] ?? '';
+  const closeMatch = closeLine.match(MULTILINE_CLOSE_REGEX);
+  if (!closeMatch) return null;
+
+  const returnType = closeMatch[1]?.trim();
+
+  // Scan upward to find the opening line with `def` or `class`
+  for (let i = closeLineNumber - 2; i >= 0; i--) {
+    const line = lines[i];
+    if (line === undefined) continue;
+
+    const funcMatch = line.match(MULTILINE_FUNC_OPEN_REGEX);
+    if (funcMatch) {
+      const indent = funcMatch[1];
+      const name = funcMatch[2];
+      const defLine = i + 1;
+      const decorators = collectDecorators(content, defLine);
+
+      // Collect full params from opening to closing line
+      const paramLines = lines.slice(i, closeLineNumber).join('\n');
+      const paramMatch = paramLines.match(/\(([^)]*)\)/s);
+      const params = paramMatch ? paramMatch[1].trim() : '';
+
+      const signatureParts = [`def ${name}(${params})`];
+      if (returnType) {
+        signatureParts.push(` -> ${returnType}`);
+      }
+
+      const isMethod = (indent?.length ?? 0) > 0;
+      const parent = isMethod
+        ? findEnclosingClass(content, defLine)
+        : undefined;
+
+      return {
+        name,
+        kind: isMethod && parent ? 'method' : 'function',
+        signature: signatureParts.join(''),
+        parent,
+        line: defLine,
+        decorators,
+      };
+    }
+
+    const classMatch = line.match(MULTILINE_CLASS_OPEN_REGEX);
+    if (classMatch) {
+      const name = classMatch[2];
+      const defLine = i + 1;
+      const decorators = collectDecorators(content, defLine);
+
+      return {
+        name,
+        kind: 'class',
+        line: defLine,
+        decorators,
+      };
+    }
+  }
+
+  return null;
+}
+
 function findDefinitionBefore(
   content: string,
   docstringStartLine: number,
 ): DefinitionContext | null {
   const lineAbove = getLineAt(content, docstringStartLine - 1);
 
-  // Check if it's a function/method definition
+  // Check if it's a function/method definition (single-line)
   const funcMatch = lineAbove.match(FUNC_DEF_REGEX);
   if (funcMatch) {
     const indent = funcMatch[1];
@@ -160,7 +241,7 @@ function findDefinitionBefore(
     };
   }
 
-  // Check if it's a class definition
+  // Check if it's a class definition (single-line)
   const classMatch = lineAbove.match(CLASS_DEF_REGEX);
   if (classMatch) {
     const name = classMatch[2];
@@ -173,6 +254,12 @@ function findDefinitionBefore(
       line: defLine,
       decorators,
     };
+  }
+
+  // Check if it's the closing line of a multi-line def/class
+  const multiLineDef = findMultiLineDefinition(content, docstringStartLine - 1);
+  if (multiLineDef) {
+    return multiLineDef;
   }
 
   return null;

@@ -27,7 +27,9 @@ import os
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('auth_service');
       expect(results[0]?.entityType).toBe('module');
-      expect(results[0]?.metadata.description).toBe('User authentication service');
+      expect(results[0]?.metadata.description).toBe(
+        'User authentication service',
+      );
       expect(results[0]?.metadata.owner).toBe('auth-team');
       expect(results[0]?.language).toBe('python');
     });
@@ -146,6 +148,113 @@ class UserService:
       const deleteResult = results.find((r) => r.name === 'delete_user');
       expect(deleteResult?.entityType).toBe('method');
       expect(deleteResult?.parent).toBe('UserService');
+    });
+  });
+
+  describe('multi-line definitions', () => {
+    it('parses class with multi-line base classes', () => {
+      const content = `
+class UserService(
+    BaseService,
+    LoggingMixin,
+):
+    """
+    @knowgraph
+    type: class
+    description: Service with multi-line bases
+    """
+    pass
+`;
+      const results = parser.parse(content, 'svc.py');
+      expect(results).toHaveLength(1);
+      expect(results[0]?.name).toBe('UserService');
+      expect(results[0]?.entityType).toBe('class');
+    });
+
+    it('parses decorated class with multi-line base classes', () => {
+      const content = `
+@injectable
+class UserService(
+    BaseService,
+):
+    """
+    @knowgraph
+    type: class
+    description: Decorated multi-line class
+    """
+    pass
+`;
+      const results = parser.parse(content, 'svc.py');
+      expect(results).toHaveLength(1);
+      expect(results[0]?.name).toBe('UserService');
+      expect(results[0]?.entityType).toBe('class');
+    });
+
+    it('parses function with multi-line parameters', () => {
+      const content = `
+def process_data(
+    input_data: dict,
+    options: Optional[dict] = None,
+) -> Result:
+    """
+    @knowgraph
+    type: function
+    description: Process data with many params
+    """
+    pass
+`;
+      const results = parser.parse(content, 'proc.py');
+      expect(results).toHaveLength(1);
+      expect(results[0]?.name).toBe('process_data');
+      expect(results[0]?.entityType).toBe('function');
+      expect(results[0]?.signature).toContain('def process_data');
+    });
+
+    it('parses async function with multi-line parameters', () => {
+      const content = `
+async def fetch_users(
+    db: Database,
+    filters: dict,
+) -> list[User]:
+    """
+    @knowgraph
+    type: function
+    description: Fetch users async
+    """
+    pass
+`;
+      const results = parser.parse(content, 'users.py');
+      expect(results).toHaveLength(1);
+      expect(results[0]?.name).toBe('fetch_users');
+      expect(results[0]?.entityType).toBe('function');
+    });
+
+    it('parses method with multi-line parameters inside class', () => {
+      const content = `
+class UserService:
+    """
+    @knowgraph
+    type: class
+    description: User service
+    """
+
+    def create_user(
+        self,
+        name: str,
+        email: str,
+    ) -> User:
+        """
+        @knowgraph
+        type: method
+        description: Create a new user
+        """
+        pass
+`;
+      const results = parser.parse(content, 'svc.py');
+      expect(results).toHaveLength(2);
+      const method = results.find((r) => r.name === 'create_user');
+      expect(method?.entityType).toBe('method');
+      expect(method?.parent).toBe('UserService');
     });
   });
 
