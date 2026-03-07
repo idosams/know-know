@@ -1,4 +1,4 @@
-# @knowgraph/core
+# @know-graph/core
 
 The core library that powers KnowGraph. It provides parsers for extracting `@knowgraph` annotations from source code, an indexer for scanning and storing code entities in SQLite, and a query engine for searching and traversing the knowledge graph.
 
@@ -89,7 +89,7 @@ import {
   createValidator,
   calculateCoverage,
   createSuggestionEngine,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 
 // Parse a file
 const registry = createDefaultRegistry();

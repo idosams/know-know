@@ -73,7 +73,7 @@ know-know/
       ci.yml                # Build, test, lint, typecheck
       release.yml           # npm publishing pipeline
   packages/
-    core/                   # @knowgraph/core
+    core/                   # @know-graph/core
       src/
         types/              # Zod schemas, TypeScript types
         parsers/            # Language-specific parsers
@@ -83,12 +83,12 @@ know-know/
         coverage/           # Documentation coverage calculator
         suggest/            # File suggestion engine
         index.ts            # Public API barrel export
-    cli/                    # @knowgraph/cli
+    cli/                    # @know-graph/cli
       src/
         commands/           # CLI command implementations
         utils/              # Language detection, formatting
         index.ts            # Commander.js entrypoint
-    mcp-server/             # @knowgraph/mcp-server
+    mcp-server/             # @know-graph/mcp-server
       src/
         tools/              # Individual MCP tool implementations
         server.ts           # MCP server factory
@@ -101,9 +101,9 @@ know-know/
 
 | Package | npm name | Purpose |
 |---------|----------|---------|
-| `core` | `@knowgraph/core` | Parsers, indexer, query engine, types, validation, coverage, suggestions |
-| `cli` | `@knowgraph/cli` | Command-line interface (`knowgraph` command) |
-| `mcp-server` | `@knowgraph/mcp-server` | MCP protocol server for AI assistant integration |
+| `core` | `@know-graph/core` | Parsers, indexer, query engine, types, validation, coverage, suggestions |
+| `cli` | `@know-graph/cli` | Command-line interface (`knowgraph` command) |
+| `mcp-server` | `@know-graph/mcp-server` | MCP protocol server for AI assistant integration |
 
 ---
 
@@ -111,9 +111,9 @@ know-know/
 
 ```mermaid
 graph LR
-    CLI["@knowgraph/cli"]
-    MCP["@knowgraph/mcp-server"]
-    CORE["@knowgraph/core"]
+    CLI["@know-graph/cli"]
+    MCP["@know-graph/mcp-server"]
+    CORE["@know-graph/core"]
 
     CLI --> CORE
     CLI --> MCP
@@ -123,21 +123,21 @@ graph LR
 More precisely:
 
 ```
-@knowgraph/cli
-  depends on: @knowgraph/core (workspace:*)
-  depends on: @knowgraph/mcp-server (workspace:*)
+@know-graph/cli
+  depends on: @know-graph/core (workspace:*)
+  depends on: @know-graph/mcp-server (workspace:*)
 
-@knowgraph/mcp-server
-  depends on: @knowgraph/core (workspace:*)
+@know-graph/mcp-server
+  depends on: @know-graph/core (workspace:*)
   depends on: @modelcontextprotocol/sdk
   depends on: better-sqlite3
 
-@knowgraph/core
+@know-graph/core
   depends on: better-sqlite3, glob, ignore, yaml, zod
   (no internal workspace dependencies)
 ```
 
-The CLI package is the top-level consumer. It uses `@knowgraph/core` for parsing, indexing, and querying operations, and dynamically imports `@knowgraph/mcp-server` when the `serve` command is invoked. The MCP server uses `@knowgraph/core` types but has its own read-only database layer optimized for MCP tool responses.
+The CLI package is the top-level consumer. It uses `@know-graph/core` for parsing, indexing, and querying operations, and dynamically imports `@know-graph/mcp-server` when the `serve` command is invoked. The MCP server uses `@know-graph/core` types but has its own read-only database layer optimized for MCP tool responses.
 
 ---
 
@@ -209,7 +209,7 @@ sequenceDiagram
 
 ## 5. Core Package Architecture
 
-The `@knowgraph/core` package is the heart of the system. It contains seven subsystems organized as a layered architecture:
+The `@know-graph/core` package is the heart of the system. It contains seven subsystems organized as a layered architecture:
 
 ```mermaid
 graph TD
@@ -542,7 +542,7 @@ Ranks unannotated files by annotation priority using heuristics.
 
 ## 6. CLI Architecture
 
-**Package**: `@knowgraph/cli` -- `packages/cli/`
+**Package**: `@know-graph/cli` -- `packages/cli/`
 
 The CLI uses Commander.js and provides 9 commands:
 
@@ -580,7 +580,7 @@ knowgraph
 ```
 1. Check database file exists
 2. Print Claude Desktop MCP config snippet
-3. Dynamically import @knowgraph/mcp-server
+3. Dynamically import @know-graph/mcp-server
 4. Start MCP server with stdio transport
 ```
 
@@ -593,7 +593,7 @@ knowgraph
 
 ## 7. MCP Server Architecture
 
-**Package**: `@knowgraph/mcp-server` -- `packages/mcp-server/`
+**Package**: `@know-graph/mcp-server` -- `packages/mcp-server/`
 
 The MCP server exposes the code knowledge graph to AI assistants via the Model Context Protocol.
 
@@ -763,9 +763,9 @@ The `release.yml` workflow triggers on GitHub release publication:
 ```
 1. Build and test all packages
 2. Publish in dependency order:
-   a. @knowgraph/core
-   b. @knowgraph/mcp-server
-   c. @knowgraph/cli
+   a. @know-graph/core
+   b. @know-graph/mcp-server
+   c. @know-graph/cli
 3. Uses npm provenance for supply chain security
 ```
 

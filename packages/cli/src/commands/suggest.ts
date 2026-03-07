@@ -13,8 +13,8 @@ import { resolve } from 'node:path';
 import { statSync } from 'node:fs';
 import type { Command } from 'commander';
 import chalk from 'chalk';
-import { createDefaultRegistry, createSuggestionEngine } from '@knowgraph/core';
-import type { SuggestionResult } from '@knowgraph/core';
+import { createDefaultRegistry, createSuggestionEngine } from '@know-graph/core';
+import type { SuggestionResult } from '@know-graph/core';
 
 interface SuggestOptions {
   readonly limit: string;

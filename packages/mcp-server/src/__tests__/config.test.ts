@@ -24,7 +24,7 @@ describe('generateClaudeDesktopConfig', () => {
 
     expect(config.mcpServers.knowgraph.args).toHaveLength(2);
     expect(config.mcpServers.knowgraph.args[0]).toBe(
-      path.join(projectPath, 'node_modules/@knowgraph/mcp-server/dist/index.js')
+      path.join(projectPath, 'node_modules/@know-graph/mcp-server/dist/index.js')
     );
     expect(config.mcpServers.knowgraph.args[1]).toBe(
       path.join(projectPath, '.knowgraph/knowgraph.db')

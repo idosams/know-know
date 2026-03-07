@@ -39,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - npm package publishing configuration for all packages (`files`, `exports`, `publishConfig`)
-- `"type": "module"` to `@knowgraph/core` and `@knowgraph/mcp-server`
+- `"type": "module"` to `@know-graph/core` and `@know-graph/mcp-server`
 - `knowgraph-mcp` binary for standalone MCP server usage
 - MIT LICENSE file
 - README badges (CI, npm version, license) and table of contents
@@ -59,7 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Core library** (`@knowgraph/core`)
+- **Core library** (`@know-graph/core`)
   - Python parser for docstring-based `@knowgraph` annotations
   - TypeScript/JavaScript parser for JSDoc-based annotations
   - Go parser for line-comment-based `knowgraph:` annotations
@@ -69,14 +69,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Query engine with filtering by owner, tags, type, and status
   - Parser registry with plugin architecture
 
-- **CLI** (`@knowgraph/cli`)
+- **CLI** (`@know-graph/cli`)
   - `knowgraph init` — initialize KnowGraph in a project
   - `knowgraph parse <path>` — parse and output entities as JSON
   - `knowgraph index <path>` — parse and index into SQLite
   - `knowgraph query <text>` — full-text search with filters
   - `knowgraph serve` — start the MCP server
 
-- **MCP Server** (`@knowgraph/mcp-server`)
+- **MCP Server** (`@know-graph/mcp-server`)
   - `search_code` — full-text search across entities
   - `find_by_owner` — find entities by team or person
   - `find_by_business_goal` — discover entities by business objective

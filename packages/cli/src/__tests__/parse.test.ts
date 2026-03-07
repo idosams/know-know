@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { resolve } from 'node:path';
 import { readFileSync } from 'node:fs';
-import { createDefaultRegistry } from '@knowgraph/core';
+import { createDefaultRegistry } from '@know-graph/core';
 
 const FIXTURES_DIR = resolve(__dirname, 'fixtures');
 

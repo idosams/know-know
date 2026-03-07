@@ -1,13 +1,13 @@
-# @knowgraph/cli
+# @know-graph/cli
 
 Command-line interface for [KnowGraph](https://github.com/idosams/know-know) — make your codebase AI-navigable.
 
 ## Installation
 
 ```bash
-npm install -g @knowgraph/cli
+npm install -g @know-graph/cli
 # or
-npx @knowgraph/cli <command>
+npx @know-graph/cli <command>
 ```
 
 ## Commands

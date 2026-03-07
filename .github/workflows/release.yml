@@ -75,26 +75,25 @@ jobs:
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
+      # Trusted Publishing requires npm >= 11.5.1
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g npm@latest
+
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo build
       - run: pnpm turbo test
       - run: pnpm turbo typecheck
 
       # Publish in dependency order: core -> mcp-server -> cli
-      - name: Publish @knowgraph/core
-        run: pnpm --filter @knowgraph/core publish --no-git-checks --provenance --tag ${{ steps.version.outputs.dist_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # Uses npm Trusted Publishing (OIDC) — no NPM_TOKEN needed
+      - name: Publish @know-graph/core
+        run: pnpm --filter @know-graph/core publish --no-git-checks --provenance --access public --tag ${{ steps.version.outputs.dist_tag }}
 
-      - name: Publish @knowgraph/mcp-server
-        run: pnpm --filter @knowgraph/mcp-server publish --no-git-checks --provenance --tag ${{ steps.version.outputs.dist_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish @know-graph/mcp-server
+        run: pnpm --filter @know-graph/mcp-server publish --no-git-checks --provenance --access public --tag ${{ steps.version.outputs.dist_tag }}
 
-      - name: Publish @knowgraph/cli
-        run: pnpm --filter @knowgraph/cli publish --no-git-checks --provenance --tag ${{ steps.version.outputs.dist_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish @know-graph/cli
+        run: pnpm --filter @know-graph/cli publish --no-git-checks --provenance --access public --tag ${{ steps.version.outputs.dist_tag }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

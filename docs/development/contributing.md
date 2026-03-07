@@ -39,9 +39,9 @@ KnowGraph is a pnpm workspace monorepo managed by [Turborepo](https://turbo.buil
 
 ```
 packages/
-  core/        @knowgraph/core      Parsers, indexer, query engine, validation, coverage, types
-  cli/         @knowgraph/cli       Commander.js CLI tool
-  mcp-server/  @knowgraph/mcp-server  MCP protocol server for AI tool integration
+  core/        @know-graph/core      Parsers, indexer, query engine, validation, coverage, types
+  cli/         @know-graph/cli       Commander.js CLI tool
+  mcp-server/  @know-graph/mcp-server  MCP protocol server for AI tool integration
 ```
 
 ### Turborepo Task Graph
@@ -65,7 +65,7 @@ flowchart TD
 | `typecheck` | `^build` | - |
 | `clean` | - (no cache) | - |
 
-The `^build` dependency means `@knowgraph/cli` will build `@knowgraph/core` first, since CLI depends on core.
+The `^build` dependency means `@know-graph/cli` will build `@know-graph/core` first, since CLI depends on core.
 
 ### Workspace Dependencies
 
@@ -74,7 +74,7 @@ Packages reference each other using pnpm workspace protocol:
 ```json
 {
   "dependencies": {
-    "@knowgraph/core": "workspace:*"
+    "@know-graph/core": "workspace:*"
   }
 }
 ```

@@ -9,7 +9,7 @@
  *   business_goal: Present code graph data in human-readable formats
  *   domain: cli
  */
-import type { StoredEntity } from '@knowgraph/core';
+import type { StoredEntity } from '@know-graph/core';
 
 export function truncate(str: string, maxLen: number): string {
   if (str.length <= maxLen) return str;

@@ -42,9 +42,9 @@ KnowGraph consists of three distinct packages (`core`, `cli`, `mcp-server`) that
 
 Use **pnpm workspaces** for dependency management and **Turborepo** for build orchestration. The three packages are:
 
-- `@knowgraph/core` -- parsers, indexer, query engine, types
-- `@knowgraph/cli` -- Commander.js command-line interface
-- `@knowgraph/mcp-server` -- MCP protocol server
+- `@know-graph/core` -- parsers, indexer, query engine, types
+- `@know-graph/cli` -- Commander.js command-line interface
+- `@know-graph/mcp-server` -- MCP protocol server
 
 ### Implementation
 
@@ -73,7 +73,7 @@ Turborepo pipeline ensures correct build order via `dependsOn: ["^build"]`:
 ### Consequences
 
 **Positive**:
-- Shared types via `@knowgraph/core` workspace dependency (`workspace:*`)
+- Shared types via `@know-graph/core` workspace dependency (`workspace:*`)
 - Parallel builds with Turborepo caching (only rebuilds changed packages)
 - Single CI pipeline -- one `ci.yml` handles all packages
 - Lockfile integrity -- `pnpm install --frozen-lockfile` prevents dependency drift
@@ -908,7 +908,7 @@ Phase 4 requires integrating with external tools (Notion, Jira, Linear) to enric
 
 ### Decision
 
-Define a `Connector` interface with standard lifecycle methods. Each connector is a separate npm package (`@knowgraph/connector-*`).
+Define a `Connector` interface with standard lifecycle methods. Each connector is a separate npm package (`@know-graph/connector-*`).
 
 ### Planned Implementation
 
@@ -922,10 +922,10 @@ interface Connector {
 ```
 
 Planned connector packages:
-- `@knowgraph/connector-notion`
-- `@knowgraph/connector-jira`
-- `@knowgraph/connector-linear`
-- `@knowgraph/connector-webhook`
+- `@know-graph/connector-notion`
+- `@know-graph/connector-jira`
+- `@know-graph/connector-linear`
+- `@know-graph/connector-webhook`
 
 ### Consequences
 

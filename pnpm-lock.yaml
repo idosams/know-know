@@ -38,10 +38,10 @@ importers:
 
   packages/cli:
     dependencies:
-      '@knowgraph/core':
+      '@know-graph/core':
         specifier: workspace:*
         version: link:../core
-      '@knowgraph/mcp-server':
+      '@know-graph/mcp-server':
         specifier: workspace:*
         version: link:../mcp-server
       chalk:
@@ -88,7 +88,7 @@ importers:
 
   packages/mcp-server:
     dependencies:
-      '@knowgraph/core':
+      '@know-graph/core':
         specifier: workspace:*
         version: link:../core
       '@modelcontextprotocol/sdk':

@@ -19,11 +19,11 @@ import {
   createDefaultConnectorRegistry,
   createDatabaseManager,
   ManifestSchema,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 import type {
   ConnectorConfig,
   ConnectorSyncResult,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 
 interface SyncCommandOptions {
   readonly dryRun?: boolean;

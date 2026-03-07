@@ -55,7 +55,7 @@ async function runServe(options: ServeOptions): Promise<void> {
   console.log('');
 
   try {
-    const { startServer } = await import('@knowgraph/mcp-server');
+    const { startServer } = await import('@know-graph/mcp-server');
     await startServer({ dbPath, verbose: options.verbose });
   } catch (err) {
     console.error(

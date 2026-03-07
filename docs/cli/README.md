@@ -1,4 +1,4 @@
-# @knowgraph/cli -- Implementation Documentation
+# @know-graph/cli -- Implementation Documentation
 
 The CLI package (`packages/cli/`) provides the `knowgraph` command-line interface built on [Commander.js](https://github.com/tj/commander.js). It exposes five subcommands -- `init`, `parse`, `index`, `query`, and `serve` -- that together form the primary developer workflow for annotating, indexing, and querying a codebase.
 
@@ -67,8 +67,8 @@ graph TD
 | `ora` | Spinner for progress display during indexing |
 | `inquirer` | Interactive prompts (dynamically imported in `init`) |
 | `yaml` | YAML serialization for `.knowgraph.yml` generation |
-| `@knowgraph/core` | Parser registry, indexer, database manager, query engine |
-| `@knowgraph/mcp-server` | MCP protocol server (dynamically imported in `serve`) |
+| `@know-graph/core` | Parser registry, indexer, database manager, query engine |
+| `@know-graph/mcp-server` | MCP protocol server (dynamically imported in `serve`) |
 
 ---
 
@@ -505,7 +505,7 @@ flowchart TD
     B --> C{"Database file exists?"}
     C -- "No" --> D["Print error: run 'knowgraph index' first"]
     C -- "Yes" --> E["Print server info and<br/>Claude Desktop config snippet"]
-    E --> F["Dynamic import @knowgraph/mcp-server"]
+    E --> F["Dynamic import @know-graph/mcp-server"]
     F --> G["startServer(dbPath, verbose)"]
     G --> H["Server runs on stdio transport"]
 ```
@@ -533,7 +533,7 @@ Add this to your Claude Desktop config:
 
 ### Dynamic Import
 
-The `@knowgraph/mcp-server` package is imported dynamically (`await import(...)`) so the CLI does not require the MCP server dependency to be loaded for non-serve commands. If the import fails, the error is caught and reported.
+The `@know-graph/mcp-server` package is imported dynamically (`await import(...)`) so the CLI does not require the MCP server dependency to be loaded for non-serve commands. If the import fails, the error is caught and reported.
 
 ---
 

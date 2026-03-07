@@ -329,7 +329,7 @@ This allows simple annotations with just `type` and `description` to pass core v
 
 ## Exports
 
-All types and schemas are re-exported from `@knowgraph/core`:
+All types and schemas are re-exported from `@know-graph/core`:
 
 ```typescript
 import {
@@ -341,7 +341,7 @@ import {
   type EntityType, type Status, type Link,
   type CoreMetadata, type ExtendedMetadata,
   type ParseResult, type Manifest,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 ```
 
 Source files:

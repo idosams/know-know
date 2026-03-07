@@ -233,7 +233,7 @@ The `rootDir` can be either a directory (recursively scanned) or a single file p
 You can define custom validation rules and pass them to `createValidator()`:
 
 ```typescript
-import { createValidator, type ValidationRule, type ParseResult } from '@knowgraph/core';
+import { createValidator, type ValidationRule, type ParseResult } from '@know-graph/core';
 
 const requireTagsRule: ValidationRule = {
   name: 'require-tags',
@@ -262,7 +262,7 @@ const result = validator.validate('/path/to/project');
 To combine default rules with custom ones:
 
 ```typescript
-import { createValidator, createAllDefaultRules } from '@knowgraph/core';
+import { createValidator, createAllDefaultRules } from '@know-graph/core';
 
 const validator = createValidator([
   ...createAllDefaultRules(),
@@ -291,7 +291,7 @@ import {
   createAllDefaultRules,
   // Validator factory
   createValidator,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 ```
 
 Source files:

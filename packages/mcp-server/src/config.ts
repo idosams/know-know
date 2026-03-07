@@ -19,7 +19,7 @@ export function generateClaudeDesktopConfig(projectPath: string): object {
         args: [
           path.join(
             projectPath,
-            'node_modules/@knowgraph/mcp-server/dist/index.js',
+            'node_modules/@know-graph/mcp-server/dist/index.js',
           ),
           path.join(projectPath, '.knowgraph/knowgraph.db'),
         ],

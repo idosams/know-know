@@ -13,8 +13,8 @@ import { readFileSync, statSync, readdirSync } from 'node:fs';
 import { join, resolve, extname } from 'node:path';
 import type { Command } from 'commander';
 import chalk from 'chalk';
-import { createDefaultRegistry } from '@knowgraph/core';
-import type { ParseResult } from '@knowgraph/core';
+import { createDefaultRegistry } from '@know-graph/core';
+import type { ParseResult } from '@know-graph/core';
 import { formatJson } from '../utils/format.js';
 
 function collectFilePaths(targetPath: string): readonly string[] {

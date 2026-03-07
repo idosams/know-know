@@ -25,7 +25,7 @@ describe('coverage command logic', () => {
   });
 
   it('should calculate coverage for the fixtures directory', async () => {
-    const { calculateCoverage } = await import('@knowgraph/core');
+    const { calculateCoverage } = await import('@know-graph/core');
     const result = calculateCoverage({ rootDir: FIXTURES_DIR });
 
     expect(result.totalFiles).toBe(5);
@@ -34,7 +34,7 @@ describe('coverage command logic', () => {
   });
 
   it('should produce JSON output', async () => {
-    const { calculateCoverage } = await import('@knowgraph/core');
+    const { calculateCoverage } = await import('@know-graph/core');
     const result = calculateCoverage({ rootDir: FIXTURES_DIR });
     const json = JSON.stringify(result, null, 2);
     const parsed = JSON.parse(json);
@@ -49,7 +49,7 @@ describe('coverage command logic', () => {
   });
 
   it('should detect when coverage is below threshold', async () => {
-    const { calculateCoverage } = await import('@knowgraph/core');
+    const { calculateCoverage } = await import('@know-graph/core');
     const result = calculateCoverage({ rootDir: FIXTURES_DIR });
 
     // Coverage is 60%, threshold is 80%
@@ -57,7 +57,7 @@ describe('coverage command logic', () => {
   });
 
   it('should pass when coverage meets threshold', async () => {
-    const { calculateCoverage } = await import('@knowgraph/core');
+    const { calculateCoverage } = await import('@know-graph/core');
     const result = calculateCoverage({ rootDir: FIXTURES_DIR });
 
     // Coverage is 60%, threshold is 50%
@@ -65,7 +65,7 @@ describe('coverage command logic', () => {
   });
 
   it('should include language breakdown in results', async () => {
-    const { calculateCoverage } = await import('@knowgraph/core');
+    const { calculateCoverage } = await import('@know-graph/core');
     const result = calculateCoverage({ rootDir: FIXTURES_DIR });
 
     const pythonBreakdown = result.byLanguage.find(
@@ -84,7 +84,7 @@ describe('coverage command logic', () => {
   });
 
   it('should handle nonexistent paths gracefully', async () => {
-    const { calculateCoverage } = await import('@knowgraph/core');
+    const { calculateCoverage } = await import('@know-graph/core');
     const result = calculateCoverage({
       rootDir: '/nonexistent/path/that/does/not/exist',
     });

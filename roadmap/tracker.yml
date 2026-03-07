@@ -233,12 +233,12 @@ phases:
         name: Linear connector (GraphQL)
         status: todo
         priority: medium
-        package: "@knowgraph/connector-linear"
+        package: "@know-graph/connector-linear"
       - id: p4-webhook
         name: Generic webhook connector
         status: todo
         priority: medium
-        package: "@knowgraph/connector-webhook"
+        package: "@know-graph/connector-webhook"
       - id: p4-auth
         name: Connector auth and token management
         status: todo
@@ -348,12 +348,12 @@ phases:
         name: REST API server (Express + OpenAPI)
         status: todo
         priority: high
-        package: "@knowgraph/rest-api"
+        package: "@know-graph/rest-api"
       - id: p6-graphql
         name: GraphQL API server
         status: todo
         priority: medium
-        package: "@knowgraph/graphql-api"
+        package: "@know-graph/graphql-api"
       - id: p6-auth
         name: API authentication (API keys)
         status: todo
@@ -432,7 +432,7 @@ phases:
         name: VSCode extension
         status: todo
         priority: high
-        package: "@knowgraph/vscode"
+        package: "@know-graph/vscode"
       - id: p7-jetbrains
         name: JetBrains plugin
         status: todo

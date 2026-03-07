@@ -1,18 +1,18 @@
-# @knowgraph/mcp-server
+# @know-graph/mcp-server
 
 MCP (Model Context Protocol) server for [KnowGraph](https://github.com/idosams/know-know) — connect your code knowledge graph to AI assistants.
 
 ## Installation
 
 ```bash
-npm install -g @knowgraph/cli
+npm install -g @know-graph/cli
 # The MCP server is included with the CLI
 ```
 
 Or install standalone:
 
 ```bash
-npm install @knowgraph/mcp-server
+npm install @know-graph/mcp-server
 ```
 
 ## Usage with Claude Desktop

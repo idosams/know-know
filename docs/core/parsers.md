@@ -347,7 +347,7 @@ When `getParser(filePath)` is called:
 ### Adding a Custom Parser
 
 ```typescript
-import { createDefaultRegistry } from '@knowgraph/core';
+import { createDefaultRegistry } from '@know-graph/core';
 
 const registry = createDefaultRegistry();
 
@@ -368,7 +368,7 @@ const parser = registry.getParser('test.rb');
 
 ## Exports
 
-All parser-related types and factories are exported from `@knowgraph/core`:
+All parser-related types and factories are exported from `@know-graph/core`:
 
 ```typescript
 import {
@@ -386,7 +386,7 @@ import {
   extractKnowgraphYaml,
   parseAndValidateMetadata,
   extractMetadata,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 ```
 
 Source files:

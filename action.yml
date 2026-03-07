@@ -21,7 +21,7 @@ inputs:
     required: false
     default: 'false'
   knowgraph-version:
-    description: 'Version of @knowgraph/cli to install'
+    description: 'Version of @know-graph/cli to install'
     required: false
     default: 'latest'
 runs:
@@ -29,7 +29,7 @@ runs:
   steps:
     - name: Install KnowGraph CLI
       shell: bash
-      run: npm install -g @knowgraph/cli@${{ inputs.knowgraph-version }}
+      run: npm install -g @know-graph/cli@${{ inputs.knowgraph-version }}
 
     - name: Run KnowGraph
       shell: bash

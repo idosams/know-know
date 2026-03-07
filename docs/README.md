@@ -81,9 +81,9 @@ graph TD
 
 ```mermaid
 graph LR
-    CLI["@knowgraph/cli<br/>Commander.js CLI"]
-    MCP["@knowgraph/mcp-server<br/>MCP Protocol Server"]
-    CORE["@knowgraph/core<br/>Parsers, Indexer, Query Engine"]
+    CLI["@know-graph/cli<br/>Commander.js CLI"]
+    MCP["@know-graph/mcp-server<br/>MCP Protocol Server"]
+    CORE["@know-graph/core<br/>Parsers, Indexer, Query Engine"]
 
     CLI --> CORE
     CLI --> MCP
@@ -103,7 +103,7 @@ For a detailed architecture deep-dive, see [architecture.md](./architecture.md).
 ```
 knowgraph/
 ├── packages/
-│   ├── core/                          # @knowgraph/core -- the engine
+│   ├── core/                          # @know-graph/core -- the engine
 │   │   └── src/
 │   │       ├── types/                 # Zod schemas, TypeScript types
 │   │       ├── parsers/               # Language-specific parsers
@@ -113,12 +113,12 @@ knowgraph/
 │   │       ├── coverage/              # Coverage calculator
 │   │       └── suggest/               # File suggestion engine
 │   │
-│   ├── cli/                           # @knowgraph/cli -- the user interface
+│   ├── cli/                           # @know-graph/cli -- the user interface
 │   │   └── src/
 │   │       ├── commands/              # init, parse, index, query, serve, validate, coverage, suggest, hook
 │   │       └── utils/                 # Language detection, output formatting
 │   │
-│   └── mcp-server/                    # @knowgraph/mcp-server -- AI bridge
+│   └── mcp-server/                    # @know-graph/mcp-server -- AI bridge
 │       └── src/
 │           ├── tools/                 # 7 MCP tools
 │           ├── server.ts              # MCP server + stdio transport
@@ -242,7 +242,7 @@ sequenceDiagram
 
 ```bash
 # Install
-npm install -g @knowgraph/cli
+npm install -g @know-graph/cli
 
 # Initialize project
 knowgraph init

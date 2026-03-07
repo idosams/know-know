@@ -222,7 +222,7 @@ import {
   type QueryEngine,
   type QueryOptions,
   type QueryResult,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 ```
 
 Source files:

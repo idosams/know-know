@@ -388,7 +388,7 @@ import {
   type IndexProgress,
   type IndexResult,
   type IndexError,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 ```
 
 Source files:

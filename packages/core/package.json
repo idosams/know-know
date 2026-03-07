@@ -1,5 +1,5 @@
 {
-  "name": "@knowgraph/core",
+  "name": "@know-graph/core",
   "version": "0.4.0",
   "description": "Core library for KnowGraph - code knowledge graph",
   "type": "module",

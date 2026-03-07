@@ -14,10 +14,10 @@ decisions:
       versioning while sharing code.
     decision: >
       Use pnpm workspaces for dependency management and Turborepo for
-      build orchestration. Three packages: @knowgraph/core, @knowgraph/cli,
-      @knowgraph/mcp-server.
+      build orchestration. Three packages: @know-graph/core, @know-graph/cli,
+      @know-graph/mcp-server.
     consequences:
-      - Shared types via @knowgraph/core dependency
+      - Shared types via @know-graph/core dependency
       - Parallel builds with Turborepo caching
       - Single CI pipeline for all packages
     alternatives:
@@ -214,7 +214,7 @@ decisions:
     decision: >
       Define a Connector interface with standard lifecycle methods
       (authenticate, sync, validate). Each connector is a separate
-      npm package (@knowgraph/connector-*).
+      npm package (@know-graph/connector-*).
     consequences:
       - Clean separation of concerns
       - Users install only connectors they need

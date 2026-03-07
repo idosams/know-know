@@ -1,7 +1,7 @@
 # KnowGraph
 
 [![CI](https://github.com/idosams/know-know/actions/workflows/ci.yml/badge.svg)](https://github.com/idosams/know-know/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/@knowgraph/cli.svg)](https://www.npmjs.com/package/@knowgraph/cli)
+[![npm version](https://img.shields.io/npm/v/@know-graph/cli.svg)](https://www.npmjs.com/package/@know-graph/cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > Make your codebase AI-navigable by bridging code documentation with business context
@@ -47,9 +47,9 @@ KnowGraph solves this by letting you annotate your code with structured metadata
 ### Installation
 
 ```bash
-npm install -g @knowgraph/cli
+npm install -g @know-graph/cli
 # or
-pnpm add -g @knowgraph/cli
+pnpm add -g @know-graph/cli
 ```
 
 ### 1. Annotate your code
@@ -263,9 +263,9 @@ When running as an MCP server, KnowGraph exposes 7 tools:
 
 | Package | Description |
 |---------|-------------|
-| `@knowgraph/core` | Parsers, indexer, query engine |
-| `@knowgraph/cli` | Command-line interface |
-| `@knowgraph/mcp-server` | MCP server for AI integration |
+| `@know-graph/core` | Parsers, indexer, query engine |
+| `@know-graph/cli` | Command-line interface |
+| `@know-graph/mcp-server` | MCP server for AI integration |
 
 ## Examples
 

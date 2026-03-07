@@ -5,7 +5,7 @@ import {
   createDefaultRegistry,
   createDatabaseManager,
   createIndexer,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 
 const FIXTURES_DIR = resolve(__dirname, 'fixtures');
 const TEMP_DIR = resolve(__dirname, '.tmp-test-output');

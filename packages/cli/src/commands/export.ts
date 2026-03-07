@@ -16,8 +16,8 @@ import chalk from 'chalk';
 import {
   createDatabaseManager,
   createQueryEngine,
-} from '@knowgraph/core';
-import type { StoredEntity } from '@knowgraph/core';
+} from '@know-graph/core';
+import type { StoredEntity } from '@know-graph/core';
 
 type ExportFormat = 'cursorrules' | 'markdown';
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import type { StoredEntity } from '@knowgraph/core';
+import type { StoredEntity } from '@know-graph/core';
 import { formatExport } from '../commands/export.js';
 
 function createEntity(overrides: Partial<StoredEntity> = {}): StoredEntity {

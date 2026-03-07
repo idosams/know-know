@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { resolve } from 'node:path';
-import { createDefaultRegistry, createSuggestionEngine } from '@knowgraph/core';
+import { createDefaultRegistry, createSuggestionEngine } from '@know-graph/core';
 
 // __dirname = packages/cli/src/__tests__
 // Go up to packages/, then into core/

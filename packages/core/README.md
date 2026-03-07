@@ -1,11 +1,11 @@
-# @knowgraph/core
+# @know-graph/core
 
 Core library for [KnowGraph](https://github.com/idosams/know-know) — parsers, indexer, query engine, and type definitions.
 
 ## Installation
 
 ```bash
-npm install @knowgraph/core
+npm install @know-graph/core
 ```
 
 ## What's Included
@@ -23,7 +23,7 @@ import {
   createDefaultRegistry,
   createIndexer,
   createQueryEngine,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 
 // Parse files
 const registry = createDefaultRegistry();

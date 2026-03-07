@@ -7,19 +7,19 @@ This guide walks you through installing KnowGraph, annotating your code, and bui
 ### Using npm
 
 ```bash
-npm install -g @knowgraph/cli
+npm install -g @know-graph/cli
 ```
 
 ### Using pnpm (recommended for monorepos)
 
 ```bash
-pnpm add -g @knowgraph/cli
+pnpm add -g @know-graph/cli
 ```
 
 ### Using npx (no install required)
 
 ```bash
-npx @knowgraph/cli <command>
+npx @know-graph/cli <command>
 ```
 
 ### Verify Installation

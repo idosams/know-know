@@ -23,14 +23,14 @@ pnpm turbo test
 pnpm turbo test -- --coverage
 
 # Run tests for a specific package
-pnpm --filter @knowgraph/core test
-pnpm --filter @knowgraph/cli test
+pnpm --filter @know-graph/core test
+pnpm --filter @know-graph/cli test
 
 # Run a specific test file
-pnpm --filter @knowgraph/core vitest run src/parsers/__tests__/metadata-extractor.test.ts
+pnpm --filter @know-graph/core vitest run src/parsers/__tests__/metadata-extractor.test.ts
 
 # Run tests in watch mode (during development)
-pnpm --filter @knowgraph/core vitest
+pnpm --filter @know-graph/core vitest
 ```
 
 ## Test Organization
@@ -151,8 +151,8 @@ Key points:
 To check coverage locally:
 
 ```bash
-pnpm --filter @knowgraph/core vitest run --coverage
-pnpm --filter @knowgraph/cli vitest run --coverage
+pnpm --filter @know-graph/core vitest run --coverage
+pnpm --filter @know-graph/cli vitest run --coverage
 ```
 
 ## Writing Tests
@@ -251,7 +251,7 @@ import {
   createDefaultRegistry,
   createDatabaseManager,
   createIndexer,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 
 const FIXTURES_DIR = resolve(__dirname, 'fixtures');
 const TEMP_DIR = resolve(__dirname, '.tmp-test-output');
@@ -306,7 +306,7 @@ CLI command tests focus on the underlying logic rather than the Commander.js wir
 2. Test those functions directly
 3. Use temporary directories for file system operations
 
-For commands that interact with `@knowgraph/core`, import and test the core functions:
+For commands that interact with `@know-graph/core`, import and test the core functions:
 
 ```typescript
 import { describe, it, expect, afterEach } from 'vitest';
@@ -410,7 +410,7 @@ pnpm turbo build && pnpm turbo test
 
 If coverage drops below the threshold:
 
-1. Check the coverage report: `pnpm --filter @knowgraph/core vitest run --coverage`
+1. Check the coverage report: `pnpm --filter @know-graph/core vitest run --coverage`
 2. Look at uncovered lines in the `text` reporter output
 3. Add tests for uncovered branches and functions
 4. Re-run to verify

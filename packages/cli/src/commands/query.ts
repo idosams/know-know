@@ -12,8 +12,8 @@
 import { resolve } from 'node:path';
 import type { Command } from 'commander';
 import chalk from 'chalk';
-import { createDatabaseManager, createQueryEngine } from '@knowgraph/core';
-import type { EntityType } from '@knowgraph/core';
+import { createDatabaseManager, createQueryEngine } from '@know-graph/core';
+import type { EntityType } from '@know-graph/core';
 import { formatTable, formatJson } from '../utils/format.js';
 
 interface QueryCommandOptions {

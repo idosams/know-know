@@ -1,8 +1,8 @@
-# MCP Server (`@knowgraph/mcp-server`)
+# MCP Server (`@know-graph/mcp-server`)
 
 The MCP (Model Context Protocol) server exposes the KnowGraph knowledge graph to AI assistants such as Claude Desktop and Claude Code. It provides 7 read-only tools that allow AI assistants to search, navigate, and understand an indexed codebase.
 
-**Package:** `@knowgraph/mcp-server` (v0.2.0)
+**Package:** `@know-graph/mcp-server` (v0.2.0)
 **Transport:** stdio
 **Database:** Read-only SQLite via `better-sqlite3`
 **Source:** [`packages/mcp-server/src/`](../../packages/mcp-server/src/)
@@ -528,7 +528,7 @@ Add the following to your Claude Desktop MCP configuration file (`~/Library/Appl
     "knowgraph": {
       "command": "node",
       "args": [
-        "/absolute/path/to/project/node_modules/@knowgraph/mcp-server/dist/index.js",
+        "/absolute/path/to/project/node_modules/@know-graph/mcp-server/dist/index.js",
         "/absolute/path/to/project/.knowgraph/knowgraph.db"
       ]
     }
@@ -539,7 +539,7 @@ Add the following to your Claude Desktop MCP configuration file (`~/Library/Appl
 You can also generate this configuration programmatically:
 
 ```typescript
-import { generateClaudeDesktopConfig } from '@knowgraph/mcp-server';
+import { generateClaudeDesktopConfig } from '@know-graph/mcp-server';
 
 const config = generateClaudeDesktopConfig('/path/to/your/project');
 // Returns the JSON object shown above
@@ -555,7 +555,7 @@ Add to your project's `.mcp.json` or use the Claude Code MCP settings:
     "knowgraph": {
       "command": "node",
       "args": [
-        "./node_modules/@knowgraph/mcp-server/dist/index.js",
+        "./node_modules/@know-graph/mcp-server/dist/index.js",
         ".knowgraph/knowgraph.db"
       ]
     }
@@ -584,7 +584,7 @@ knowgraph-mcp .knowgraph/knowgraph.db
 ### Programmatic Usage
 
 ```typescript
-import { createServer, startServer, openDatabase } from '@knowgraph/mcp-server';
+import { createServer, startServer, openDatabase } from '@know-graph/mcp-server';
 
 // Option 1: Full server with stdio transport
 await startServer({ dbPath: '.knowgraph/knowgraph.db', verbose: true });
@@ -601,7 +601,7 @@ db.close();
 ### Testing with In-Memory Database
 
 ```typescript
-import { createInMemoryDatabase } from '@knowgraph/mcp-server';
+import { createInMemoryDatabase } from '@know-graph/mcp-server';
 
 const { db, rawDb } = createInMemoryDatabase();
 

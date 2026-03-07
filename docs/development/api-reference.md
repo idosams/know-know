@@ -1,18 +1,18 @@
-# @knowgraph/core API Reference
+# @know-graph/core API Reference
 
-`@knowgraph/core` is the core library that provides parsing, indexing, querying, validation, coverage analysis, and suggestion capabilities.
+`@know-graph/core` is the core library that provides parsing, indexing, querying, validation, coverage analysis, and suggestion capabilities.
 
 ```bash
-npm install @knowgraph/core
+npm install @know-graph/core
 ```
 
 ```typescript
-import { createDefaultRegistry, createDatabaseManager, createIndexer } from '@knowgraph/core';
+import { createDefaultRegistry, createDatabaseManager, createIndexer } from '@know-graph/core';
 ```
 
 ```mermaid
 flowchart TD
-    subgraph Core["@knowgraph/core"]
+    subgraph Core["@know-graph/core"]
         P[Parsers] --> I[Indexer]
         I --> DB[(SQLite DB)]
         DB --> Q[Query Engine]
@@ -20,8 +20,8 @@ flowchart TD
         P --> C[Coverage Calculator]
         P --> S[Suggestion Engine]
     end
-    CLI["@knowgraph/cli"] --> Core
-    MCP["@knowgraph/mcp-server"] --> Core
+    CLI["@know-graph/cli"] --> Core
+    MCP["@know-graph/mcp-server"] --> Core
 ```
 
 ---
@@ -35,7 +35,7 @@ Extracts the raw YAML content following a `@knowgraph` marker from a comment blo
 Automatically strips JSDoc-style leading asterisks (`* `) and Python-style hash prefixes (`# `).
 
 ```typescript
-import { extractKnowgraphYaml } from '@knowgraph/core';
+import { extractKnowgraphYaml } from '@know-graph/core';
 
 const yaml = extractKnowgraphYaml(`
  * @knowgraph
@@ -56,7 +56,7 @@ Parses a YAML string and validates it against the KnowGraph metadata schemas. Tr
 **Returns:** `ExtractionResult`
 
 ```typescript
-import { parseAndValidateMetadata } from '@knowgraph/core';
+import { parseAndValidateMetadata } from '@know-graph/core';
 
 const result = parseAndValidateMetadata('type: function\ndescription: Authenticates a user');
 if (result.metadata) {
@@ -76,7 +76,7 @@ Combines `extractKnowgraphYaml` and `parseAndValidateMetadata` into a single cal
 **Returns:** `ExtractionResult`
 
 ```typescript
-import { extractMetadata } from '@knowgraph/core';
+import { extractMetadata } from '@know-graph/core';
 
 const result = extractMetadata(`
 @knowgraph
@@ -107,7 +107,7 @@ interface ExtractionError {
 Creates a parser for TypeScript and JavaScript files (`.ts`, `.tsx`, `.js`, `.jsx`, `.mts`, `.cts`). Extracts `@knowgraph` annotations from JSDoc comment blocks.
 
 ```typescript
-import { createTypescriptParser } from '@knowgraph/core';
+import { createTypescriptParser } from '@know-graph/core';
 
 const parser = createTypescriptParser();
 const results = parser.parse(fileContent, 'src/auth.ts');
@@ -118,7 +118,7 @@ const results = parser.parse(fileContent, 'src/auth.ts');
 Creates a parser for Python files (`.py`, `.pyi`). Extracts `@knowgraph` annotations from triple-quoted docstrings.
 
 ```typescript
-import { createPythonParser } from '@knowgraph/core';
+import { createPythonParser } from '@know-graph/core';
 
 const parser = createPythonParser();
 const results = parser.parse(fileContent, 'src/auth.py');
@@ -129,7 +129,7 @@ const results = parser.parse(fileContent, 'src/auth.py');
 Creates a language-agnostic fallback parser. Extracts `@knowgraph` annotations from block comments (`/* ... */`, `""" ... """`) and consecutive single-line comments (`//`, `#`).
 
 ```typescript
-import { createGenericParser } from '@knowgraph/core';
+import { createGenericParser } from '@know-graph/core';
 
 const parser = createGenericParser();
 const results = parser.parse(fileContent, 'src/middleware.go');
@@ -140,7 +140,7 @@ const results = parser.parse(fileContent, 'src/middleware.go');
 Creates a parser registry pre-loaded with the TypeScript and Python parsers. The generic parser is used as a fallback for unrecognized extensions.
 
 ```typescript
-import { createDefaultRegistry } from '@knowgraph/core';
+import { createDefaultRegistry } from '@know-graph/core';
 
 const registry = createDefaultRegistry();
 const results = registry.parseFile(fileContent, 'src/module.ts');
@@ -196,7 +196,7 @@ Creates a SQLite database manager for storing and querying indexed entities. Use
 - `dbPath` -- Path to the SQLite database file. Defaults to `:memory:` for an in-memory database.
 
 ```typescript
-import { createDatabaseManager } from '@knowgraph/core';
+import { createDatabaseManager } from '@know-graph/core';
 
 // File-based database
 const dbManager = createDatabaseManager('.knowgraph/knowgraph.db');
@@ -232,7 +232,7 @@ interface DatabaseManager {
 Generates a deterministic SHA-256 entity ID from the file path, entity name, and line number.
 
 ```typescript
-import { generateEntityId } from '@knowgraph/core';
+import { generateEntityId } from '@know-graph/core';
 
 const id = generateEntityId('src/auth.ts', 'hashPassword', 42);
 // Returns a hex SHA-256 hash
@@ -251,7 +251,7 @@ import {
   createDefaultRegistry,
   createDatabaseManager,
   createIndexer,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 
 const coreRegistry = createDefaultRegistry();
 const adapter = {
@@ -369,7 +369,7 @@ The raw SQL string for creating the SQLite schema. Exported for advanced use cas
 Creates a query engine for searching and traversing the indexed code graph. Supports full-text search via SQLite FTS5.
 
 ```typescript
-import { createDatabaseManager, createQueryEngine } from '@knowgraph/core';
+import { createDatabaseManager, createQueryEngine } from '@know-graph/core';
 
 const dbManager = createDatabaseManager('.knowgraph/knowgraph.db');
 const engine = createQueryEngine(dbManager);
@@ -452,7 +452,7 @@ Creates a validator that scans files for `@knowgraph` annotations and checks the
 If no custom rules are provided, all default rules are used.
 
 ```typescript
-import { createValidator } from '@knowgraph/core';
+import { createValidator } from '@know-graph/core';
 
 const validator = createValidator();
 const result = validator.validate('/path/to/project');
@@ -532,7 +532,7 @@ Each factory returns a `ValidationRule`:
 | `createAllDefaultRules()` | (all) | mixed | Returns array of all default rules |
 
 ```typescript
-import { createValidator, createRequiredFieldsRule, createValidTypeRule } from '@knowgraph/core';
+import { createValidator, createRequiredFieldsRule, createValidTypeRule } from '@know-graph/core';
 
 // Custom validator with only specific rules
 const validator = createValidator([
@@ -550,7 +550,7 @@ const validator = createValidator([
 Calculates annotation coverage by scanning all parseable files and checking which ones have `@knowgraph` annotations.
 
 ```typescript
-import { calculateCoverage } from '@knowgraph/core';
+import { calculateCoverage } from '@know-graph/core';
 
 const result = calculateCoverage({ rootDir: '/path/to/project' });
 
@@ -627,7 +627,7 @@ interface FileCoverageInfo {
 Creates an engine that scores and ranks unannotated files by annotation priority. Helps developers decide which files to annotate next.
 
 ```typescript
-import { createDefaultRegistry, createSuggestionEngine } from '@knowgraph/core';
+import { createDefaultRegistry, createSuggestionEngine } from '@know-graph/core';
 
 const registry = createDefaultRegistry();
 const engine = createSuggestionEngine(registry);
@@ -692,7 +692,7 @@ type SuggestionReason =
 
 ## Type Schemas
 
-All type schemas are defined with Zod and exported from `@knowgraph/core`. Both the schema (for runtime validation) and the inferred TypeScript type are exported.
+All type schemas are defined with Zod and exported from `@know-graph/core`. Both the schema (for runtime validation) and the inferred TypeScript type are exported.
 
 ### Entity Schemas
 
@@ -712,7 +712,7 @@ import {
   FunnelStageSchema,
   RevenueImpactSchema,
   MonitoringDashboardSchema,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 
 // Validate at runtime
 const result = CoreMetadataSchema.safeParse(unknownData);
@@ -734,7 +734,7 @@ import {
   ConnectorsSchema,
   WebhookConfigSchema,
   AnnotationStyleSchema,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 
 const manifest = ManifestSchema.parse({
   version: '1.0',
@@ -775,14 +775,14 @@ import type {
   WebhookConfig,
   Connectors,
   IndexConfig,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 ```
 
 ---
 
 ## Using Core as a Library
 
-You can use `@knowgraph/core` programmatically in your own tools:
+You can use `@know-graph/core` programmatically in your own tools:
 
 ```typescript
 import {
@@ -793,7 +793,7 @@ import {
   createValidator,
   calculateCoverage,
   createSuggestionEngine,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 
 // 1. Parse a single file
 const registry = createDefaultRegistry();

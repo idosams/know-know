@@ -212,7 +212,7 @@ Created via `createSuggestionEngine(registry)`, where `registry` is a `ParserReg
 ## Usage
 
 ```typescript
-import { createSuggestionEngine, createDefaultRegistry } from '@knowgraph/core';
+import { createSuggestionEngine, createDefaultRegistry } from '@know-graph/core';
 
 const registry = createDefaultRegistry();
 const engine = createSuggestionEngine(registry);
@@ -240,7 +240,7 @@ import {
   type FileSuggestion,
   type SuggestionOptions,
   type SuggestionResult,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 ```
 
 Source files:

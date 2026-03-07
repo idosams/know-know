@@ -6,8 +6,8 @@ import {
   createDatabaseManager,
   createIndexer,
   createQueryEngine,
-} from '@knowgraph/core';
-import type { DatabaseManager } from '@knowgraph/core';
+} from '@know-graph/core';
+import type { DatabaseManager } from '@know-graph/core';
 import { formatTable, formatJson } from '../utils/format.js';
 
 const FIXTURES_DIR = resolve(__dirname, 'fixtures');

@@ -15,9 +15,9 @@ Branch types: `feat/`, `fix/`, `refactor/`, `docs/`, `test/`, `chore/`, `perf/`,
 
 ```
 packages/
-  core/       — @knowgraph/core (parsers, indexer, query engine, types)
-  cli/        — @knowgraph/cli (Commander.js CLI)
-  mcp-server/ — @knowgraph/mcp-server (MCP protocol server)
+  core/       — @know-graph/core (parsers, indexer, query engine, types)
+  cli/        — @know-graph/cli (Commander.js CLI)
+  mcp-server/ — @know-graph/mcp-server (MCP protocol server)
 ```
 
 ## Build & Test

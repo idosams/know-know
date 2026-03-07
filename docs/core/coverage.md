@@ -177,7 +177,7 @@ All breakdowns are sorted by percentage in descending order, so the highest-cove
 ## Usage
 
 ```typescript
-import { calculateCoverage } from '@knowgraph/core';
+import { calculateCoverage } from '@know-graph/core';
 
 const result = calculateCoverage({
   rootDir: '/path/to/project',
@@ -201,7 +201,7 @@ import {
   type CoverageOptions,
   type CoverageResult,
   type FileCoverageInfo,
-} from '@knowgraph/core';
+} from '@know-graph/core';
 ```
 
 Source files:

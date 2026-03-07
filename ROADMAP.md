@@ -154,7 +154,7 @@ Prepare for public launch.
 
 Public release and community building.
 
-- [x] npm package publishing (`npm install -g @knowgraph/cli`)
+- [x] npm package publishing (`npm install -g @know-graph/cli`)
 - [x] Release workflow (GitHub Actions → npm with provenance)
 - [x] Version 0.2.0 released
 - [x] Issue templates and triage process

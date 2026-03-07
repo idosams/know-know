@@ -1,5 +1,5 @@
 {
-  "name": "@knowgraph/cli",
+  "name": "@know-graph/cli",
   "version": "0.4.0",
   "description": "CLI tool for KnowGraph",
   "type": "module",
@@ -48,8 +48,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@knowgraph/core": "workspace:*",
-    "@knowgraph/mcp-server": "workspace:*",
+    "@know-graph/core": "workspace:*",
+    "@know-graph/mcp-server": "workspace:*",
     "chalk": "^5.4.0",
     "commander": "^13.0.0",
     "inquirer": "^12.0.0",

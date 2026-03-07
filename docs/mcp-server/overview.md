@@ -1,6 +1,6 @@
 # MCP Server Overview
 
-The `@knowgraph/mcp-server` package exposes the KnowGraph knowledge graph to AI assistants via the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/).
+The `@know-graph/mcp-server` package exposes the KnowGraph knowledge graph to AI assistants via the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/).
 
 ## What is MCP?
 
@@ -50,7 +50,7 @@ The server is created via `createServer(options)`:
 - If the database cannot be opened, registers a single fallback tool (`get_graph_overview`) that reports the error
 
 ```typescript
-import { createServer, startServer } from '@knowgraph/mcp-server';
+import { createServer, startServer } from '@know-graph/mcp-server';
 
 // Programmatic usage
 const server = createServer({ dbPath: '.knowgraph/knowgraph.db' });
@@ -150,7 +150,7 @@ The knowledge graph database contains three tables:
 The `generateClaudeDesktopConfig(projectPath)` function creates a configuration object for Claude Desktop:
 
 ```typescript
-import { generateClaudeDesktopConfig } from '@knowgraph/mcp-server';
+import { generateClaudeDesktopConfig } from '@know-graph/mcp-server';
 
 const config = generateClaudeDesktopConfig('/path/to/project');
 // {
@@ -158,7 +158,7 @@ const config = generateClaudeDesktopConfig('/path/to/project');
 //     knowgraph: {
 //       command: "node",
 //       args: [
-//         "/path/to/project/node_modules/@knowgraph/mcp-server/dist/index.js",
+//         "/path/to/project/node_modules/@know-graph/mcp-server/dist/index.js",
 //         "/path/to/project/.knowgraph/knowgraph.db"
 //       ]
 //     }
@@ -185,19 +185,19 @@ knowgraph serve
 The MCP server package can also be run directly:
 
 ```bash
-node node_modules/@knowgraph/mcp-server/dist/index.js .knowgraph/knowgraph.db
+node node_modules/@know-graph/mcp-server/dist/index.js .knowgraph/knowgraph.db
 ```
 
 With verbose logging:
 
 ```bash
-node node_modules/@knowgraph/mcp-server/dist/index.js .knowgraph/knowgraph.db --verbose
+node node_modules/@know-graph/mcp-server/dist/index.js .knowgraph/knowgraph.db --verbose
 ```
 
 ### Programmatic Usage
 
 ```typescript
-import { createServer, startServer } from '@knowgraph/mcp-server';
+import { createServer, startServer } from '@know-graph/mcp-server';
 
 // Option 1: Start with stdio transport
 await startServer({

@@ -18,8 +18,8 @@ import {
   createDefaultRegistry,
   createDatabaseManager,
   createIndexer,
-} from '@knowgraph/core';
-import type { IndexProgress } from '@knowgraph/core';
+} from '@know-graph/core';
+import type { IndexProgress } from '@know-graph/core';
 
 interface IndexOptions {
   readonly output: string;

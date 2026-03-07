@@ -13,8 +13,8 @@ import { resolve } from 'node:path';
 import { statSync } from 'node:fs';
 import type { Command } from 'commander';
 import chalk from 'chalk';
-import { createValidator } from '@knowgraph/core';
-import type { ValidationIssue, ValidationResult } from '@knowgraph/core';
+import { createValidator } from '@know-graph/core';
+import type { ValidationIssue, ValidationResult } from '@know-graph/core';
 
 interface ValidateCommandOptions {
   readonly strict?: boolean;
