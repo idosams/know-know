@@ -30,7 +30,7 @@ const program = new Command();
 program
   .name('knowgraph')
   .description('AI-navigable code documentation tool')
-  .version('0.4.0');
+  .version('0.4.1');
 
 registerParseCommand(program);
 registerIndexCommand(program);

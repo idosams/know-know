@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2026-03-08
+
+### Fixed
+
+- Python parser now correctly handles multi-line class definitions (e.g., classes with base classes spanning multiple lines)
+- Python parser now correctly handles multi-line function/method definitions (e.g., functions with many parameters)
+
 ## [0.4.0] - 2026-03-07
 
 ### Added
@@ -91,6 +98,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Python FastAPI e-commerce API with 30+ annotated entities
   - TypeScript Express blog platform with 30+ annotated entities
 
+[0.4.1]: https://github.com/idosams/know-know/releases/tag/v0.4.1
 [0.4.0]: https://github.com/idosams/know-know/releases/tag/v0.4.0
 [0.3.0]: https://github.com/idosams/know-know/releases/tag/v0.3.0
 [0.2.0]: https://github.com/idosams/know-know/releases/tag/v0.2.0
