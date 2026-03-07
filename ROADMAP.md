@@ -71,19 +71,19 @@ AI-queryable interfaces for the code knowledge graph.
 
 ---
 
-## Phase 4: External Knowledge Connectors `NOT STARTED`
+## Phase 4: External Knowledge Connectors `IN PROGRESS`
 
 Enrich the graph with metadata from external tools.
 
-- [ ] Connector plugin architecture
-- [ ] Notion connector (page metadata, summaries)
-- [ ] Jira connector (ticket metadata, status, acceptance criteria)
+- [x] Connector plugin architecture
+- [x] Notion connector (page metadata, summaries)
+- [x] Jira connector (ticket metadata, status, acceptance criteria)
 - [ ] Linear connector (GraphQL issue metadata)
 - [ ] Generic webhook connector (configurable HTTP)
 - [ ] Connector authentication and token management
-- [ ] Rate limiting and caching layer
+- [x] Rate limiting and caching layer
 - [ ] Broken link detection and reporting
-- [ ] CLI: `knowgraph sync` command
+- [x] CLI: `knowgraph sync` command
 
 ---
 

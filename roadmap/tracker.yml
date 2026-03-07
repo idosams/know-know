@@ -3,7 +3,7 @@
 # Last updated: 2026-02-16
 
 project: knowgraph
-version: 0.3.0
+version: 0.4.0
 schema_version: "1.0"
 
 summary:
@@ -209,25 +209,26 @@ phases:
 
   - id: phase-4
     name: External Knowledge Connectors
-    status: not_started
-    progress: 0%
+    status: in_progress
+    progress: 60%
     description: Enrich graph with external tool metadata
     blocked_by: []
     tasks:
       - id: p4-plugin-arch
         name: Connector plugin architecture
-        status: todo
+        status: done
         priority: critical
+        completed: 2026-03-07
       - id: p4-notion
         name: Notion connector
-        status: todo
+        status: done
         priority: high
-        package: "@knowgraph/connector-notion"
+        completed: 2026-03-07
       - id: p4-jira
         name: Jira connector
-        status: todo
+        status: done
         priority: high
-        package: "@knowgraph/connector-jira"
+        completed: 2026-03-07
       - id: p4-linear
         name: Linear connector (GraphQL)
         status: todo
@@ -244,16 +245,18 @@ phases:
         priority: high
       - id: p4-caching
         name: Rate limiting and caching layer
-        status: todo
+        status: done
         priority: high
+        completed: 2026-03-07
       - id: p4-broken-links
         name: Broken link detection and reporting
         status: todo
         priority: medium
       - id: p4-cli-sync
         name: "CLI: knowgraph sync"
-        status: todo
+        status: done
         priority: high
+        completed: 2026-03-07
 
   - id: phase-5
     name: Developer Experience
