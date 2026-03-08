@@ -9,9 +9,13 @@
  *   business_goal: Enable Go codebases to be indexed by KnowGraph
  *   domain: parser-engine
  */
-import type { ParseResult } from '../types/parse-result.js';
+import type {
+  ParseResult,
+  ParseDiagnostic,
+  ParseOutput,
+} from '../types/parse-result.js';
 import type { Parser } from './types.js';
-import { extractMetadata } from './metadata-extractor.js';
+import { extractMetadata, extractKnowgraphYaml } from './metadata-extractor.js';
 
 const GO_EXTENSIONS = ['.go'] as const;
 
@@ -328,7 +332,7 @@ export function createGoParser(): Parser {
     name: 'go',
     supportedExtensions: GO_EXTENSIONS,
 
-    parse(content: string, filePath: string): readonly ParseResult[] {
+    parse(content: string, filePath: string): ParseOutput {
       const blockComments = findBlockComments(content);
       const lineCommentGroups = findLineCommentGroups(content);
 
@@ -338,11 +342,24 @@ export function createGoParser(): Parser {
       );
 
       const results: ParseResult[] = [];
+      const diagnostics: ParseDiagnostic[] = [];
 
       for (const comment of allComments) {
+        // Skip comments without @knowgraph marker
+        if (!extractKnowgraphYaml(comment.content)) {
+          continue;
+        }
+
         const extraction = extractMetadata(comment.content, comment.startLine);
 
         if (!extraction.metadata) {
+          for (const error of extraction.errors) {
+            diagnostics.push({
+              filePath,
+              line: error.line ?? comment.startLine,
+              message: error.message,
+            });
+          }
           continue;
         }
 
@@ -551,7 +568,7 @@ export function createGoParser(): Parser {
         }
       }
 
-      return results;
+      return { results, diagnostics };
     },
   };
 }

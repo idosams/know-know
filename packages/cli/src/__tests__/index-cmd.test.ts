@@ -13,7 +13,7 @@ const TEMP_DIR = resolve(__dirname, '.tmp-test-output');
 function createAdapter(registry: ReturnType<typeof createDefaultRegistry>) {
   return {
     parse(filePath: string, content: string) {
-      return registry.parseFile(content, filePath);
+      return registry.parseFile(content, filePath).results;
     },
     canParse(filePath: string) {
       return registry.getParser(filePath) !== undefined;

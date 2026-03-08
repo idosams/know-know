@@ -23,7 +23,7 @@ tags: [auth, security]
 
 import os
 `;
-      const results = parser.parse(content, 'auth_service.py');
+      const { results } = parser.parse(content, 'auth_service.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('auth_service');
       expect(results[0]?.entityType).toBe('module');
@@ -43,7 +43,7 @@ type: module
 description: CLI entry point
 """
 `;
-      const results = parser.parse(content, 'cli.py');
+      const { results } = parser.parse(content, 'cli.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.entityType).toBe('module');
       expect(results[0]?.name).toBe('cli');
@@ -63,7 +63,7 @@ def authenticate_user(email: str, password: str) -> AuthResult:
     """
     pass
 `;
-      const results = parser.parse(content, 'auth.py');
+      const { results } = parser.parse(content, 'auth.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('authenticate_user');
       expect(results[0]?.entityType).toBe('function');
@@ -84,7 +84,7 @@ async def fetch_user(user_id: int) -> User:
     """
     pass
 `;
-      const results = parser.parse(content, 'users.py');
+      const { results } = parser.parse(content, 'users.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('fetch_user');
       expect(results[0]?.signature).toContain('def fetch_user');
@@ -103,7 +103,7 @@ class UserService:
     """
     pass
 `;
-      const results = parser.parse(content, 'user_service.py');
+      const { results } = parser.parse(content, 'user_service.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserService');
       expect(results[0]?.entityType).toBe('class');
@@ -134,7 +134,7 @@ class UserService:
         """
         pass
 `;
-      const results = parser.parse(content, 'user_service.py');
+      const { results } = parser.parse(content, 'user_service.py');
       expect(results).toHaveLength(3);
 
       const classResult = results.find((r) => r.name === 'UserService');
@@ -165,7 +165,7 @@ class UserService(
     """
     pass
 `;
-      const results = parser.parse(content, 'svc.py');
+      const { results } = parser.parse(content, 'svc.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserService');
       expect(results[0]?.entityType).toBe('class');
@@ -184,7 +184,7 @@ class UserService(
     """
     pass
 `;
-      const results = parser.parse(content, 'svc.py');
+      const { results } = parser.parse(content, 'svc.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserService');
       expect(results[0]?.entityType).toBe('class');
@@ -203,7 +203,7 @@ def process_data(
     """
     pass
 `;
-      const results = parser.parse(content, 'proc.py');
+      const { results } = parser.parse(content, 'proc.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('process_data');
       expect(results[0]?.entityType).toBe('function');
@@ -223,7 +223,7 @@ async def fetch_users(
     """
     pass
 `;
-      const results = parser.parse(content, 'users.py');
+      const { results } = parser.parse(content, 'users.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('fetch_users');
       expect(results[0]?.entityType).toBe('function');
@@ -250,7 +250,7 @@ class UserService:
         """
         pass
 `;
-      const results = parser.parse(content, 'svc.py');
+      const { results } = parser.parse(content, 'svc.py');
       expect(results).toHaveLength(2);
       const method = results.find((r) => r.name === 'create_user');
       expect(method?.entityType).toBe('method');
@@ -271,7 +271,7 @@ def get_user(user_id: int) -> User:
     """
     pass
 `;
-      const results = parser.parse(content, 'routes.py');
+      const { results } = parser.parse(content, 'routes.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.entityType).toBe('api_endpoint');
       expect(results[0]?.name).toBe('get_user');
@@ -285,7 +285,7 @@ def simple_function():
     """This is just a regular docstring."""
     pass
 `;
-      const results = parser.parse(content, 'simple.py');
+      const { results } = parser.parse(content, 'simple.py');
       expect(results).toHaveLength(0);
     });
 
@@ -298,12 +298,12 @@ def broken():
     """
     pass
 `;
-      const results = parser.parse(content, 'broken.py');
+      const { results } = parser.parse(content, 'broken.py');
       expect(results).toHaveLength(0);
     });
 
     it('handles empty file', () => {
-      const results = parser.parse('', 'empty.py');
+      const { results } = parser.parse('', 'empty.py');
       expect(results).toHaveLength(0);
     });
 
@@ -313,7 +313,7 @@ x = 1
 y = 2
 print(x + y)
 `;
-      const results = parser.parse(content, 'no_docs.py');
+      const { results } = parser.parse(content, 'no_docs.py');
       expect(results).toHaveLength(0);
     });
 
@@ -327,7 +327,7 @@ def test():
     """
     pass
 `;
-      const results = parser.parse(content, 'invalid.py');
+      const { results } = parser.parse(content, 'invalid.py');
       expect(results).toHaveLength(0);
     });
   });
@@ -344,7 +344,7 @@ def tagged_func():
     """
     pass
 `;
-      const results = parser.parse(content, 'tagged.py');
+      const { results } = parser.parse(content, 'tagged.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.metadata.tags).toEqual(['alpha', 'beta', 'gamma']);
     });
@@ -360,7 +360,7 @@ def stable_func():
     """
     pass
 `;
-      const results = parser.parse(content, 'stable.py');
+      const { results } = parser.parse(content, 'stable.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.metadata.status).toBe('stable');
     });
@@ -374,7 +374,7 @@ type: module
 description: Test module
 """
 `;
-      const results = parser.parse(content, 'src/utils/helpers.py');
+      const { results } = parser.parse(content, 'src/utils/helpers.py');
       expect(results[0]?.name).toBe('helpers');
       expect(results[0]?.filePath).toBe('src/utils/helpers.py');
     });
@@ -386,8 +386,67 @@ type: module
 description: Type stubs
 """
 `;
-      const results = parser.parse(content, 'types.pyi');
+      const { results } = parser.parse(content, 'types.pyi');
       expect(results[0]?.name).toBe('types');
+    });
+  });
+
+  describe('diagnostics', () => {
+    it('reports diagnostics for malformed YAML with @knowgraph marker', () => {
+      const content = `
+def broken():
+    """
+    @knowgraph
+    type: [invalid yaml
+    """
+    pass
+`;
+      const { results, diagnostics } = parser.parse(content, 'broken.py');
+      expect(results).toHaveLength(0);
+      expect(diagnostics.length).toBeGreaterThan(0);
+      expect(diagnostics[0]?.filePath).toBe('broken.py');
+    });
+
+    it('reports diagnostics for invalid entity type', () => {
+      const content = `
+def test():
+    """
+    @knowgraph
+    type: invalid_type
+    description: This has an invalid type
+    """
+    pass
+`;
+      const { results, diagnostics } = parser.parse(content, 'invalid.py');
+      expect(results).toHaveLength(0);
+      expect(diagnostics.length).toBeGreaterThan(0);
+      expect(diagnostics[0]?.filePath).toBe('invalid.py');
+    });
+
+    it('returns empty diagnostics for valid annotations', () => {
+      const content = `
+def sample():
+    """
+    @knowgraph
+    type: function
+    description: A valid function
+    """
+    pass
+`;
+      const { results, diagnostics } = parser.parse(content, 'valid.py');
+      expect(results).toHaveLength(1);
+      expect(diagnostics).toHaveLength(0);
+    });
+
+    it('returns empty diagnostics when no @knowgraph marker present', () => {
+      const content = `
+def sample():
+    """Just a regular docstring."""
+    pass
+`;
+      const { results, diagnostics } = parser.parse(content, 'regular.py');
+      expect(results).toHaveLength(0);
+      expect(diagnostics).toHaveLength(0);
     });
   });
 });

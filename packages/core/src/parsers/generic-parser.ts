@@ -9,7 +9,11 @@
  *   business_goal: Provide annotation support for any language with standard comment syntax
  *   domain: parser-engine
  */
-import type { ParseResult } from '../types/parse-result.js';
+import type {
+  ParseResult,
+  ParseDiagnostic,
+  ParseOutput,
+} from '../types/parse-result.js';
 import type { Parser } from './types.js';
 import { extractMetadata } from './metadata-extractor.js';
 
@@ -117,8 +121,9 @@ export function createGenericParser(): Parser {
     name: 'generic',
     supportedExtensions: [],
 
-    parse(content: string, filePath: string): readonly ParseResult[] {
+    parse(content: string, filePath: string): ParseOutput {
       const results: ParseResult[] = [];
+      const diagnostics: ParseDiagnostic[] = [];
       const language = getLanguageFromPath(filePath);
 
       // Find block comments
@@ -148,6 +153,14 @@ export function createGenericParser(): Parser {
             metadata: extraction.metadata,
             rawDocstring: stripped,
           });
+        } else {
+          for (const error of extraction.errors) {
+            diagnostics.push({
+              filePath,
+              line: error.line ?? startLine,
+              message: error.message,
+            });
+          }
         }
       }
 
@@ -180,10 +193,18 @@ export function createGenericParser(): Parser {
             metadata: extraction.metadata,
             rawDocstring: stripped,
           });
+        } else {
+          for (const error of extraction.errors) {
+            diagnostics.push({
+              filePath,
+              line: error.line ?? startLine,
+              message: error.message,
+            });
+          }
         }
       }
 
-      return results;
+      return { results, diagnostics };
     },
   };
 }

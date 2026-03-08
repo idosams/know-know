@@ -26,7 +26,7 @@ describe('TypescriptParser', () => {
 export class UserController {
 }
 `;
-      const results = parser.parse(content, 'user-controller.ts');
+      const { results } = parser.parse(content, 'user-controller.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserController');
       expect(results[0]?.entityType).toBe('class');
@@ -45,7 +45,7 @@ export class UserController {
 export abstract class BaseRepository {
 }
 `;
-      const results = parser.parse(content, 'base-repo.ts');
+      const { results } = parser.parse(content, 'base-repo.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('BaseRepository');
     });
@@ -64,7 +64,7 @@ export async function hashPassword(password: string): Promise<string> {
   return '';
 }
 `;
-      const results = parser.parse(content, 'crypto.ts');
+      const { results } = parser.parse(content, 'crypto.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('hashPassword');
       expect(results[0]?.entityType).toBe('function');
@@ -82,7 +82,7 @@ export async function hashPassword(password: string): Promise<string> {
 function logEvent(event: Event) {
 }
 `;
-      const results = parser.parse(content, 'logger.ts');
+      const { results } = parser.parse(content, 'logger.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('logEvent');
       expect(results[0]?.signature).toBe('function logEvent(event: Event)');
@@ -103,7 +103,7 @@ export interface UserDTO {
   email: string;
 }
 `;
-      const results = parser.parse(content, 'types.ts');
+      const { results } = parser.parse(content, 'types.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserDTO');
       expect(results[0]?.entityType).toBe('interface');
@@ -120,7 +120,7 @@ export interface AdminUser extends UserDTO {
   role: string;
 }
 `;
-      const results = parser.parse(content, 'admin.ts');
+      const { results } = parser.parse(content, 'admin.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('AdminUser');
     });
@@ -146,7 +146,7 @@ export class UserController {
     async deleteUser(id: string): Promise<void> { }
 }
 `;
-      const results = parser.parse(content, 'user-controller.ts');
+      const { results } = parser.parse(content, 'user-controller.ts');
       expect(results).toHaveLength(2);
 
       const createResult = results.find((r) => r.name === 'createUser');
@@ -172,7 +172,7 @@ export class UserController {
 
 import { hash } from 'bcrypt';
 `;
-      const results = parser.parse(content, 'auth-utils.ts');
+      const { results } = parser.parse(content, 'auth-utils.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('auth-utils');
       expect(results[0]?.entityType).toBe('module');
@@ -189,7 +189,7 @@ import { hash } from 'bcrypt';
  */
 export type UserRole = 'admin' | 'user' | 'guest';
 `;
-      const results = parser.parse(content, 'roles.ts');
+      const { results } = parser.parse(content, 'roles.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserRole');
     });
@@ -208,7 +208,7 @@ export enum StatusCode {
   NOT_FOUND = 404,
 }
 `;
-      const results = parser.parse(content, 'status.ts');
+      const { results } = parser.parse(content, 'status.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('StatusCode');
       expect(results[0]?.entityType).toBe('enum');
@@ -224,7 +224,7 @@ export enum StatusCode {
  */
 export class Broken {}
 `;
-      const results = parser.parse(content, 'broken.ts');
+      const { results } = parser.parse(content, 'broken.ts');
       expect(results).toHaveLength(0);
     });
 
@@ -235,12 +235,12 @@ export class Broken {}
  */
 export function regularFunction(): void {}
 `;
-      const results = parser.parse(content, 'regular.ts');
+      const { results } = parser.parse(content, 'regular.ts');
       expect(results).toHaveLength(0);
     });
 
     it('handles empty file', () => {
-      const results = parser.parse('', 'empty.ts');
+      const { results } = parser.parse('', 'empty.ts');
       expect(results).toHaveLength(0);
     });
 
@@ -249,7 +249,7 @@ export function regularFunction(): void {}
 const x = 1;
 export function simple() { return x; }
 `;
-      const results = parser.parse(content, 'simple.ts');
+      const { results } = parser.parse(content, 'simple.ts');
       expect(results).toHaveLength(0);
     });
   });
@@ -267,7 +267,7 @@ export function simple() { return x; }
  */
 export function fullMetadata(): void {}
 `;
-      const results = parser.parse(content, 'full.ts');
+      const { results } = parser.parse(content, 'full.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.metadata.owner).toBe('core-team');
       expect(results[0]?.metadata.status).toBe('experimental');
@@ -283,7 +283,7 @@ export function fullMetadata(): void {}
  */
 export function invalid(): void {}
 `;
-      const results = parser.parse(content, 'invalid.ts');
+      const { results } = parser.parse(content, 'invalid.ts');
       expect(results).toHaveLength(0);
     });
   });

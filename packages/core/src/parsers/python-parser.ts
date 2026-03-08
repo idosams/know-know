@@ -9,9 +9,13 @@
  *   business_goal: Enable Python codebases to be indexed by KnowGraph
  *   domain: parser-engine
  */
-import type { ParseResult } from '../types/parse-result.js';
+import type {
+  ParseResult,
+  ParseDiagnostic,
+  ParseOutput,
+} from '../types/parse-result.js';
 import type { Parser } from './types.js';
-import { extractMetadata } from './metadata-extractor.js';
+import { extractMetadata, extractKnowgraphYaml } from './metadata-extractor.js';
 
 const PYTHON_EXTENSIONS = ['.py', '.pyi'] as const;
 
@@ -323,17 +327,30 @@ export function createPythonParser(): Parser {
     name: 'python',
     supportedExtensions: PYTHON_EXTENSIONS,
 
-    parse(content: string, filePath: string): readonly ParseResult[] {
+    parse(content: string, filePath: string): ParseOutput {
       const docstrings = findAllDocstrings(content);
       const results: ParseResult[] = [];
+      const diagnostics: ParseDiagnostic[] = [];
 
       for (const docstring of docstrings) {
+        // Skip docstrings without @knowgraph marker
+        if (!extractKnowgraphYaml(docstring.content)) {
+          continue;
+        }
+
         const extraction = extractMetadata(
           docstring.content,
           docstring.startLine,
         );
 
         if (!extraction.metadata) {
+          for (const error of extraction.errors) {
+            diagnostics.push({
+              filePath,
+              line: error.line ?? docstring.startLine,
+              message: error.message,
+            });
+          }
           continue;
         }
 
@@ -381,7 +398,7 @@ export function createPythonParser(): Parser {
         }
       }
 
-      return results;
+      return { results, diagnostics };
     },
   };
 }

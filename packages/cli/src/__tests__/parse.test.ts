@@ -10,7 +10,7 @@ describe('parse command logic', () => {
     const registry = createDefaultRegistry();
     const filePath = resolve(FIXTURES_DIR, 'sample.py');
     const content = readFileSync(filePath, 'utf-8');
-    const results = registry.parseFile(content, filePath);
+    const results = registry.parseFile(content, filePath).results;
 
     expect(results.length).toBeGreaterThan(0);
     const names = results.map((r) => r.name);
@@ -21,7 +21,7 @@ describe('parse command logic', () => {
     const registry = createDefaultRegistry();
     const filePath = resolve(FIXTURES_DIR, 'sample.ts');
     const content = readFileSync(filePath, 'utf-8');
-    const results = registry.parseFile(content, filePath);
+    const results = registry.parseFile(content, filePath).results;
 
     expect(results.length).toBeGreaterThan(0);
     const names = results.map((r) => r.name);
@@ -36,8 +36,8 @@ describe('parse command logic', () => {
     const pyContent = readFileSync(pyPath, 'utf-8');
     const tsContent = readFileSync(tsPath, 'utf-8');
 
-    const pyResults = registry.parseFile(pyContent, pyPath);
-    const tsResults = registry.parseFile(tsContent, tsPath);
+    const pyResults = registry.parseFile(pyContent, pyPath).results;
+    const tsResults = registry.parseFile(tsContent, tsPath).results;
 
     const allResults = [...pyResults, ...tsResults];
     expect(allResults.length).toBeGreaterThanOrEqual(2);
@@ -47,7 +47,7 @@ describe('parse command logic', () => {
     const registry = createDefaultRegistry();
     const filePath = resolve(FIXTURES_DIR, 'sample.py');
     const content = readFileSync(filePath, 'utf-8');
-    const results = registry.parseFile(content, filePath);
+    const results = registry.parseFile(content, filePath).results;
 
     // All fixtures have descriptions, so no validation errors expected
     const errors = results.filter((r) => !r.metadata.description);

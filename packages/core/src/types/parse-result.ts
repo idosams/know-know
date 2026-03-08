@@ -23,3 +23,14 @@ export interface ParseResult {
   readonly signature?: string;
   readonly parent?: string;
 }
+
+export interface ParseDiagnostic {
+  readonly filePath: string;
+  readonly line: number;
+  readonly message: string;
+}
+
+export interface ParseOutput {
+  readonly results: readonly ParseResult[];
+  readonly diagnostics: readonly ParseDiagnostic[];
+}

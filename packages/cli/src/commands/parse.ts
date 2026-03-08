@@ -14,7 +14,7 @@ import { join, resolve, extname } from 'node:path';
 import type { Command } from 'commander';
 import chalk from 'chalk';
 import { createDefaultRegistry } from '@know-graph/core';
-import type { ParseResult } from '@know-graph/core';
+import type { ParseResult, ParseDiagnostic } from '@know-graph/core';
 import { formatJson } from '../utils/format.js';
 
 function collectFilePaths(targetPath: string): readonly string[] {
@@ -79,6 +79,7 @@ function runParse(targetPath: string, options: ParseOptions): void {
   const registry = createDefaultRegistry();
   const files = collectFilePaths(absPath);
   const allResults: ParseResult[] = [];
+  const allDiagnostics: ParseDiagnostic[] = [];
   let fileCount = 0;
 
   for (const filePath of files) {
@@ -88,11 +89,12 @@ function runParse(targetPath: string, options: ParseOptions): void {
 
     try {
       const content = readFileSync(filePath, 'utf-8');
-      const results = registry.parseFile(content, filePath);
+      const { results, diagnostics } = registry.parseFile(content, filePath);
       if (results.length > 0) {
         fileCount++;
         allResults.push(...results);
       }
+      allDiagnostics.push(...diagnostics);
     } catch (err) {
       console.error(
         chalk.yellow(
@@ -100,6 +102,21 @@ function runParse(targetPath: string, options: ParseOptions): void {
         ),
       );
     }
+  }
+
+  if (allDiagnostics.length > 0) {
+    console.error(
+      chalk.yellow(
+        `\n${allDiagnostics.length} annotation(s) with @knowgraph failed schema validation:`,
+      ),
+    );
+    for (const diag of allDiagnostics) {
+      console.error(
+        chalk.yellow(`  ${diag.filePath}:${diag.line} — ${diag.message}`),
+      );
+    }
+    console.error('');
+    process.exitCode = 1;
   }
 
   if (options.validate) {

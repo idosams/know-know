@@ -9,9 +9,13 @@
  *   business_goal: Enable Java codebases to be indexed by KnowGraph
  *   domain: parser-engine
  */
-import type { ParseResult } from '../types/parse-result.js';
+import type {
+  ParseResult,
+  ParseDiagnostic,
+  ParseOutput,
+} from '../types/parse-result.js';
 import type { Parser } from './types.js';
-import { extractMetadata } from './metadata-extractor.js';
+import { extractMetadata, extractKnowgraphYaml } from './metadata-extractor.js';
 
 const JAVA_EXTENSIONS = ['.java'] as const;
 
@@ -249,24 +253,34 @@ export function createJavaParser(): Parser {
     name: 'java',
     supportedExtensions: JAVA_EXTENSIONS,
 
-    parse(content: string, filePath: string): readonly ParseResult[] {
+    parse(content: string, filePath: string): ParseOutput {
       const javadocBlocks = findAllJavadocBlocks(content);
       const results: ParseResult[] = [];
+      const diagnostics: ParseDiagnostic[] = [];
 
       for (const javadoc of javadocBlocks) {
+        // Skip JavaDoc blocks without @knowgraph marker
+        if (!extractKnowgraphYaml(javadoc.content)) {
+          continue;
+        }
+
         const extraction = extractMetadata(javadoc.content, javadoc.startLine);
 
         if (!extraction.metadata) {
+          for (const error of extraction.errors) {
+            diagnostics.push({
+              filePath,
+              line: error.line ?? javadoc.startLine,
+              message: error.message,
+            });
+          }
           continue;
         }
 
         const metadata = extraction.metadata;
         const nextLine = getNextCodeLine(content, javadoc.endIndex);
         const nextLineRaw = getNextCodeLineRaw(content, javadoc.endIndex);
-        const nextLineNumber = getNextCodeLineNumber(
-          content,
-          javadoc.endIndex,
-        );
+        const nextLineNumber = getNextCodeLineNumber(content, javadoc.endIndex);
 
         // Try to match class or record declaration
         const classMatch = nextLine.match(JAVA_CLASS_REGEX);
@@ -381,7 +395,7 @@ export function createJavaParser(): Parser {
         }
       }
 
-      return results;
+      return { results, diagnostics };
     },
   };
 }
