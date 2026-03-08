@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.2] - 2026-03-08
+
+### Added
+
+- `ParseDiagnostic` and `ParseOutput` types for structured error reporting from parsers
+- CLI `parse` command now reports validation errors for annotations that have `@knowgraph` but fail schema validation, instead of silently skipping them
+- Diagnostic output includes file path, line number, and error message
+
+### Changed
+
+- Parser `parse()` method now returns `ParseOutput { results, diagnostics }` instead of `ParseResult[]`
+- `ParserRegistry.parseFile()` returns `ParseOutput`; deprecated `parseFileResults()` added for backward compatibility
+
 ## [0.4.1] - 2026-03-08
 
 ### Fixed
