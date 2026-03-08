@@ -23,7 +23,7 @@ describe('GoParser', () => {
 func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 }
 `;
-      const results = parser.parse(content, 'handler.go');
+      const { results } = parser.parse(content, 'handler.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('RegisterUser');
       expect(results[0]?.entityType).toBe('function');
@@ -44,7 +44,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 func LogEvent(event string) {
 }
 `;
-      const results = parser.parse(content, 'logger.go');
+      const { results } = parser.parse(content, 'logger.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('LogEvent');
       expect(results[0]?.signature).toBe('func LogEvent(event string)');
@@ -59,7 +59,7 @@ func LogEvent(event string) {
 func ReadConfig(path string) (*Config, error) {
 }
 `;
-      const results = parser.parse(content, 'config.go');
+      const { results } = parser.parse(content, 'config.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('ReadConfig');
       expect(results[0]?.signature).toBe(
@@ -76,7 +76,7 @@ func ReadConfig(path string) (*Config, error) {
 func NewDefaultConfig() *Config {
 }
 `;
-      const results = parser.parse(content, 'config.go');
+      const { results } = parser.parse(content, 'config.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('NewDefaultConfig');
       expect(results[0]?.signature).toBe('func NewDefaultConfig() *Config');
@@ -94,7 +94,7 @@ func NewDefaultConfig() *Config {
 func (s *UserService) Create(ctx context.Context, user *User) error {
 }
 `;
-      const results = parser.parse(content, 'user_service.go');
+      const { results } = parser.parse(content, 'user_service.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('Create');
       expect(results[0]?.entityType).toBe('method');
@@ -113,7 +113,7 @@ func (s *UserService) Create(ctx context.Context, user *User) error {
 func (u User) String() string {
 }
 `;
-      const results = parser.parse(content, 'user.go');
+      const { results } = parser.parse(content, 'user.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('String');
       expect(results[0]?.entityType).toBe('method');
@@ -130,7 +130,7 @@ func (u User) String() string {
 func (r *Repository) FindAll() ([]Record, error) {
 }
 `;
-      const results = parser.parse(content, 'repo.go');
+      const { results } = parser.parse(content, 'repo.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.parent).toBe('Repository');
     });
@@ -151,7 +151,7 @@ type User struct {
 	Name string
 }
 `;
-      const results = parser.parse(content, 'user.go');
+      const { results } = parser.parse(content, 'user.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('User');
       expect(results[0]?.entityType).toBe('class');
@@ -173,7 +173,7 @@ type UserRepository interface {
 	Save(user *User) error
 }
 `;
-      const results = parser.parse(content, 'repository.go');
+      const { results } = parser.parse(content, 'repository.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserRepository');
       expect(results[0]?.entityType).toBe('interface');
@@ -191,7 +191,7 @@ type UserRepository interface {
 // owner: infra-team
 const DefaultTimeout = 30
 `;
-      const results = parser.parse(content, 'config.go');
+      const { results } = parser.parse(content, 'config.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('DefaultTimeout');
       expect(results[0]?.entityType).toBe('constant');
@@ -208,7 +208,7 @@ const (
 	StatusNotFound = 404
 )
 `;
-      const results = parser.parse(content, 'status.go');
+      const { results } = parser.parse(content, 'status.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('StatusOK');
       expect(results[0]?.entityType).toBe('constant');
@@ -224,7 +224,7 @@ const (
 // description: Global logger instance
 var Logger *log.Logger
 `;
-      const results = parser.parse(content, 'main.go');
+      const { results } = parser.parse(content, 'main.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('Logger');
       expect(results[0]?.entityType).toBe('variable');
@@ -241,7 +241,7 @@ var (
 	Version = "1.0.0"
 )
 `;
-      const results = parser.parse(content, 'globals.go');
+      const { results } = parser.parse(content, 'globals.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('AppName');
       expect(results[0]?.entityType).toBe('variable');
@@ -256,7 +256,7 @@ var (
 // owner: platform-team
 package middleware
 `;
-      const results = parser.parse(content, 'middleware.go');
+      const { results } = parser.parse(content, 'middleware.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('middleware');
       expect(results[0]?.entityType).toBe('module');
@@ -272,7 +272,7 @@ owner: auth-team
 */
 package auth
 `;
-      const results = parser.parse(content, 'auth.go');
+      const { results } = parser.parse(content, 'auth.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('auth');
       expect(results[0]?.entityType).toBe('module');
@@ -293,7 +293,7 @@ tags: [webhook, events]
 func ProcessWebhook(payload []byte) error {
 }
 `;
-      const results = parser.parse(content, 'webhook.go');
+      const { results } = parser.parse(content, 'webhook.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('ProcessWebhook');
       expect(results[0]?.entityType).toBe('function');
@@ -313,7 +313,7 @@ type HTTPClient struct {
 	baseURL string
 }
 `;
-      const results = parser.parse(content, 'client.go');
+      const { results } = parser.parse(content, 'client.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('HTTPClient');
       expect(results[0]?.entityType).toBe('class');
@@ -333,7 +333,7 @@ type AppConfig struct {
 	Host string
 }
 `;
-      const results = parser.parse(content, 'config.go');
+      const { results } = parser.parse(content, 'config.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('AppConfig');
       expect(results[0]?.entityType).toBe('class');
@@ -376,7 +376,7 @@ func NewUser(name string) *User {
 func (u *User) Validate() error {
 }
 `;
-      const results = parser.parse(content, 'user.go');
+      const { results } = parser.parse(content, 'user.go');
       expect(results).toHaveLength(5);
 
       const moduleResult = results.find((r) => r.entityType === 'module');
@@ -413,7 +413,7 @@ func First() {
 func Second() {
 }
 `;
-      const results = parser.parse(content, 'mix.go');
+      const { results } = parser.parse(content, 'mix.go');
       expect(results).toHaveLength(2);
 
       const first = results.find((r) => r.name === 'First');
@@ -426,7 +426,7 @@ func Second() {
 
   describe('error handling', () => {
     it('handles empty file', () => {
-      const results = parser.parse('', 'empty.go');
+      const { results } = parser.parse('', 'empty.go');
       expect(results).toHaveLength(0);
     });
 
@@ -439,7 +439,7 @@ func main() {
 	fmt.Println("Hello, World!")
 }
 `;
-      const results = parser.parse(content, 'main.go');
+      const { results } = parser.parse(content, 'main.go');
       expect(results).toHaveLength(0);
     });
 
@@ -451,7 +451,7 @@ func main() {
 func Broken() {
 }
 `;
-      const results = parser.parse(content, 'broken.go');
+      const { results } = parser.parse(content, 'broken.go');
       expect(results).toHaveLength(0);
     });
 
@@ -465,7 +465,7 @@ type: [invalid yaml
 func Broken() {
 }
 `;
-      const results = parser.parse(content, 'broken.go');
+      const { results } = parser.parse(content, 'broken.go');
       expect(results).toHaveLength(0);
     });
 
@@ -478,7 +478,7 @@ func Broken() {
 func Invalid() {
 }
 `;
-      const results = parser.parse(content, 'invalid.go');
+      const { results } = parser.parse(content, 'invalid.go');
       expect(results).toHaveLength(0);
     });
 
@@ -490,7 +490,7 @@ func Invalid() {
 func RegularFunc() {
 }
 `;
-      const results = parser.parse(content, 'regular.go');
+      const { results } = parser.parse(content, 'regular.go');
       expect(results).toHaveLength(0);
     });
 
@@ -503,7 +503,7 @@ This is a regular block comment.
 func RegularFunc() {
 }
 `;
-      const results = parser.parse(content, 'regular.go');
+      const { results } = parser.parse(content, 'regular.go');
       expect(results).toHaveLength(0);
     });
   });
@@ -521,7 +521,7 @@ func RegularFunc() {
 func FullMetadata() {
 }
 `;
-      const results = parser.parse(content, 'full.go');
+      const { results } = parser.parse(content, 'full.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.metadata.owner).toBe('core-team');
       expect(results[0]?.metadata.status).toBe('experimental');
@@ -538,7 +538,7 @@ func FullMetadata() {
 func StableFunc() {
 }
 `;
-      const results = parser.parse(content, 'stable.go');
+      const { results } = parser.parse(content, 'stable.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.metadata.status).toBe('stable');
     });
@@ -553,7 +553,7 @@ func StableFunc() {
 func OldFunc() {
 }
 `;
-      const results = parser.parse(content, 'old.go');
+      const { results } = parser.parse(content, 'old.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.metadata.status).toBe('deprecated');
     });
@@ -567,7 +567,7 @@ func OldFunc() {
 func Minimal() {
 }
 `;
-      const results = parser.parse(content, 'minimal.go');
+      const { results } = parser.parse(content, 'minimal.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.metadata.owner).toBeUndefined();
       expect(results[0]?.metadata.status).toBeUndefined();
@@ -586,7 +586,7 @@ func Minimal() {
 func AfterBlank() {
 }
 `;
-      const results = parser.parse(content, 'blank.go');
+      const { results } = parser.parse(content, 'blank.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('AfterBlank');
     });
@@ -599,7 +599,7 @@ func main() {}
 // @knowgraph
 // type: function
 // description: Orphaned annotation`;
-      const results = parser.parse(content, 'orphan.go');
+      const { results } = parser.parse(content, 'orphan.go');
       // Should still produce a result (as unknown since it's not module-level)
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('unknown');
@@ -614,7 +614,7 @@ func main() {}
 func TestFunc() {
 }
 `;
-      const results = parser.parse(content, 'src/handlers/test.go');
+      const { results } = parser.parse(content, 'src/handlers/test.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.filePath).toBe('src/handlers/test.go');
     });
@@ -628,7 +628,7 @@ func TestFunc() {
 func TestFunc() {
 }
 `;
-      const results = parser.parse(content, 'test.go');
+      const { results } = parser.parse(content, 'test.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.column).toBe(1);
     });
@@ -642,7 +642,7 @@ func TestFunc() {
 func TestFunc() {
 }
 `;
-      const results = parser.parse(content, 'test.go');
+      const { results } = parser.parse(content, 'test.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.language).toBe('go');
     });
@@ -656,7 +656,7 @@ func TestFunc() {
 func Documented() {
 }
 `;
-      const results = parser.parse(content, 'doc.go');
+      const { results } = parser.parse(content, 'doc.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.rawDocstring).toContain('@knowgraph');
       expect(results[0]?.rawDocstring).toContain('type: function');
@@ -671,7 +671,7 @@ func Documented() {
 func Standalone() {
 }
 `;
-      const results = parser.parse(content, 'standalone.go');
+      const { results } = parser.parse(content, 'standalone.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.parent).toBeUndefined();
     });
@@ -685,7 +685,7 @@ func Standalone() {
 type MyStruct struct {
 }
 `;
-      const results = parser.parse(content, 'model.go');
+      const { results } = parser.parse(content, 'model.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.signature).toBeUndefined();
     });

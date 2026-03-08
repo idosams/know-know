@@ -13,7 +13,11 @@ import { readFileSync, statSync, readdirSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { createDefaultRegistry } from '../parsers/registry.js';
 import type { ParseResult } from '../types/parse-result.js';
-import type { ValidationIssue, ValidationResult, ValidationRule } from './types.js';
+import type {
+  ValidationIssue,
+  ValidationResult,
+  ValidationRule,
+} from './types.js';
 import { createAllDefaultRules } from './rules.js';
 
 const PARSABLE_EXTENSIONS = new Set(['.py', '.ts', '.tsx', '.js', '.jsx']);
@@ -83,7 +87,9 @@ export interface Validator {
   validate(rootDir: string, options?: ValidateOptions): ValidationResult;
 }
 
-export function createValidator(customRules?: readonly ValidationRule[]): Validator {
+export function createValidator(
+  customRules?: readonly ValidationRule[],
+): Validator {
   const rules = customRules ?? createAllDefaultRules();
 
   return {
@@ -114,7 +120,8 @@ export function createValidator(customRules?: readonly ValidationRule[]): Valida
 
         let results: readonly ParseResult[];
         try {
-          results = registry.parseFile(content, filePath);
+          const output = registry.parseFile(content, filePath);
+          results = output.results;
         } catch {
           continue;
         }

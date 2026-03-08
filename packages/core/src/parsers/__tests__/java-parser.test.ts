@@ -24,7 +24,7 @@ describe('JavaParser', () => {
 public class UserController {
 }
 `;
-      const results = parser.parse(content, 'UserController.java');
+      const { results } = parser.parse(content, 'UserController.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserController');
       expect(results[0]?.entityType).toBe('class');
@@ -45,7 +45,7 @@ public class UserController {
 public abstract class BaseRepository {
 }
 `;
-      const results = parser.parse(content, 'BaseRepository.java');
+      const { results } = parser.parse(content, 'BaseRepository.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('BaseRepository');
       expect(results[0]?.entityType).toBe('class');
@@ -61,7 +61,7 @@ public abstract class BaseRepository {
 public class AdminController extends BaseController implements Auditable {
 }
 `;
-      const results = parser.parse(content, 'AdminController.java');
+      const { results } = parser.parse(content, 'AdminController.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('AdminController');
     });
@@ -76,7 +76,7 @@ public class AdminController extends BaseController implements Auditable {
 public class GenericRepository<T extends Entity> {
 }
 `;
-      const results = parser.parse(content, 'GenericRepository.java');
+      const { results } = parser.parse(content, 'GenericRepository.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('GenericRepository');
     });
@@ -96,7 +96,7 @@ public class GenericRepository<T extends Entity> {
 public class UserController {
 }
 `;
-      const results = parser.parse(content, 'UserController.java');
+      const { results } = parser.parse(content, 'UserController.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserController');
       expect(results[0]?.entityType).toBe('class');
@@ -112,7 +112,7 @@ public class UserController {
 public final class AppConfig {
 }
 `;
-      const results = parser.parse(content, 'AppConfig.java');
+      const { results } = parser.parse(content, 'AppConfig.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('AppConfig');
     });
@@ -127,7 +127,7 @@ public final class AppConfig {
 static class Builder {
 }
 `;
-      const results = parser.parse(content, 'Builder.java');
+      const { results } = parser.parse(content, 'Builder.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('Builder');
     });
@@ -146,7 +146,7 @@ public interface UserRepository {
     User findById(String id);
 }
 `;
-      const results = parser.parse(content, 'UserRepository.java');
+      const { results } = parser.parse(content, 'UserRepository.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserRepository');
       expect(results[0]?.entityType).toBe('interface');
@@ -162,7 +162,7 @@ public interface UserRepository {
 public interface PaginatedRepository<T> extends BaseRepository<T> {
 }
 `;
-      const results = parser.parse(content, 'PaginatedRepository.java');
+      const { results } = parser.parse(content, 'PaginatedRepository.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('PaginatedRepository');
     });
@@ -182,7 +182,7 @@ public enum StatusCode {
     SERVER_ERROR
 }
 `;
-      const results = parser.parse(content, 'StatusCode.java');
+      const { results } = parser.parse(content, 'StatusCode.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('StatusCode');
       expect(results[0]?.entityType).toBe('enum');
@@ -201,7 +201,7 @@ public enum UserRole implements HasPermissions {
     GUEST
 }
 `;
-      const results = parser.parse(content, 'UserRole.java');
+      const { results } = parser.parse(content, 'UserRole.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserRole');
     });
@@ -219,7 +219,7 @@ public enum UserRole implements HasPermissions {
 public record UserDTO(String name, String email) {
 }
 `;
-      const results = parser.parse(content, 'UserDTO.java');
+      const { results } = parser.parse(content, 'UserDTO.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('UserDTO');
       expect(results[0]?.entityType).toBe('class');
@@ -235,7 +235,7 @@ public record UserDTO(String name, String email) {
 public record Point(int x, int y) {
 }
 `;
-      const results = parser.parse(content, 'Point.java');
+      const { results } = parser.parse(content, 'Point.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('Point');
     });
@@ -256,7 +256,7 @@ public class UserService {
     }
 }
 `;
-      const results = parser.parse(content, 'UserService.java');
+      const { results } = parser.parse(content, 'UserService.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('createUser');
       expect(results[0]?.entityType).toBe('method');
@@ -280,7 +280,7 @@ public class UserController {
     }
 }
 `;
-      const results = parser.parse(content, 'UserController.java');
+      const { results } = parser.parse(content, 'UserController.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('create');
       expect(results[0]?.entityType).toBe('method');
@@ -300,7 +300,7 @@ public class Validator {
     }
 }
 `;
-      const results = parser.parse(content, 'Validator.java');
+      const { results } = parser.parse(content, 'Validator.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('validateEmail');
       expect(results[0]?.signature).toContain('private');
@@ -319,7 +319,7 @@ public class BaseService {
     }
 }
 `;
-      const results = parser.parse(content, 'BaseService.java');
+      const { results } = parser.parse(content, 'BaseService.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('onInit');
       expect(results[0]?.signature).toContain('protected');
@@ -338,7 +338,7 @@ public class MathUtils {
     }
 }
 `;
-      const results = parser.parse(content, 'MathUtils.java');
+      const { results } = parser.parse(content, 'MathUtils.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('clamp');
       expect(results[0]?.signature).toContain('static');
@@ -356,7 +356,7 @@ public abstract class Shape {
     public abstract double area();
 }
 `;
-      const results = parser.parse(content, 'Shape.java');
+      const { results } = parser.parse(content, 'Shape.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('area');
       expect(results[0]?.parent).toBe('Shape');
@@ -376,7 +376,7 @@ public class CollectionUtils {
     }
 }
 `;
-      const results = parser.parse(content, 'CollectionUtils.java');
+      const { results } = parser.parse(content, 'CollectionUtils.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('findFirst');
       expect(results[0]?.signature).toContain('<T>');
@@ -395,7 +395,7 @@ public class DataLoader {
     }
 }
 `;
-      const results = parser.parse(content, 'DataLoader.java');
+      const { results } = parser.parse(content, 'DataLoader.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('loadAll');
       expect(results[0]?.signature).toContain('String[]');
@@ -414,7 +414,7 @@ public class Counter {
     }
 }
 `;
-      const results = parser.parse(content, 'Counter.java');
+      const { results } = parser.parse(content, 'Counter.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('increment');
       expect(results[0]?.signature).toContain('synchronized');
@@ -434,7 +434,7 @@ public class OrderService {
     }
 }
 `;
-      const results = parser.parse(content, 'OrderService.java');
+      const { results } = parser.parse(content, 'OrderService.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.parent).toBe('OrderService');
     });
@@ -451,7 +451,7 @@ public interface Loggable {
     }
 }
 `;
-      const results = parser.parse(content, 'Loggable.java');
+      const { results } = parser.parse(content, 'Loggable.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.parent).toBe('Loggable');
     });
@@ -469,7 +469,7 @@ package com.example.users;
 
 import java.util.List;
 `;
-      const results = parser.parse(content, 'package-info.java');
+      const { results } = parser.parse(content, 'package-info.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('com.example.users');
       expect(results[0]?.entityType).toBe('module');
@@ -486,7 +486,7 @@ import java.util.List;
 
 import java.util.Map;
 `;
-      const results = parser.parse(content, 'Utils.java');
+      const { results } = parser.parse(content, 'Utils.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('Utils');
       expect(results[0]?.entityType).toBe('module');
@@ -525,7 +525,7 @@ public class UserService {
     }
 }
 `;
-      const results = parser.parse(content, 'UserService.java');
+      const { results } = parser.parse(content, 'UserService.java');
       expect(results).toHaveLength(3);
 
       const classResult = results.find((r) => r.name === 'UserService');
@@ -543,7 +543,7 @@ public class UserService {
 
   describe('error handling', () => {
     it('handles empty file', () => {
-      const results = parser.parse('', 'Empty.java');
+      const { results } = parser.parse('', 'Empty.java');
       expect(results).toHaveLength(0);
     });
 
@@ -557,7 +557,7 @@ public class SimpleClass {
     }
 }
 `;
-      const results = parser.parse(content, 'SimpleClass.java');
+      const { results } = parser.parse(content, 'SimpleClass.java');
       expect(results).toHaveLength(0);
     });
 
@@ -568,7 +568,7 @@ public class NoDoc {
     int x = 1;
 }
 `;
-      const results = parser.parse(content, 'NoDoc.java');
+      const { results } = parser.parse(content, 'NoDoc.java');
       expect(results).toHaveLength(0);
     });
 
@@ -581,7 +581,7 @@ public class NoDoc {
 public class RegularDoc {
 }
 `;
-      const results = parser.parse(content, 'RegularDoc.java');
+      const { results } = parser.parse(content, 'RegularDoc.java');
       expect(results).toHaveLength(0);
     });
 
@@ -594,7 +594,7 @@ public class RegularDoc {
 public class Broken {
 }
 `;
-      const results = parser.parse(content, 'Broken.java');
+      const { results } = parser.parse(content, 'Broken.java');
       expect(results).toHaveLength(0);
     });
 
@@ -608,7 +608,7 @@ public class Broken {
 public class Invalid {
 }
 `;
-      const results = parser.parse(content, 'Invalid.java');
+      const { results } = parser.parse(content, 'Invalid.java');
       expect(results).toHaveLength(0);
     });
   });
@@ -627,7 +627,7 @@ public class Invalid {
 public class FullMetadata {
 }
 `;
-      const results = parser.parse(content, 'FullMetadata.java');
+      const { results } = parser.parse(content, 'FullMetadata.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.metadata.owner).toBe('core-team');
       expect(results[0]?.metadata.status).toBe('experimental');
@@ -645,7 +645,7 @@ public class FullMetadata {
 public class LegacyService {
 }
 `;
-      const results = parser.parse(content, 'LegacyService.java');
+      const { results } = parser.parse(content, 'LegacyService.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.metadata.status).toBe('deprecated');
     });
@@ -661,7 +661,7 @@ public class LegacyService {
 public class ProductionService {
 }
 `;
-      const results = parser.parse(content, 'ProductionService.java');
+      const { results } = parser.parse(content, 'ProductionService.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.metadata.status).toBe('stable');
     });
@@ -695,7 +695,7 @@ public abstract class Shape {
     }
 }
 `;
-      const results = parser.parse(content, 'Shape.java');
+      const { results } = parser.parse(content, 'Shape.java');
       expect(results).toHaveLength(3);
 
       const shapeResult = results.find((r) => r.name === 'Shape');
@@ -728,7 +728,7 @@ public class ApiController {
     }
 }
 `;
-      const results = parser.parse(content, 'ApiController.java');
+      const { results } = parser.parse(content, 'ApiController.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('createResource');
       expect(results[0]?.parent).toBe('ApiController');
@@ -747,7 +747,7 @@ public class ApiController {
 public class PaymentService {
 }
 `;
-      const results = parser.parse(content, 'PaymentService.java');
+      const { results } = parser.parse(content, 'PaymentService.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.name).toBe('PaymentService');
     });
@@ -764,7 +764,7 @@ public class PaymentService {
 public class TestDoc {
 }
 `;
-      const results = parser.parse(content, 'TestDoc.java');
+      const { results } = parser.parse(content, 'TestDoc.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.rawDocstring).toContain('@knowgraph');
       expect(results[0]?.rawDocstring).toContain('type: class');
@@ -787,7 +787,7 @@ import java.util.List;
 public class User {
 }
 `;
-      const results = parser.parse(content, 'User.java');
+      const { results } = parser.parse(content, 'User.java');
       expect(results).toHaveLength(1);
       // The class declaration is on line 10
       expect(results[0]?.line).toBe(10);
@@ -807,7 +807,7 @@ public class Outer {
     }
 }
 `;
-      const results = parser.parse(content, 'Outer.java');
+      const { results } = parser.parse(content, 'Outer.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.column).toBe(1);
     });

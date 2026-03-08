@@ -100,7 +100,7 @@ function analyzeFile(
 
   try {
     const content = readFileSync(filePath, 'utf-8');
-    const results = registry.parseFile(content, filePath);
+    const { results } = registry.parseFile(content, filePath);
     return {
       filePath: relPath,
       language,
@@ -135,8 +135,7 @@ function buildBreakdown(
     const key = keyFn(file);
     const existing = groups.get(key) ?? { annotatedCount: 0, totalCount: 0 };
     groups.set(key, {
-      annotatedCount:
-        existing.annotatedCount + (file.hasAnnotation ? 1 : 0),
+      annotatedCount: existing.annotatedCount + (file.hasAnnotation ? 1 : 0),
       totalCount: existing.totalCount + 1,
     });
   }
@@ -178,7 +177,7 @@ function buildOwnerBreakdown(
     const absPath = join(rootDir, file.filePath);
     try {
       const content = readFileSync(absPath, 'utf-8');
-      const results = registry.parseFile(content, absPath);
+      const { results } = registry.parseFile(content, absPath);
       const owners = new Set<string>();
       for (const result of results) {
         owners.add(result.metadata.owner ?? '(no owner)');

@@ -32,7 +32,11 @@ export type {
   ExtendedMetadata,
 } from './entity.js';
 
-export type { ParseResult } from './parse-result.js';
+export type {
+  ParseResult,
+  ParseDiagnostic,
+  ParseOutput,
+} from './parse-result.js';
 
 export {
   AnnotationStyleSchema,

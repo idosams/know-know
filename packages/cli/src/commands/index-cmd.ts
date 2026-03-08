@@ -33,7 +33,7 @@ function createParserRegistryAdapter(
 ) {
   return {
     parse(filePath: string, content: string) {
-      return coreRegistry.parseFile(content, filePath);
+      return coreRegistry.parseFile(content, filePath).results;
     },
     canParse(filePath: string) {
       return coreRegistry.getParser(filePath) !== undefined;

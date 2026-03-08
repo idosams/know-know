@@ -9,9 +9,13 @@
  *   business_goal: Enable TypeScript and JavaScript codebases to be indexed by KnowGraph
  *   domain: parser-engine
  */
-import type { ParseResult } from '../types/parse-result.js';
+import type {
+  ParseResult,
+  ParseDiagnostic,
+  ParseOutput,
+} from '../types/parse-result.js';
 import type { Parser } from './types.js';
-import { extractMetadata } from './metadata-extractor.js';
+import { extractMetadata, extractKnowgraphYaml } from './metadata-extractor.js';
 
 const TS_EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx', '.mts', '.cts'] as const;
 
@@ -216,14 +220,27 @@ export function createTypescriptParser(): Parser {
     name: 'typescript',
     supportedExtensions: TS_EXTENSIONS,
 
-    parse(content: string, filePath: string): readonly ParseResult[] {
+    parse(content: string, filePath: string): ParseOutput {
       const jsdocBlocks = findAllJsdocBlocks(content);
       const results: ParseResult[] = [];
+      const diagnostics: ParseDiagnostic[] = [];
 
       for (const jsdoc of jsdocBlocks) {
+        // Skip JSDoc blocks without @knowgraph marker
+        if (!extractKnowgraphYaml(jsdoc.content)) {
+          continue;
+        }
+
         const extraction = extractMetadata(jsdoc.content, jsdoc.startLine);
 
         if (!extraction.metadata) {
+          for (const error of extraction.errors) {
+            diagnostics.push({
+              filePath,
+              line: error.line ?? jsdoc.startLine,
+              message: error.message,
+            });
+          }
           continue;
         }
 
@@ -393,7 +410,7 @@ export function createTypescriptParser(): Parser {
         }
       }
 
-      return results;
+      return { results, diagnostics };
     },
   };
 }

@@ -1,4 +1,5 @@
 export type { Parser, ParserRegistry } from './types.js';
+export type { ParseOutput, ParseDiagnostic } from '../types/parse-result.js';
 export {
   extractKnowgraphYaml,
   parseAndValidateMetadata,

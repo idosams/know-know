@@ -9,16 +9,18 @@
  *   business_goal: Define contracts for pluggable language parser implementations
  *   domain: parser-engine
  */
-import type { ParseResult } from '../types/parse-result.js';
+import type { ParseResult, ParseOutput } from '../types/parse-result.js';
 
 export interface Parser {
   readonly name: string;
   readonly supportedExtensions: readonly string[];
-  parse(content: string, filePath: string): readonly ParseResult[];
+  parse(content: string, filePath: string): ParseOutput;
 }
 
 export interface ParserRegistry {
   register(parser: Parser): void;
   getParser(filePath: string): Parser | undefined;
-  parseFile(content: string, filePath: string): readonly ParseResult[];
+  parseFile(content: string, filePath: string): ParseOutput;
+  /** @deprecated Use parseFile().results instead */
+  parseFileResults(content: string, filePath: string): readonly ParseResult[];
 }

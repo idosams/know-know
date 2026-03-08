@@ -65,7 +65,7 @@ type: module
 description: Test module
 """
 `;
-      const results = registry.parseFile(content, 'test.py');
+      const { results } = registry.parseFile(content, 'test.py');
       expect(results).toHaveLength(1);
       expect(results[0]?.entityType).toBe('module');
     });
@@ -79,7 +79,7 @@ description: Test module
  */
 export function testFn(): void {}
 `;
-      const results = registry.parseFile(content, 'test.ts');
+      const { results } = registry.parseFile(content, 'test.ts');
       expect(results).toHaveLength(1);
       expect(results[0]?.entityType).toBe('function');
     });
@@ -90,7 +90,7 @@ export function testFn(): void {}
 // description: A Go module
 package main
 `;
-      const results = registry.parseFile(content, 'main.go');
+      const { results } = registry.parseFile(content, 'main.go');
       expect(results).toHaveLength(1);
       expect(results[0]?.entityType).toBe('module');
     });
@@ -104,14 +104,14 @@ package main
  */
 public class App {}
 `;
-      const results = registry.parseFile(content, 'App.java');
+      const { results } = registry.parseFile(content, 'App.java');
       expect(results).toHaveLength(1);
       expect(results[0]?.entityType).toBe('class');
     });
 
     it('returns empty array for files without knowgraph annotations', () => {
       const content = 'const x = 1;';
-      const results = registry.parseFile(content, 'plain.ts');
+      const { results } = registry.parseFile(content, 'plain.ts');
       expect(results).toHaveLength(0);
     });
   });
